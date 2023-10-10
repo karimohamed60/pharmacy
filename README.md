@@ -1,24 +1,40 @@
-# README
+# Pharmacy
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is our main Rails repository for Pharmacy Rails App.
 
-Things you may want to cover:
+## Overview
 
-* Ruby version
+We are using a collection of technologies that will work locally just fine, this is a quick rundown of these technologies:
 
-* System dependencies
+1. **Rails 7.0.8** ,
+2. **Ruby 3.2.2** ,
+3. **MySQL2**: using adapter gem **' = 0.5 '**
+4. **Node 18.18.0**
+5. **NPM 9.8.1**
 
-* Configuration
 
-* Database creation
+## How does it all work locally?
 
-* Database initialization
+As you see above, there are a collection of technologies that need to work together to start your local development.
 
-* How to run the test suite
+### Rails Server
+The first component is your Rails server, and this is going to run either through your command line through `bin/rails server` or through your IDE (VScode).
 
-* Services (job queues, cache servers, search engines, etc.)
+## Getting started
 
-* Deployment instructions
+0. Use your project's directory to run the following commands
 
-* ...
+1. Install  **Rails 7.0.8** , and **Ruby 3.2.2** 
+
+2. Run `bin/bundle install`
+
+3. Run `rails server`
+
+4. Install **Node 18.18.0**
+
+5. Inside Client directory run the following commands
+
+6. npm install
+
+6. npm run dev
+
