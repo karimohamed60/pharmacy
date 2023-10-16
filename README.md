@@ -38,3 +38,12 @@ The first component is your Rails server, and this is going to run either throug
 
 6. npm run dev
 
+## Getting started with Docker
+
+0. Use your project's directory to run the following commands
+
+1. Install Docker and Docker Compose.
+
+2. Check that they worked by typing in the terminal: "docker -v" and "docker-compose -v".
+
+3. Run `docker-compose up --build -d`.
