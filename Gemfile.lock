@@ -69,12 +69,14 @@ GEM
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    byebug (11.1.3)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
-    debug (1.8.0)
-      irb (>= 1.5.0)
-      reline (>= 0.3.1)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.12.0)
     faker (3.2.1)
       i18n (>= 1.8.11, < 2)
@@ -82,10 +84,6 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
-    io-console (0.6.0)
-    irb (1.8.1)
-      rdoc
-      reline (>= 0.3.8)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -112,8 +110,6 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
-    psych (5.1.0)
-      stringio
     puma (5.6.7)
       nio4r (~> 2.0)
     racc (1.7.1)
@@ -151,11 +147,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
-    rdoc (6.5.0)
-      psych (>= 4.0.0)
-    reline (0.3.9)
-      io-console (~> 0.5)
-    stringio (3.0.8)
+    spring (4.1.1)
     thor (1.2.2)
     timeout (0.4.0)
     tzinfo (2.0.6)
@@ -170,12 +162,14 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  debug
+  byebug
+  dotenv-rails
   faker
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.8)
+  spring
   tzinfo-data
 
 RUBY VERSION

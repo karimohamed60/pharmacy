@@ -1,0 +1,38 @@
+version: '3'
+services:
+    db:
+      platform: linux/x86_64
+      image: mysql:8.1
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: verysecret
+        MYSQL_DATABASE: pharmacy_development
+        MYSQL_PASSWORD: verysecret
+        MYSQL_USERNAME: root
+      ports:
+        - "3307:3306"
+
+    rails: 
+        build: . 
+        volumes:
+            - ".:/app"
+        ports: 
+            - "4000:4000"
+        #command: bundle exec rails s -p 4000
+        depends_on:
+            - db
+        environment:
+            DB_USER: root
+            DB_NAME: pharmacy_development
+            DB_PASSWORD: verysecret
+            DB_HOST: db
+            RAILS_LOG_LEVEL: debug
+
+    react:
+        build: ./client
+        volumes:
+            - ./client:/app
+        ports:
+            - "5173:5173"
+        depends_on:
+            - rails
