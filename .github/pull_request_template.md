@@ -1,12 +1,3 @@
----
-name: pull_request_template
-about: Describe this issue template's purpose here.
-title: Feature
-labels: ''
-assignees: ''
-
----
-
 ### Description
 Briefly describe the new feature or changes introduced by this PR.
 
@@ -32,9 +23,6 @@ Add any relevant screenshots or images that can help with the review.
 
 ### Additional Notes
 Any additional information or context that might be useful for the reviewer.
-
-### Reviewers
-@mention the relevant team members or colleagues for review.
 
 ### Definition of Done
 - [ ] Code has been reviewed and approved.
