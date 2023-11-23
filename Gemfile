@@ -11,8 +11,12 @@ gem "mysql2", "~> 0.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
+
+# Used for authentication
 gem 'devise'
+
 gem 'devise-jwt'
+
 gem 'jsonapi-serializer'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -33,7 +37,8 @@ gem "rack-cors"
 group :development, :test do
 
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
-  
+
+  gem 'rspec-rails'
   # Add fake data by using Faker
   gem 'faker'
 
@@ -46,3 +51,7 @@ group :development do
   gem "spring"
 end
 
+group :test do
+  # used to add data for tests
+  gem 'factory_bot_rails'
+end
