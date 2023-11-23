@@ -2,9 +2,10 @@ class User < ApplicationRecord
   
   self.table_name = "users"
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  
+  devise :database_authenticatable, :validatable
+
+  validates :username, presence: true, uniqueness: true 
+
   belongs_to :role, class_name: "Role"
   has_many :medicines, class_name: "Medicine"
   has_many :suppliers, class_name: "Supplier"
@@ -12,4 +13,12 @@ class User < ApplicationRecord
   has_many :orders, class_name: "Order"
   has_many :transfers, class_name: "Transfer"
 
+  
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
 end
