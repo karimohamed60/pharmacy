@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_24_164844) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_28_213656) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "category_name", limit: 20, null: false
   end
@@ -163,6 +163,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_164844) do
     t.bigint "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "jti", null: false
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.integer "sign_in_count", default: 0
+    t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["username"], name: "index_users_on_user_id", unique: true
   end
