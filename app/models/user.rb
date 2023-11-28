@@ -1,8 +1,10 @@
 class User < ApplicationRecord
-  
   self.table_name = "users"
 
-  devise :database_authenticatable, :validatable
+  include Devise::JWT::RevocationStrategies::JTIMatcher
+  
+  devise :database_authenticatable, :validatable, :registerable, :trackable,
+         :rememberable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   validates :username, presence: true, uniqueness: true 
 
@@ -12,13 +14,12 @@ class User < ApplicationRecord
   has_many :invoices, class_name: "Invoice"
   has_many :orders, class_name: "Order"
   has_many :transfers, class_name: "Transfer"
-
   
   def email_required?
     false
   end
 
-  def email_changed?
+  def will_save_change_to_email?
     false
   end
 end
