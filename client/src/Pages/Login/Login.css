@@ -1,0 +1,28 @@
+@media screen and (min-width: 0px) and (max-width: 400px) {
+body,span{
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(90deg, rgba(25,53,90,1) 0%, rgba(255,255,255,1) 50%, rgba(25,53,90,1) 100%)
+    rgb(var(--background-start-rgb));
+    margin-right:0px;
+}
+}
+@media screen and (min-width: 401px) and (max-width: 599px) {
+    body {
+        color: rgb(var(--foreground-rgb));
+        background: linear-gradient(90deg, rgba(25,53,90,1) 0%, rgba(255,255,255,1) 50%, rgba(25,53,90,1) 100%)
+          rgb(var(--background-start-rgb));
+      }
+}
+@media screen and (min-width: 600px) {
+    body {
+        color: rgb(var(--foreground-rgb));
+        background: linear-gradient(90deg, rgba(25,53,90,1) 0%, rgba(255,255,255,1) 50%, rgba(25,53,90,1) 100%)
+          rgb(var(--background-start-rgb));
+      }
+}
+
+.photo{
+    height: 200px;
+    width: 220px;
+    margin-top:-15px;
+  }
