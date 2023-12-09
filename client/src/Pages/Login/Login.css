@@ -26,3 +26,16 @@ body,span{
     width: 220px;
     margin-top:-15px;
   }
+
+.card{
+   border-radius: 1rem;
+}
+
+.span{
+  display: inline-block;
+}
+.title,span,.form-label,.bi,.form-label{
+  color: #19355a;
+  white-space: nowrap;
+
+}
