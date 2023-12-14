@@ -56,7 +56,7 @@ export default function Login() {
 
               </div>
               <div className="text-center">
-              <button className="btn btn-btn-outline-light btn-outline-light btn-lg px-5 fw-bold loginbtn" type="submit" style={{ background: '#19355a' }}>
+              <button className="btn btn-btn-outline-light btn-outline-dark btn-lg px-5 fw-bold loginbtn" type="submit" >
                 Login
               </button>
               </div>
@@ -68,4 +68,4 @@ export default function Login() {
   </div>
     </section>
     </>);
-}
+};
