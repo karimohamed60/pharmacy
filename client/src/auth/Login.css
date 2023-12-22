@@ -1,0 +1,24 @@
+body{
+
+  background: linear-gradient(to top right, #ffffff 10%, #06325f 100%);
+}
+  
+.card span {
+  display: inline-block;
+  transition: transform 200ms;
+}
+
+.card h2 {
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+
+}
+
+.card p {
+  margin-right: -5px;
+  opacity: 0.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 50ch;
+
+}
