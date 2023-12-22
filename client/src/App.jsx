@@ -1,15 +1,15 @@
-import { useState } from "react";
-import "./App.css";
+import AppRoutes from './routes/AppRoutes';
+import { BrowserRouter as Router} from 'react-router-dom';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
 
   return (
-    <>
-      <h1>
-          Welcome To Pharmacy
-      </h1>
-    </>
-  );
+    <Router>
+      <AppRoutes />
+    </Router>
+  )
 }
 
 export default App;
