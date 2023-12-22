@@ -65,4 +65,36 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  .card {
+    padding: 2px;
+    /* border-radius: var(--border-radius); */
+    background: rgba(var(--card-rgb), 0);
+    border: 1px solid rgba(var(--card-border-rgb), 0);
+    margin-right: 950px;
+    width: 550px;
+    border-radius: 20px;
+  }
+  #login{
+    color: #19355a;
+  }
+  #placeholder
+  {
+    color: "#19355a" 
+  }
+  #submit
+  {
+    background-color: #19355a;
+  }
+  #icon
+  {
+    color: #19355a;
+    width:23px;
+    height:25px
+  }
+  #pass
+  {
+    color: #19355a;
+    margin-left: -380px;
+  }
+
 }
