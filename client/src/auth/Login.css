@@ -40,13 +40,14 @@
 .span{
   display: inline-block;
 }
+
 .title,span,.form-label,.bi,.form-label{
   color: #19355a;
   white-space: nowrap;
 
 }
 
-button,.loginbtn{
+#loginbtn{
   background: #19355a;
   color: white;
 }
