@@ -15,6 +15,26 @@ class User < ApplicationRecord
   has_many :orders, class_name: "Order"
   has_many :transfers, class_name: "Transfer"
   
+  def role_name
+    role&.role_name
+  end
+
+  def admin?
+    role_name == "admin"
+  end
+
+  def inventory_agent?
+    role_name == "inventory_agent"
+  end
+
+  def pharmacy_agent?
+    role_name == "pharmacy_agent"
+  end
+
+  def salaf_agent?
+    role_name == "salaf_agent"
+  end
+
   def email_required?
     false
   end
