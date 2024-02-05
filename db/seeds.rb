@@ -1,7 +1,23 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+# Helper method to create a random barcode
+def generate_barcode
+  rand(10**12).to_s.rjust(13, '0')
+end
+
+# Seed data for 10 fake medicines
+10.times do
+  Medicine.create!(
+    ingredient_name: Faker::Food.ingredient,
+    commercial_name: Faker::Commerce.product_name,
+    international_barcode: generate_barcode,
+    minor_unit: Faker::Food.metric_measurement,
+    medium_unit: Faker::Food.metric_measurement,
+    major_unit: Faker::Food.metric_measurement,
+    price_per_unit: Faker::Commerce.price(range: 1..100.0, as_string: true),
+    quantity_in_inventory: Faker::Number.between(from: 0, to: 100),
+    quantity_in_pharmacy: Faker::Number.between(from: 0, to: 100),
+    quantity_sold: Faker::Number.between(from: 0, to: 50),
+    expire_date: Faker::Date.forward(days: 365),
+    user_id: 7, 
+    category_id: 1
+  )
+end
