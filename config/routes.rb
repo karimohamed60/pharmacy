@@ -7,6 +7,12 @@ Rails.application.routes.draw do
         post 'login', to: 'auth/sessions#create', as: :user_session
         delete 'logout', to: 'auth/sessions#destroy', as: :destroy_user_session
       end
+
+      resources :medicines do
+        collection do
+          get 'search'
+        end
+      end
     end
   end
 end

@@ -34,6 +34,10 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem "rack-cors"
 
+gem "pundit"
+
+gem "will_paginate"
+
 group :development, :test do
 
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
@@ -54,4 +58,6 @@ end
 group :test do
   # used to add data for tests
   gem 'factory_bot_rails'
+
+  gem 'pundit-matchers'
 end
