@@ -6,7 +6,6 @@ class Api::V1::CategoriesController < ApiControllerBase
         authorize @categories
 
         render_success(serialized_categories(@categories), :ok)
-
     rescue => e
         render_error("An error occurred: #{e.message}", :bad_request)
     end
