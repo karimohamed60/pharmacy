@@ -21,3 +21,12 @@ end
     category_id: 1
   )
 end
+# Seed data for 5 fake suppliers
+5.times do
+  Supplier.create(
+    supplier_name: Faker::Company.name,
+    description: Faker::Lorem.sentence,
+    user_id: 1,
+    date: Faker::Date.backward(days: 365)
+  )
+end
