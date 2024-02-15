@@ -15,6 +15,12 @@ Rails.application.routes.draw do
       end
 
       resources :categories
+
+      resources :suppliers do
+        collection do
+          get 'search'
+        end
+      end
     end
   end
 end
