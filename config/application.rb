@@ -12,6 +12,8 @@ module Pharmacy
     config.load_defaults 7.0
     config.autoload_paths << Rails.root.join('lib')
 
+    WillPaginate.per_page = 10
+
     config.logger    = Logger.new('log/important.log')
     # Configuration for the application, engines, and railties goes here.
     #
