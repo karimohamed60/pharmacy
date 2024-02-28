@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_213656) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_26_141343) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "category_name", limit: 20, null: false
   end
@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_213656) do
   create_table "invoices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "order_number", limit: 100, null: false
     t.string "comments", null: false
-    t.decimal "total_amount", precision: 5, scale: 2, null: false
+    t.float "total_amount", default: 0.0, null: false
     t.bigint "user_id"
     t.bigint "supplier_id"
     t.datetime "created_at", null: false
