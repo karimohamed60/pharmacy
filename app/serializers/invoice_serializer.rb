@@ -3,7 +3,22 @@ class InvoiceSerializer
 
   attributes :id, :order_number, :comments, :total_amount, :created_at, :updated_at
 
-  belongs_to :user
-  belongs_to :supplier
-  has_many :invoices_medicines
+  attribute :supplier do |object|
+    {
+      supplier_id:  object.supplier.id,
+      supplier_name: object.supplier.supplier_name
+    }
+  end
+
+  attribute :medicines do |object|
+    object.invoices_medicines.map do |invoice_medicine|
+      {
+        medicine_id: invoice_medicine.medicine_id,
+        quantity: invoice_medicine.quantity,
+        discount: invoice_medicine.discount,
+        price: invoice_medicine.price,
+        amount: invoice_medicine.amount
+      }
+    end
+  end
 end
