@@ -21,6 +21,13 @@ Rails.application.routes.draw do
           get 'search'
         end
       end
+
+      resources :invoices, except: [:update, :destroy] do 
+        collection do
+          get 'search'
+          get 'filter'
+        end
+      end
     end
   end
 end
