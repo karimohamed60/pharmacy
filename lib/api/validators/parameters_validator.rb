@@ -11,6 +11,15 @@ module Api
 
                 false
             end
+
+            def valid_date?(date)
+                false unless date.present?
+
+                Date.parse(date)
+                true
+            rescue ArgumentError
+                false
+            end
         end
     end
 end
