@@ -27,6 +27,8 @@ Rails.application.routes.draw do
           get 'search'
           get 'filter'
         end
+
+        get 'generate_pdf', on: :member
       end
     end
   end
