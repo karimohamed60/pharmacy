@@ -1,5 +1,5 @@
 class Api::V1::InvoicesController < ApiControllerBase
-    before_action :set_invoice, only: [:show, :update, :destroy]
+    before_action :set_invoice, only: [:show, :update, :destroy, :generate_pdf]
 
     def index
         @invoices = Invoice.paginate(page: params[:page], per_page: params[:per_page])
@@ -25,7 +25,7 @@ class Api::V1::InvoicesController < ApiControllerBase
         authorize @invoice
 
         Invoice.transaction do
-            if @invoice.save && create_invoice_medicines && update_total_amount_of_invoice
+            if @invoice.save && create_invoice_medicines && update_total_amount_of_invoice && update_medicines_inventory_quantity
                 render_success(serialized_invoice(@invoice), :created)
             else
                 render_error(@invoice.errors.full_messages.join(', '), :unprocessable_entity)
@@ -74,6 +74,11 @@ class Api::V1::InvoicesController < ApiControllerBase
         render_error("An error occurred: #{e.message}", :bad_request)
     end
 
+    def generate_pdf
+        pdf = Api::Pdfs::InvoicePdf.new(@invoice)
+        send_data pdf.render, filename: "invoice.pdf", type: "application/pdf", disposition: "inline"
+    end
+
     private
 
     def set_invoice
@@ -93,6 +98,10 @@ class Api::V1::InvoicesController < ApiControllerBase
 
     def update_total_amount_of_invoice
         @invoice.update_total_amount(params[:invoice_medicines], @invoice)
+    end
+
+    def update_medicines_inventory_quantity
+        @invoice.update_medicines_inventory_quantity(params[:invoice_medicines])
     end
 
     def serialized_invoices(invoices)
