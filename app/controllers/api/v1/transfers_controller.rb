@@ -28,7 +28,8 @@ class Api::V1::TransfersController < ApiControllerBase
             if @transfer.save && create_transfer_medicines
                 render_success(serialized_transfer(@transfer), :created)
             else
-                render_error(@transfer.errors.full_messages.join(', '), :unprocessable_entity)
+                @transfer.destroy
+                render_error("There is not enough quantity.", :bad_request)
             end
         end
 
@@ -41,6 +42,8 @@ class Api::V1::TransfersController < ApiControllerBase
 
         if @transfer.update(transfer_params) && update_transfer_medicines
             render_success(serialized_transfer(@transfer), :ok)
+        else
+            render_error("There is not enough quantity.", :bad_request)
         end
     rescue => e
         render_error("An error occurred: #{e.message}", :unprocessable_entity)
