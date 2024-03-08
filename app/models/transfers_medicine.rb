@@ -8,23 +8,24 @@ class TransfersMedicine < ApplicationRecord
     def self.create_transfer_medicines(transfers_params, transfer)
         return unless transfers_params.present?
 
-        transfers_params.each do |transfer_params|
-            transfer.transfers_medicines.create(transfer_params.permit(:medicine_id, :quantity))
-        end
+        return false unless Api::Validators::QuantityValidator.validate_quantity_in_inventory(transfers_params)
+
+        transfer.transfers_medicines.create(transfers_params.map { |transfer_params| transfer_params.permit(:medicine_id, :quantity) })
+        true
     end
 
     def self.update_transfer_medicines(transfers_params, transfer)
         return unless transfers_params.present?
-        
+
+        return false unless Api::Validators::QuantityValidator.validate_quantity_in_inventory(transfers_params)
+
         transfers_params.each do |transfer_params|
             transfer_medicine = transfer.transfers_medicines.find_by(medicine_id: transfer_params[:medicine_id])
 
             if transfer_medicine.present?
                 if transfer_params[:destroy].to_s == '1'
-
                     transfer_medicine.destroy
                 else
-
                     transfer_medicine.update(quantity: transfer_params[:quantity])
                 end
             else
