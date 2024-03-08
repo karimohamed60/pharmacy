@@ -14,6 +14,7 @@ class InvoiceSerializer
     object.invoices_medicines.map do |invoice_medicine|
       {
         medicine_id: invoice_medicine.medicine_id,
+        medicine_name: invoice_medicine.medicine.commercial_name,
         quantity: invoice_medicine.quantity,
         discount: invoice_medicine.discount,
         price: invoice_medicine.price,
