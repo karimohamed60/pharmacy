@@ -30,6 +30,13 @@ Rails.application.routes.draw do
 
         get 'generate_pdf', on: :member
       end
+
+      resources :transfers, except: [:destroy] do
+        collection do
+          get 'search'
+          get 'filter'
+        end
+      end
     end
   end
 end
