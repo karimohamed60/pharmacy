@@ -37,6 +37,16 @@ Rails.application.routes.draw do
           get 'filter'
         end
       end
+
+      resources :students, only: [:index, :show] do
+        resources :prescriptions, only: [:index, :show, :update] do
+          get 'generate_pdf', on: :member
+        end
+
+        collection do
+          get 'search'
+        end
+      end
     end
   end
 end
