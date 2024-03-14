@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_05_124632) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_14_010102) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "category_name", limit: 20, null: false
   end
@@ -102,6 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_05_124632) do
     t.string "medicine_name", limit: 100, null: false
     t.string "dosage", limit: 200, null: false
     t.integer "got_medicine", default: 3
+    t.integer "quantity", default: 0
     t.index ["prescription_id"], name: "index_prescriptions_medicines_on_prescription_id"
   end
 
