@@ -1,4 +1,4 @@
-:root {
+ :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 h1 {
@@ -65,15 +66,16 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  
   .card {
     padding: 2px;
-    /* border-radius: var(--border-radius); */
     background: rgba(var(--card-rgb), 0);
     border: 1px solid rgba(var(--card-border-rgb), 0);
     margin-right: 950px;
     width: 550px;
     border-radius: 20px;
   }
+  
   #login{
     color: #19355a;
   }
@@ -85,6 +87,7 @@ button:focus-visible {
   {
     background-color: #19355a;
   }
+  
   #icon
   {
     color: #19355a;
@@ -98,3 +101,13 @@ button:focus-visible {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
