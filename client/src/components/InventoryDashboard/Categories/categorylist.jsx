@@ -5,7 +5,6 @@ import { json, Link, useParams } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import Table from "react-bootstrap/Table";
-import { data5 } from "../../../data";
 import { API_URL } from "../../../constants";
 import Cookies from "js-cookie";
 
@@ -29,7 +28,6 @@ const Categorylist = () => {
       search.toLowerCase() === "" ||
       item.attributes.category_name.toLowerCase().includes(search.toLowerCase())
   );
-  const records = data5.slice(firstIndex, lastIndex);
   const npage = Math.ceil(categories.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
