@@ -9,6 +9,20 @@ import PrivateRoutes from './PrivateRoutes';
 import { getUserRole } from '../services/roleService';
 import { isAuthenticated } from '../services/authService';
 import redirectUser from '../services/redirectUser';
+import AddMedicine from '../components/InventoryDashboard/Medicines/addmedicine';
+import Medicinelist from '../components/InventoryDashboard/Medicines/medicinelist';
+import Medicinedetails from '../components/InventoryDashboard/Medicines/medicinedetails';
+import LogoutButton from '../auth/LogoutButton';
+import Categorylist from '../components/InventoryDashboard/Categories/categorylist';
+import Suppliers from '../components/InventoryDashboard/Suppliers/suppliers';
+import TransferDetails from "../components/InventoryDashboard/Transfers/TransferDetails";
+import TransferList from "../components/InventoryDashboard/Transfers/TransferList";
+import UpdateDetails from "../components/InventoryDashboard/Transfers/UpdateDetails";
+import InvoicesList from "../components/InventoryDashboard/Invoices/InvoicesList";
+import AddInvoice from "../components/InventoryDashboard/Invoices/AddInvoice";
+import InoviceDetails from "../components/InventoryDashboard/Invoices/InoviceDetails";
+import Addtransfer from '../components/InventoryDashboard/Transfers/addtransfer';
+import Dashboard from '../Dashboard/dashboard';
 
 //const role = 'inventory_agent';
 
@@ -40,6 +54,47 @@ function AppRoutes(){
                         )
                     }
                 >
+                                <Route path="/inventory-dashboard/addmedicine" element={<AddMedicine />} />
+                                <Route path='/inventory-dashboard/medicinelist' element={<Medicinelist />}/>
+                                <Route path='/inventory-dashboard/medicinedetails/:id' element={<Medicinedetails />}/>
+                                <Route path='/inventory-dashboard/categorylist' element={<Categorylist />}/>
+                                <Route path='/inventory-dashboard/suppliers' element={<Suppliers />}/>   
+                                <Route path='/inventory-dashboard/dashboard' element={<Dashboard />}/>   
+                                <Route
+            path="/inventory-dashboard/transferlist"
+            element={<TransferList />}
+          />
+          <Route
+            path="/inventory-dashboard/addTransfer"
+            element={<Addtransfer />}
+          />
+          <Route
+            path="/inventory-dashboard/transferdetails"
+            element={<TransferDetails />}
+          />
+          <Route
+            path="/inventory-dashboard/updateDetails/:id"
+            element={<UpdateDetails />}
+          />
+          <Route
+            path="/inventory-dashboard/transferDetails"
+            element={<TransferDetails />}
+          />
+          <Route
+            path="/inventory-dashboard/invoicesList"
+            element={<InvoicesList />}
+          />
+          <Route
+            path="/inventory-dashboard/addInvoice"
+            element={<AddInvoice />}
+          />
+                    <Route
+            path="/inventory-dashboard/invoiceDetails/:id"
+            element={<InoviceDetails />}
+          />
+                                
+                                
+
                 </Route>
                 <Route
                     path='/pharmacy-dashboard'
@@ -63,7 +118,9 @@ function AppRoutes(){
                 />
             </Route>
 
-            <Route path='/' element={!isAuthenticated() ? <Login /> : null} />            
+            <Route path='/' element={ !isAuthenticated()?<Login /> :null} />   
+            <Route path='/login' element={<Login />}/>
+            <Route path='/logout' element={<LogoutButton />} />  
             <Route path='*' element={<NotFound />} />
         </Routes>
     );
