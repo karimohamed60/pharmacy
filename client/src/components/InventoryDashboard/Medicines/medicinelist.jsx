@@ -1,7 +1,6 @@
 import "./medicinelist.css";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { data3 } from "../../../data";
 import Table from "react-bootstrap/Table";
 import Cookies from "js-cookie";
 import { API_URL } from "../../../constants";
@@ -21,7 +20,6 @@ const Medicinelist = () => {
       item.attributes.ingredient_name.toLowerCase().includes(search.toLowerCase())||
       item.attributes.commercial_name.toLowerCase().includes(search.toLowerCase())
   );
-  const records = data3.slice(firstIndex, lastIndex);
   const npage = Math.ceil(medicines.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 

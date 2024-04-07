@@ -1,5 +1,4 @@
 
-import '../Dashboard/dashboard.css'
 import { useEffect } from 'react';
 import InventoryDashboard from '../pages/InventoryDashboard/InventoryDashboard';
 const Dashboard =()=>{
