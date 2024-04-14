@@ -1,0 +1,60 @@
+[
+  {
+    "title": "Dashboard",
+    "icon": "bi-bar-chart-fill",
+    "path": "/inventory-dashboard"
+  },
+  {
+    "title": " Medicines",
+    "icon": "bi-capsule-pill",
+    "childrens": [
+      {
+        "title": "Add Medicine",
+        "path": "/inventory-dashboard/addmedicine"
+      },
+      {
+        "title": "Medicines List",
+        "path": "/inventory-dashboard/medicinelist"
+      }
+    ]
+  },
+
+  {
+    "title": "Categories",
+    "icon": "bi-grid",
+    "path": "/inventory-dashboard/categorylist"
+  },
+  {
+    "title": " Suppliers",
+    "icon": "bi-truck",
+    "path": "/inventory-dashboard/suppliers"
+  },
+  {
+    "title": " Invoices",
+    "icon": "bi-receipt",
+    "childrens": [
+      {
+        "title": "Add Invoice",
+        "path": "/inventory-dashboard/addInvoice"
+      },
+      {
+        "title": "Invoices List",
+        "path": "/inventory-dashboard/invoicesList"
+      }
+    ]  },
+
+  {
+    "title": "Transfers",
+    "icon": "bi-arrow-left-right",
+    "childrens": [
+      {
+        "title": "Add Transfer",
+        "path": "/inventory-dashboard/addTransfer"
+      },
+      {
+        "title": "Transfers List",
+        "path": "/inventory-dashboard/transferlist"
+      }
+    ]
+  }
+]
