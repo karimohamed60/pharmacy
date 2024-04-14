@@ -1,0 +1,57 @@
+  .isidenav {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      padding-top: 1.5rem;
+      background-color: #032B55;
+      width: 20rem;
+      
+    }
+    .isidenav a{
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 1rem;
+      color: #888181;
+      display: block;
+      border: none;
+      background: none;
+      width:100%;
+      text-align: left;
+      cursor: pointer;
+      outline: none;
+    }
+    
+    .isidenav a:hover{
+      color: #032B55;
+      
+    }
+
+    .iside-baricon{
+    position: relative;
+    left: 230px;
+    top: -80px;
+    
+  }
+  #inventoryImage{
+    height: 100px;
+    width: 110px;
+    margin-left: -40px;
+    margin-top: 20px;
+    border-radius: 10%;
+    margin-bottom: 80px;
+  }
+  #inventorydashboardlabel{
+    color: #f1f1f1;
+    padding-left: 15px;
+    margin-top: 20%;
+    font-size:  120%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 10px;
+    margin-right:0.5rem ;
+    
+  }

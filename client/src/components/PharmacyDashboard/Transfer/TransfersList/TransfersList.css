@@ -1,0 +1,158 @@
+.ptransfer-title {
+    position: relative;
+    color: #787272;
+    top: -37.5rem;
+    left: -30rem;
+    transform: translate(-50%, -50%);
+    width: 10%;
+    text-align: center;
+    font-size: x-large;
+    font-style: Bold;
+    
+  }
+
+.Arrowicon
+{
+    margin-left: 3rem;
+    margin-right: 3rem;
+    position: relative;
+    left: -22.5rem;
+    margin-bottom: 42.5rem;
+    top: 5.5rem;
+}
+
+.ptransferLabel {
+    position: relative;
+    top: -40.94rem;
+    left: -14rem;
+    font-size: x-large;
+    color: #032b55;
+    margin-bottom: .75rem;
+  }
+  .tl-search-group{
+    position: relative;
+    left: -26rem;
+    border-radius: 2rem;
+    background-color: #FFF;
+    width: 20rem;
+  }
+
+  #srchinput
+  {
+      background-color: #d5e3f0;
+  }
+  
+  .search-input{
+    margin-left: 10.9rem;
+    max-width: 400px;
+    position: relative;
+    background-color:transparent;
+    top: -40rem;
+    
+} 
+
+.tl-search-icon{
+    position: relative;
+    left: 8rem;
+    top: -3rem;
+ }
+
+  .tl-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+    width: 98%;
+    margin-left: 3px;
+    background-color: #fcfcfc;
+    border-radius: 1px;
+  }
+  
+  .tl-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+  
+  .tl-dropdown:hover .tl-dropdown-content {
+    display: block;
+  }
+  
+  .filterdropdwn {
+    position: relative;
+    left: 33rem;
+    top: -46.2rem;
+    width: 19rem;
+    height: 50px;
+    border-radius: 8px;
+  }
+  .filterlabel {
+    position: relative;
+    top: 10px;
+    font-size: large;
+    padding-left: -50px;
+  }
+  .filtericon {
+    position: relative;
+    left: -50px;
+    top: 8px;
+  }
+  .filterdownicon {
+    position: relative;
+    left: 42px;
+    top: 8px;
+  }
+  .filtercontent {
+    position: absolute;
+    top: 7px;
+    max-height: 200px;
+    overflow-y: visible;
+    min-width: 300px;
+  }
+  #statusfilter {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  
+  #td-table {
+    position: relative;
+    margin-top: -38px;
+    left: 100px;
+    margin-bottom: 10px;
+    overflow-x: scroll;
+  }
+  .tl-tbody {
+    height: 50px;
+  }
+  
+  .pagination {
+    position: relative;
+    
+  }
+  .ptl{
+    left: 100px;
+  }
+  
+  .page-item {
+    margin-right: 5px;
+  }
+  
+  .page-link {
+    cursor: pointer;
+  }
+  
+  .status-item {
+    padding: 3px;
+    border-radius: 20px;
+    width: 38%;
+    display: inline-block;
+    font-weight: bold;
+  }
+  
+  body.no-scroll {
+    overflow: hidden;
+  }
+  

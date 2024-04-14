@@ -167,7 +167,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_010102) do
     t.string "jti", null: false
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.integer "sign_in_count", default: 0
+    t.integer "sign_in_count", default: 0, null: false
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["username"], name: "index_users_on_user_id", unique: true

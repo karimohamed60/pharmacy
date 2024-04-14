@@ -1,0 +1,138 @@
+.invnum-label {
+    position: relative;
+    top: -620px;
+    left: -430px;
+    font-size: x-large;
+    color: #0a0a0a;
+  }
+  .invnumcode-label{
+    position: relative;
+    top: -620px;
+    left: -426px;
+    font-size: large;
+    color: #0a0a0a;
+  }
+
+  .bakbtn {
+    position: relative;
+    top: -655px;
+    left: 580px;
+    height: 40px;
+  }
+  #back-btn {
+    padding: 10px;
+  }
+
+  body.no-scroll {
+    overflow: hidden;
+  }
+  
+  
+  .invoice-title {
+    color: #032b55;
+    margin-bottom: 20px;
+    text-align: start;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
+  .id-container {
+    width: 80%;
+    margin: auto;
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    position: relative;
+    top: -590px;
+    left: 70px;
+    min-height: 550px;
+    max-height: 720px;
+    min-width: 1150px;
+    margin-top: -50px;
+    display: flex;
+    flex-direction: column;
+
+  }
+  
+  .id-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    margin-top: 3px;
+
+  }
+
+  .id-comments-label{
+    overflow-y: auto;
+    width: 50%;
+    color: rgba(98, 108, 122, 1);
+    font-size:large ;
+    font-weight: 780;
+    margin-left: -12rem;
+  }
+
+.id-comment{
+  color: rgba(0, 0, 0, 1);
+  font-size:medium ;
+  font-weight: 500;
+  
+}
+.id-ordernum-label{
+  color: rgba(98, 108, 122, 1);
+  font-size:large ;
+  font-weight: 700;
+}
+.id-invoiceid-label{
+  color: rgba(0, 0, 0, 1);
+  font-size:large ;
+  font-weight: 700;
+}
+.id-date-label{
+  color: rgba(0, 0, 0, 1);
+  font-size:large ;
+  font-weight: 700;
+  margin-top: -.6rem;
+}
+
+.id-supplier-label{
+  color: rgba(0, 0, 0, 1);
+  font-size:large ;
+  font-weight: 700;
+}
+.id-table{
+margin-top: 15px;
+top: 0px;
+left: 0px;
+justify-content: center;
+}
+.id-body{
+  height: 140px;
+}
+
+#id-table-header{
+  color: rgba(25, 53, 90, 1);
+  font-weight: bolder;
+  font-size: larger;
+}
+
+.amount-label{
+  color:rgba(25, 53, 90, 1);
+  font-size:larger ;
+  font-weight: 700;
+  margin-left: 830px;
+  justify-content: space-between;
+}
+
+.amount{
+  color:rgb(12, 12, 12);
+  font-size:medium ;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+.sleft{
+  margin-left: 0.6rem;
+}

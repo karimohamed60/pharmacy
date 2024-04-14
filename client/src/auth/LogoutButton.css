@@ -1,0 +1,18 @@
+#logoutBtn{
+    font-size: large;
+position: fixed;
+top: 5%;
+right: 3%;
+padding: .7rem;
+font-size: large ;
+font-weight: bolder;
+border-radius: 1rem;
+width: fit-content;
+display:flex ;
+flex-direction: row;
+width: 10%;
+display: inline;
+background-color: linear-gradient(to top right, #F9F9F9 10%, #e4e1e1 100%);
+
+}
+
