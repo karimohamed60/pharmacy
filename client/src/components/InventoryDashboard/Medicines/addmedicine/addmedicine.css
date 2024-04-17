@@ -1,124 +1,107 @@
+.price-input1 {
+  margin-top: 70px;
+}
 
-.price-input1{
-    margin-top: 70px; 
-} 
-
-.addlabel{
-    color: #032B55;
-   font-size: x-large;
+.addlabel {
+  color: #032b55;
+  font-size: x-large;
   margin-top: 35px;
   margin-left: -480px;
 }
-.addlabel2{
-    color: #032B55;
-    font-size: x-large;
-   /* margin-top: -400px;
+.addlabel2 {
+  color: #032b55;
+  font-size: x-large;
+  /* margin-top: -400px;
    margin-bottom: 700px; */
-   margin-left: -460px;
-   position: relative;
-   top: -654px;
-   left: 5px;
-
+  margin-left: -460px;
+  position: relative;
+  top: -654px;
+  left: -30px;
 }
-.form-label
-{
-    margin-left: -300px;
+.form-label {
+  margin-left: -300px;
 }
-.form-control
-{
-    height: 50px;
-    width: 1px;
-    background-color: #f0f7fe;
-    border-radius: 7px;
-    
+.form-control {
+  height: 50px;
+  width: 1px;
+  background-color: #f0f7fe;
+  border-radius: 7px;
 }
-.price-inputcategory
-{
-    margin-left: 80px;
-
+.price-inputcategory {
+  margin-left: 80px;
 }
-.frm{
-    background-color: #ffffff;
-    border-radius: 7px;
-    width: 120%;
-    height: 700px;
+.frm {
+  background-color: #ffffff;
+  border-radius: 7px;
+  width: 120%;
+  height: 700px;
   margin-right: 800%;
   margin-top: 800px;
   position: relative;
-  top:-40rem;
-  padding-bottom:5rem ;
-
-
+  top: -40rem;
+  padding-bottom: 5rem;
 }
-.custom-width{
-    width: 70%;
-    background-color: #d5e3f0;
+.custom-width {
+  width: 70%;
+  background-color: #d5e3f0;
 }
-.my-input{
-    width: 10%;
+.my-input {
+  width: 10%;
 }
-input[name="inputIng"] 
-{ background-color: rgb(213, 227, 240); width: 70%; margin-left: 80px; }
+input[name="inputIng"] {
+  background-color: rgb(213, 227, 240);
+  width: 70%;
+  margin-left: 80px;
+}
 /* #inputIng
 {
    background-color: #d5e3f0;
    width: 70%;
    margin-left: 80px;
 } */
-.addprdbtn
-{
-    position: relative;
-    left: 940px;
-    margin-left: -490px;
-    margin-bottom: 9px;
-    height: 50px;
-    margin-top: 2rem;
-    margin-right: 5rem;
-    
-    
+.addprdbtn {
+  position: relative;
+  left: 940px;
+  margin-left: -490px;
+  margin-bottom: 9px;
+  height: 50px;
+  margin-top: 2rem;
+  margin-right: 5rem;
 }
-.Addmedbtn
-{
-    
-    color: #032B55;
-    font-size: large;
-    padding: 2rem;
+.Addmedbtn {
+  color: #032b55;
+  font-size: large;
+  padding: 2rem;
 }
-#oooo
-{
-    position: relative;
-    background-color: #d5e3f0;
-    
+#oooo {
+  position: relative;
+  background-color: #d5e3f0;
 }
 
-.formborder
-{
-    margin-left: 110px;
+.formborder {
+  margin-left: 110px;
 }
-.ing
-{
-    margin-left: -330px;
+.ing {
+  margin-left: -330px;
 }
-.prc{
-
-    margin-left: -420px;
-
+.prc {
+  margin-left: -420px;
 }
-.mjr{
-    margin-left: -380px;
+.mjr {
+  margin-left: -380px;
 }
-.minor{
-    margin-left: -382px; 
+.minor {
+  margin-left: -382px;
 }
-.med{
-    margin-left: -367px;  
+.med {
+  margin-left: -367px;
 }
-.cat{
-    margin-left: -330px; 
+.cat {
+  margin-left: -330px;
 }
 
-.barcode{
-    margin-left: -300px;
+.barcode {
+  margin-left: -300px;
 }
 /* .backbtn
 {
@@ -127,25 +110,20 @@ input[name="inputIng"]
     margin-bottom: 17px;
    
 }*/
-#bckbtn
-{
-    padding: 10px 10px 4px 12px;
-    color: #032B55;
-
-   
-} 
- .backbutton{
-   position: relative;
-   left: 63.5%;
-   margin-bottom: 19px;
-   top: -660px;
-   padding: 10px 10px 10px 10px;
-   background-color:#d5e3f0;
-
-}  
-select[name='inputState']
-{
-    background-color: #d5e3f0;
-    width: 106%;
-    height: 60%;
+#bckbtn {
+  padding: 10px 10px 4px 12px;
+  color: #032b55;
+}
+.backbutton {
+  position: relative;
+  left: 63.5%;
+  margin-bottom: 19px;
+  top: -660px;
+  padding: 10px 10px 10px 10px;
+  background-color: #d5e3f0;
+}
+select[name="inputState"] {
+  background-color: #d5e3f0;
+  width: 106%;
+  height: 60%;
 }

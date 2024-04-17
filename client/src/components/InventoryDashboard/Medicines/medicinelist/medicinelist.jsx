@@ -61,32 +61,37 @@ const Medicinelist = () => {
     };
   }, []);
  
-      useEffect(() => {
-        async function loadMedicines() {
-          const token = getAuthTokenCookie()
-          if (token) {
-            
-            const per_page= 100;
-            const response = await fetch(`${API_URL}/medicines?per_page=${per_page}&page${currentPage}`, { 
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-              }
-            });
-            if (response.ok) {
-              const responseData = await response.json();
-              setMedicines(responseData.data);
-            } else {
-              throw response;
-            }
-          } else {
-            setError("An error occured");
-            console.log("An error", e);
-          }
+  useEffect(() => {
+    async function loadMedicines() {
+      const token = getAuthTokenCookie();
+      if (token) {
+        const per_page = 100;
+        const response = await fetch(`${API_URL}/medicines?per_page=${per_page}&page=${currentPage}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.ok) {
+          const responseData = await response.json();
+          setMedicines(responseData.data);
+  
+          // Extract total pages from response headers
+          const totalPages = Number(response.headers.get("Total-Pages"));
+          setTotalPages(totalPages);
+        } else {
+          throw response;
         }
-        loadMedicines();
-      }, [currentPage]);
+      } else {
+        setError("An error occurred");
+        console.error("An error occurred");
+      }
+    }
+    loadMedicines();
+  }, [currentPage]);
+  
+  
 
 
       //fetch a specific medicine 
@@ -205,7 +210,7 @@ const Medicinelist = () => {
         
       </Table>
       <nav>
-        <ul className="pagination">
+        <ul className="pagination pgmd">
           <li className="page-item">
             <a href="#!" className="page-link" onClick={prePage}>
               Prev
@@ -235,7 +240,7 @@ const Medicinelist = () => {
       </nav>
 
       <div>
-        <Link to={"/inventory-dashboard/addmedicine"}>
+        <Link to={"/inventory-dashboard/medicines/add"}>
           <button
             type="button"
             id="addmedbtn"

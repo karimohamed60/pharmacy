@@ -22,7 +22,6 @@ import InvoicesList from "../components/InventoryDashboard/Invoices/InvoicesList
 import AddInvoice from "../components/InventoryDashboard/Invoices/AddInvoice/AddInvoice";
 import InoviceDetails from "../components/InventoryDashboard/Invoices/InvoiceDetails/InoviceDetails";
 import Addtransfer from "../components/InventoryDashboard/Transfers/addtransfer/addtransfer";
-import Dashboard from "../Dashboard/dashboard";
 import MedicineList from "../components/PharmacyDashboard/Medicine/MedicineList/MedicineList";
 import MedicineDetails from "../components/PharmacyDashboard/Medicine/MedicineDetails/MedicineDetails";
 import OrderList from "../components/PharmacyDashboard/Order/OrderList/OrderList";
@@ -66,7 +65,7 @@ function AppRoutes() {
           }
         >
           <Route
-            path="/inventory-dashboard/addmedicine"
+            path="/inventory-dashboard/medicines/add"
             element={<AddMedicine />}
           />
           <Route

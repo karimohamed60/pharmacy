@@ -1,6 +1,6 @@
-.transferlabels{
- position: relative;
- left: 90px;
+.transferlabels {
+  position: relative;
+  left: 90px;
 }
 .addtransferlabel {
   position: relative;
@@ -9,7 +9,7 @@
   font-size: x-large;
   color: #032b55;
 }
-#arrowiconfortransfer{
+#arrowiconfortransfer {
   position: relative;
   left: -180px;
 }
@@ -140,7 +140,6 @@
 body.no-scroll {
   overflow: hidden;
 }
-#medicinedropdownmenu
-{
+#medicinedropdownmenu {
   width: 350px;
 }

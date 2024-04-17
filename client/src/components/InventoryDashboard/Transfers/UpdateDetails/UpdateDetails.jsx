@@ -86,14 +86,13 @@ const UpdateDetails = () => {
         await handleSpecificTransferbyId(id);
         notify("success", "Transfer updated successfully!");
       } else {
-        throw new Error("Failed to update category value");
+        throw new Error("Failed to update  values");
       }
     } catch (error) {
       console.error("Error: ", error.message);
       notify("error", "Failed to update transfer.");
     }
   };
-  
 
   //to show specific transfer data
   const handleSpecificTransferbyId = async (transfer_id) => {
@@ -269,7 +268,11 @@ const UpdateDetails = () => {
                 </div>
               </div>
             ))}
-            <button type="submit" className="updateTransferbtn" onClick={notify}>
+            <button
+              type="submit"
+              className="updateTransferbtn"
+              onClick={notify}
+            >
               <b>Update Transfer</b>
             </button>
             <ToastContainer

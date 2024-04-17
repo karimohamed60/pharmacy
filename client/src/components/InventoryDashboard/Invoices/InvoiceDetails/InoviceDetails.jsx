@@ -170,20 +170,22 @@ const InoviceDetails = () => {
             Invoice Id:<span className="sleft">{window.invoice_id}</span>{" "}
           </div>
           <div className="id-date-label center">
-    Date:{" "}
-    <span className="sleft">
-      {new Date(window.created_at).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }).replace(/\//g, "-")}{" "}
-      {new Date(window.created_at).toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      })}
-    </span>
-  </div>
+            Date:{" "}
+            <span className="sleft">
+              {new Date(window.created_at)
+                .toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })
+                .replace(/\//g, "-")}{" "}
+              {new Date(window.created_at).toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })}
+            </span>
+          </div>
         </div>
 
         <div className="id-row">
@@ -228,10 +230,10 @@ const InoviceDetails = () => {
           </div>
         </div>
         <div className="id-row">
-
-        <div className="id-comments-label">
-          Comments: <span className="id-comment sleft">{window.comments}</span>
-        </div>
+          <div className="id-comments-label">
+            Comments:{" "}
+            <span className="id-comment sleft">{window.comments}</span>
+          </div>
         </div>
       </div>
     </>

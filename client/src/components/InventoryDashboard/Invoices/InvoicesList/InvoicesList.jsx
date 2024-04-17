@@ -3,31 +3,33 @@ import "./InvoicesList.css";
 import Table from "react-bootstrap/Table";
 import "reactjs-popup/dist/index.css";
 import { Link } from "react-router-dom";
-import {API_URL} from '../../../../constants'
-import {getAuthTokenCookie} from '../../../../services/authService'
-import {format} from 'date-fns'
+import { API_URL } from "../../../../constants";
+import { getAuthTokenCookie } from "../../../../services/authService";
+import { format } from "date-fns";
 const InvoicesList = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [invoices, setInvoices] = useState([])
-  
+  const [invoices, setInvoices] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [filterButtonClicked, setFilterButtonClicked] = useState(false);
 
   const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
 
-   const filteredData = invoices.filter(
+  const filteredData = invoices.filter(
     (item) =>
       search.toLowerCase() === "" ||
-      item.attributes.order_number.toLowerCase().includes(search.toLowerCase())||
+      item.attributes.order_number
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
       item.id.toLowerCase().includes(search.toLowerCase())
   );
   const records = invoices.slice(firstIndex, lastIndex);
   const npage = Math.ceil(invoices.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
+  const numbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   function handleFilterButtonClick() {
     setFilterButtonClicked(true);
@@ -43,11 +45,11 @@ const InvoicesList = () => {
 
   useEffect(() => {
     // Remove scroll bar
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     // Cleanup on component unmount
     return () => {
-      document.body.style.overflow = 'visible';
+      document.body.style.overflow = "visible";
     };
   }, []);
   function prePage() {
@@ -69,20 +71,24 @@ const InvoicesList = () => {
   //Api for showing invoices
   useEffect(() => {
     async function loadInvoices() {
-    
-      const token = getAuthTokenCookie()
+      const token = getAuthTokenCookie();
       if (token) {
-        const response = await fetch(`${API_URL}/invoices?per_page=10&page=${currentPage}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+        const response = await fetch(
+          `${API_URL}/invoices?per_page=${recordsPerPage}&page=${currentPage}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
+        );
         if (response.ok) {
           const responseData = await response.json();
           setInvoices(responseData.data);
-          window.total_invoices=responseData.total_invoices;
+          const totalInvoices = responseData.total_invoices;
+          const totalPages = Math.ceil(totalInvoices / recordsPerPage);
+          setTotalPages(totalPages);
         } else {
           throw response;
         }
@@ -91,9 +97,9 @@ const InvoicesList = () => {
       }
     }
     loadInvoices();
-  }, [currentPage]);
+  }, [currentPage, recordsPerPage]);
 
-  //Api for navigating to a specific invoice by clicking on details icon 
+  //Api for navigating to a specific invoice by clicking on details icon
   const handleSpecificInvoice = async (invoice_id) => {
     try {
       const token = getAuthTokenCookie();
@@ -101,23 +107,20 @@ const InvoicesList = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.ok) {
         const responseData = await response.json();
         setInvoices(responseData.data);
-        
       } else {
-        throw new Error('Failed to fetch category details');
+        throw new Error("Failed to fetch category details");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
-
-
 
   return (
     <>
@@ -149,7 +152,7 @@ const InvoicesList = () => {
           placeholder="Search By Invoices ID or Order Number"
           aria-label="Search"
           aria-describedby="search-addon"
-          value={search} 
+          value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <svg
@@ -233,14 +236,16 @@ const InvoicesList = () => {
         <tbody className="il-tbody">
           {filteredData.slice(firstIndex, lastIndex).map((item, index) => (
             <tr key={index}>
-               <td>{item.attributes.id}</td>
+              <td>{item.attributes.id}</td>
               <td>{item.attributes.order_number}</td>
-             <td>{item.attributes.total_amount}</td>
-               <td>{item.attributes.supplier.supplier_name}</td> 
-               <td>{format(new Date(item.attributes.created_at), 'yyyy-MM-dd')}</td>
+              <td>{item.attributes.total_amount}</td>
+              <td>{item.attributes.supplier.supplier_name}</td>
+              <td>
+                {format(new Date(item.attributes.created_at), "yyyy-MM-dd")}
+              </td>
               <td>
                 <Link to={`/inventory-dashboard/invoiceDetails/${item.id}`}>
-                <svg
+                  <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
                     height="20"
@@ -259,7 +264,7 @@ const InvoicesList = () => {
         </tbody>
       </Table>
       <nav>
-        <ul className="pagination">
+        <ul className="pagination pgil">
           <li className="page-item">
             <a href="#!" className="page-link" onClick={prePage}>
               Prev

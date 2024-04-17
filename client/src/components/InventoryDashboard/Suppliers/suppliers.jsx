@@ -1,4 +1,3 @@
-import "./suppliers.css";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
@@ -6,20 +5,26 @@ import Table from "react-bootstrap/Table";
 import { getAuthTokenCookie } from "../../../services/authService";
 import Cookies from "js-cookie";
 import { API_URL } from "../../../constants";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./suppliers.css";
 
 const Suppliers = () => {
   const [isPopup1Open, setPopup1Open] = useState(false);
   const [isPopup2Open, setPopup2Open] = useState(false);
   const [supplier_name, setSupplierName] = useState("");
-  const [suppliers, setSuppliers] = useState([])
+  const [suppliers, setSuppliers] = useState([]);
   const [supplier, setSupplier] = useState({});
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedSupplierValue, setSelectedSupplierValue] = useState(null);
-  const [selectedSupplierDescriptionValue, setSelectedSupplierDescriptionValue] = useState(null);
+  const [selectedSupplierValue, setSelectedSupplierValue] = useState("");
+  const [
+    selectedSupplierDescriptionValue,
+    setSelectedSupplierDescriptionValue,
+  ] = useState("");
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 2;
+  const recordsPerPage = 13;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const filteredData = suppliers.filter(
@@ -29,9 +34,11 @@ const Suppliers = () => {
   );
   const records = filteredData.slice(firstIndex, lastIndex);
   const npage = Math.ceil(filteredData.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
+  const numbers = Array.from({ length: npage }, (_, i) => i + 1);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [totalPages, setTotalPages] = useState(0); // Added state for totalPages
+
   useEffect(() => {
     // Remove scroll bar
     document.body.style.overflow = "hidden";
@@ -52,6 +59,7 @@ const Suppliers = () => {
 
     setDate(gettDate());
   }, []);
+
   const openPopup1 = () => {
     setPopup1Open(true);
   };
@@ -76,7 +84,17 @@ const Suppliers = () => {
     setPopup1Open(false);
   };
 
-
+  const notify = (type, message) => {
+    if (type === "success") {
+      toast.success(message, {
+        position: "top-center",
+      });
+    } else if (type === "error") {
+      toast.error(message, {
+        position: "top-center",
+      });
+    }
+  };
 
   useEffect(() => {
     if (isModalOpen) {
@@ -104,73 +122,179 @@ const Suppliers = () => {
       setCurrentPage(currentPage + 1);
     }
   }
-// Add new supplier
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user_id = Cookies.get('user_id')
+    const user_id = Cookies.get("user_id");
     const postData = {
       supplier_name,
       description,
       date,
-      user_id
+      user_id,
     };
-    const token = getAuthTokenCookie()
+    const token = getAuthTokenCookie();
     if (token) {
+      if (typeof supplier_name !== "string" || !description.trim()) {
+        console.error("Supplier name or description cannot be empty");
+        notify("error", "Error Updating Supplier");
+        return;
+      }
+      const existingSupplier = suppliers.find(
+        (supplier) =>
+          supplier.attributes.supplier_name.toLowerCase() ===
+          supplier_name.toLowerCase()
+      );
+      if (existingSupplier) {
+        console.error("Supplier with the same name already exists");
+        notify("error", "Supplier with the same name already exists");
+        return;
+      }
       const response = await fetch(`${API_URL}/suppliers`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(postData),
       });
       if (response.ok) {
         const responseData = await response.json();
         setSuppliers([...suppliers, responseData.data]);
+        notify("success", "Supplier added successfully");
         setSupplierName("");
-        setDescription("")
+        setDescription("");
       } else {
-        alert('Error: ' + response.statusText);
+        notify("error", "Error Adding Supplier");
+        alert("Error: " + response.statusText);
       }
     } else {
-      const errorMessage = await response.text();
-      alert('No token found');
+      const errorMessage = await response.text(); // Fix this line to handle error properly
+      alert("No token found");
     }
-  }
-// to show all suppliers
+  };
+
   useEffect(() => {
     async function loadSuppliers() {
-      const token = getAuthTokenCookie()
-      if (token) {
-        const response = await fetch(`${API_URL}/suppliers`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+      try {
+        const token = getAuthTokenCookie();
+        if (token) {
+          const per_page = 100; // Records per page
+          const response = await fetch(
+            `${API_URL}/suppliers?per_page=${per_page}&page=${currentPage}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.ok) {
+            const responseData = await response.json();
+            setSuppliers(responseData.data);
+
+            // Calculate total pages based on the number of pages from the API response
+            const totalPages = Number(response.headers.get("Total-Pages"));
+            setTotalPages(totalPages);
+          } else {
+            throw response;
           }
-        });
-        if (response.ok) {
-          const responseData = await response.json();
-          setSuppliers(responseData.data);
         } else {
-          throw response;
+          // setError("An error occurred"); // You need to define setError if you intend to use it
+          console.error("An error occurred");
         }
-      } else {
-        setError("An error occurred");
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle error or set error state here if needed
       }
     }
+
     loadSuppliers();
+  }, [currentPage]);
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [isModalOpen]);
+
+  function prePage() {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+
+  function changeCurrentPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+  useEffect(() => {
+    // Remove scroll bar
+    document.body.style.overflow = "hidden";
+
+    // Cleanup on component unmount
+    return () => {
+      document.body.style.overflow = "visible";
+    };
   }, []);
-//to show the details of a specific supplier
+  useEffect(() => {
+    async function loadSuppliers() {
+      try {
+        const token = getAuthTokenCookie();
+        if (token) {
+          const per_page = 100;
+          const response = await fetch(
+            `${API_URL}/suppliers?per_page=${per_page}&page=${currentPage}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.ok) {
+            const responseData = await response.json();
+            setSuppliers(responseData.data);
+  
+            // Extract total pages from response headers
+            const totalPages = Number(response.headers.get("Total-Pages"));
+            setTotalPages(totalPages);
+          } else {
+            throw new Error("Failed to fetch data"); // Throw an error object
+          }
+        } else {
+          console.error("An error occurred: Token not found");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle error or set error state here if needed
+      }
+    }
+    
+    loadSuppliers(); // Call loadSuppliers function here
+  
+  }, [currentPage]);
+  
+
   const handleSpecificSupplier = async (supplierId) => {
     try {
-      const token = Cookies.get('token');
+      const token = Cookies.get("token");
       const response = await fetch(`${API_URL}/suppliers/${supplierId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.ok) {
@@ -179,28 +303,35 @@ const Suppliers = () => {
         window.currentdate = responseData.data.attributes.date;
         window.description = responseData.data.attributes.description;
         setSupplier(responseData.data);
+        setSelectedSupplierValue("");
+        setSelectedSupplierDescriptionValue("");
         openPopup2();
       } else {
-        throw new Error('Failed to fetch supplier details');
+        throw new Error("Failed to fetch supplier details");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
-//update data
   const handleSupplierValueUpdate = async () => {
     try {
-      const token = getAuthTokenCookie()
+      const token = getAuthTokenCookie();
 
-      if (!selectedSupplierValue.trim()) {
-        console.error("Supplier value cannot be empty");
+      if (
+        typeof selectedSupplierValue !== "string" ||
+        !selectedSupplierValue.trim() ||
+        typeof selectedSupplierDescriptionValue !== "string" ||
+        !selectedSupplierDescriptionValue.trim()
+      ) {
+        console.error("Supplier name or description cannot be empty");
+        notify("error", "Error Updating Supplier");
         return;
       }
+
       const supplierId = supplier.id;
       if (token) {
         const response = await fetch(`${API_URL}/suppliers/${supplierId}`, {
-
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -208,30 +339,35 @@ const Suppliers = () => {
           },
           body: JSON.stringify({
             supplier_name: selectedSupplierValue,
-            description: selectedSupplierDescriptionValue
+            description: selectedSupplierDescriptionValue,
           }),
         });
 
         if (response.ok) {
-          console.log("supplier value updated successfully");
-          const updatedSupplierResponse = await fetch(`${API_URL}/suppliers/${supplierId}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          notify("success", "Supplier updated successfully");
+          const updatedSupplierResponse = await fetch(
+            `${API_URL}/suppliers/${supplierId}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           if (updatedSupplierResponse.ok) {
             const updatedSupplierData = await updatedSupplierResponse.json();
             setSuppliers(
-              suppliers.map((s) => (s.id === supplierId ? updatedSupplierData.data : s))
+              suppliers.map((s) =>
+                s.id === supplierId ? updatedSupplierData.data : s
+              )
             );
             setSupplier(updatedSupplierData.data);
           } else {
             throw new Error("Failed to fetch updated supplier data");
           }
-        }
-        else {
+        } else {
+          notify("error", "Error Updating Supplier");
           throw new Error("Failed to update supplier value");
         }
       }
@@ -239,11 +375,8 @@ const Suppliers = () => {
       console.error("Error: ", error.message);
     }
   };
-
-
   return (
     <>
-
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -262,8 +395,7 @@ const Suppliers = () => {
       <label className="medlistlabel">
         <b>Suppliers List</b>
       </label>
-
-      <div className="input-group rounded seachinputsupplier ">
+      <div className="input-group rounded seachinput ">
         <input
           type="search"
           className="form-control rounded "
@@ -285,67 +417,105 @@ const Suppliers = () => {
         </svg>
       </div>
 
-
-      <Popup open={isPopup2Open} onClose={closePopup1} position="right center"  >
-        <div >
-          <Link to='/inventory-dashboard/suppliers'>
-            <button className='closeiconcatlist' onClick={goBack}>
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-x-lg " viewBox="0 0 16 16">
+      <Popup open={isPopup2Open} onClose={closePopup1} position="right center">
+        <div>
+          <Link to="/inventory-dashboard/suppliers">
+            <button className="closeiconcatlist" onClick={goBack}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="19"
+                height="19"
+                fill="currentColor"
+                class="bi bi-x-lg "
+                viewBox="0 0 16 16"
+              >
                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
               </svg>
-
             </button>
           </Link>
-          <label className='editsupppopup'><h5><b> Suppliers Details</b></h5></label>
-          <form className='popupfrmsupp' onSubmit={handleSpecificSupplier} >
-
+          <label className="editsupppopup">
+            <h5>
+              <b> Suppliers Details</b>
+            </h5>
+          </label>
+          <form className="popupfrmsupp" onSubmit={handleSpecificSupplier}>
             <div className="row">
               <div className="col">
-                <label className=' adcasuppnm ' htmlFor="supplier_name"><b>Supplier Name</b></label>
-                <input type="text"
+                <label className=" adcasuppnm " htmlFor="supplier_name">
+                  <b>Supplier Name</b>
+                </label>
+                <input
+                  type="text"
                   className="form-control"
-                  id='supplier_name'
+                  id="supplier_name"
                   name="suppliernameinputt"
                   value={selectedSupplierValue}
                   placeholder={window.suppliername}
                   aria-label="First name"
                   onChange={(e) => setSelectedSupplierValue(e.target.value)}
+                  required
                 />
-
               </div>
-
             </div>
             <div className="row">
               <div className="col">
-                <label  htmlFor="date" className='adcasupp'><b>Date</b></label>
-                <input type="text" class="form-control" id='date' name="suppnamein" placeholder={window.currentdate} aria-label="First name" disabled />
-
+                <label htmlFor="date" className="adcasupp">
+                  <b>Date</b>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="date"
+                  name="suppnamein"
+                  placeholder={window.currentdate}
+                  aria-label="First name"
+                  disabled
+                />
               </div>
-
             </div>
             <div className="row">
               <div className="col">
-                <label className='adcasuppdes2'htmlFor="description"><b>Description</b></label>
-                <textarea type="text"
-                  class="form-control"
-                  id='description'
+                <label className="adcasuppdes2" htmlFor="description">
+                  <b>Description</b>
+                </label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  id="description"
                   name="suppdescin2"
                   placeholder={window.description}
-                  onChange={(e) => setSelectedSupplierDescriptionValue(e.target.value)}
+                  onChange={(e) =>
+                    setSelectedSupplierDescriptionValue(e.target.value)
+                  }
                   aria-label="First name"
-                  
-                  />
-                  
+                  required
+                />
               </div>
-
             </div>
-
           </form>
-          <button type="submit" className="btn btn-light btn-lg " id='editsupplierdetails' onClick={handleSupplierValueUpdate} ><b className='medlistbtn2'>Update</b></button>
+          <button
+            type="submit"
+            className="btn btn-light btn-lg "
+            id="editsupplierdetails"
+            onClick={handleSupplierValueUpdate}
+          >
+            <b className="medlistbtn2">Update</b>
+          </button>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition:Bounce
+          />
         </div>
       </Popup>
-
 
       <Table hover id="sl-table" className="">
         <thead>
@@ -361,7 +531,6 @@ const Suppliers = () => {
               <td>{item.attributes.supplier_name}</td>
               <td>{item.attributes.date}</td>
               <td>
-
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -375,52 +544,52 @@ const Suppliers = () => {
                   <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
                   <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
                 </svg>
-
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <nav>
-        <ul className="pagination">
+      <div className="paginationandaddmedicineBtn">
+        <nav>
+          <ul className="pagination">
           <li className="page-item">
-            <a href="#!" className="page-link" onClick={prePage}>
-              Prev
-            </a>
-          </li>
-          {numbers.map((n, i) => (
-            <li
-              className={`page-item ${currentPage === n ? "active" : ""}`}
-              key={i}
-            >
-              <a
-                href="#!"
-                className="page-link"
-                onClick={() => changeCurrentPage(n)}
-              >
-                {n}
-              </a>
-            </li>
-          ))}
-          <li className="page-item">
-            <a href="#!" className="page-link" onClick={nextPage}>
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+  <button className="page-link" onClick={prePage}>
+    Prev
+  </button>
+</li>
+{numbers.map((n, i) => (
+  <li
+    className={`page-item ${currentPage === n ? "active" : ""}`}
+    key={i}
+  >
+    <button
+      className="page-link"
+      onClick={() => changeCurrentPage(n)}
+    >
+      {n}
+    </button>
+  </li>
+))}
+<li className="page-item">
+  <button className="page-link" onClick={nextPage}>
+    Next
+  </button>
+</li>
 
-      <Link to={""}>
-        <button
-          type="button"
-          className="btn btn-light btn-lg "
-          id="addmedbtnsupp"
-          onClick={openPopup1}
-        >
-          <b className="medlistbtn">Add Supplier</b>
-        </button>
-      </Link>
+          </ul>
+        </nav>
 
+        <Link to={""}>
+          <button
+            type="button"
+            className="btn btn-light btn-lg "
+            id="addmedbtnsupp"
+            onClick={openPopup1}
+          >
+            <b className="medlistbtn">Add Supplier</b>
+          </button>
+        </Link>
+      </div>
       <Popup open={isPopup1Open} onClose={closePopup1} position="right center">
         <div>
           <Link to="/inventory-dashboard/suppliers">
@@ -449,7 +618,7 @@ const Suppliers = () => {
                   <b>Supplier Name</b>
                 </label>
                 <input
-                  type="string"
+                  type="text"
                   className="form-control"
                   htmlFor="supplier_name"
                   value={supplier_name}
@@ -457,6 +626,7 @@ const Suppliers = () => {
                   name="supplierameinputt"
                   aria-label="First name"
                   onChange={(e) => setSupplierName(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -467,7 +637,7 @@ const Suppliers = () => {
                   <b>Description</b>
                 </label>
                 <textarea
-                  type="string"
+                  type="text"
                   className="form-control"
                   htmlFor="description"
                   id="description"
@@ -475,6 +645,7 @@ const Suppliers = () => {
                   name="suppdescin"
                   aria-label="First name"
                   onChange={(e) => setDescription(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -500,11 +671,24 @@ const Suppliers = () => {
             >
               <b className="medlistbtn2">Add </b>
             </button>
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              transition:Bounce
+            />
           </form>
         </div>
-
       </Popup>
     </>
   );
 };
+
 export default Suppliers;

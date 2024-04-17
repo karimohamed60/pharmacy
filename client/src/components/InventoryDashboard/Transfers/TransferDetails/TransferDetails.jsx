@@ -1,77 +1,61 @@
-import React, { useEffect, useState  } from "react";
+import React, { useEffect, useState } from "react";
 import "./TransferDetails.css";
-import { Link ,useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "reactjs-popup/dist/index.css";
-import {getAuthTokenCookie} from '../../../../services/authService'
+import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 const TransferDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [transfers, setTransfers] = useState([]);
   const [medicinesData, setMedicinesData] = useState([]);
-  const {id} =useParams();
-/*
+  const { id } = useParams();
+
   useEffect(() => {
-    if (isModalOpen) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
+    // Remove scroll bar
+    document.body.style.overflow = "hidden";
+    handleSpecificTransferbyId(id);
+    // Cleanup on component unmount
     return () => {
-      document.body.classList.remove("no-scroll");
+      document.body.style.overflow = "visible";
     };
-  }, [isModalOpen]);
-*/
-useEffect(() => {
-  // Remove scroll bar
-  document.body.style.overflow = 'hidden';
-  handleSpecificTransferbyId(id)
-  // Cleanup on component unmount
-  return () => {
-    document.body.style.overflow = 'visible';
-  };
-}, []);
-const handleSpecificTransferbyId = async (transfer_id) => {
-  try {
-    const token = getAuthTokenCookie()
-    const response = await fetch(`${API_URL}/transfers/${transfer_id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-    });
+  }, []);
+  const handleSpecificTransferbyId = async (transfer_id) => {
+    try {
+      const token = getAuthTokenCookie();
+      const response = await fetch(`${API_URL}/transfers/${transfer_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    if (response.ok) {
-
-      const responseData = await response.json();
-      console.log(responseData);
-      // console.log("Medicine details showed successfully")
-      setTransfers(responseData.data);
-      setMedicinesData(responseData.data.attributes.medicines);
-      //setMedicinesData(responseData.data.attributes.medicines);
-      /*const dataArray = responseData.data.attributes.medicines;
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log(responseData);
+        // console.log("Medicine details showed successfully")
+        setTransfers(responseData.data);
+        setMedicinesData(responseData.data.attributes.medicines);
+        //setMedicinesData(responseData.data.attributes.medicines);
+        /*const dataArray = responseData.data.attributes.medicines;
       window.medicineData= dataArray;
       console.log(dataArray)*/
 
-      
-      window.transfer_id = responseData.data.attributes.id;
-      window.username = responseData.data.attributes.user.username;
-      window.created_at = responseData.data.attributes.created_at;
-      window.transferstatus = responseData.data.attributes.status;
-      window.medicine_name = responseData.data.attributes.medicines.medicine_name;
-      console.log(window.medicine_name)
-      /*window.total_amount = responseData.data.attributes.total_amount;*/
-      
-    } else {
-      throw new Error('Failed to fetch category details');
+        window.transfer_id = responseData.data.attributes.id;
+        window.username = responseData.data.attributes.user.username;
+        window.created_at = responseData.data.attributes.created_at;
+        window.transferstatus = responseData.data.attributes.status;
+        window.medicine_name =
+          responseData.data.attributes.medicines.medicine_name;
+        console.log(window.medicine_name);
+        /*window.total_amount = responseData.data.attributes.total_amount;*/
+      } else {
+        throw new Error("Failed to fetch category details");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-};
-
-
-
+  };
 
   return (
     <>
@@ -111,20 +95,20 @@ const handleSpecificTransferbyId = async (transfer_id) => {
         </Link>
       </div>
       <Link to={"/inventory-dashboard/updateDetails"}>
-      <button type="button" className="btn btn-light butnn" id="oooo">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          className="bi bi-pencil-fill"
-          viewBox="0 1 16 16"
-        >
-          <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-        </svg>
-        <b className="updatelabel" >Update Details</b>
-      </button>
-    </Link>
+        <button type="button" className="btn btn-light butnn" id="oooo">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-pencil-fill"
+            viewBox="0 1 16 16"
+          >
+            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+          </svg>
+          <b className="updatelabel">Update Details</b>
+        </button>
+      </Link>
       <div className="td-container">
         <h2 className="transfer-title">Transfer Details</h2>
 
@@ -132,7 +116,12 @@ const handleSpecificTransferbyId = async (transfer_id) => {
           <div className="td-row">
             <div className="td-form-group">
               <label className="td-form-label">Transfer Id</label>
-              <input className="td-input" type="text"  placeholder={window.transfer_id}  disabled />
+              <input
+                className="td-input"
+                type="text"
+                placeholder={window.transfer_id}
+                disabled
+              />
             </div>
             <div className="td-form-group">
               <label className="td-form-label">Created by</label>
@@ -167,27 +156,25 @@ const handleSpecificTransferbyId = async (transfer_id) => {
             </div>
           </div>
         </form>
-        <div className="transfer-details-container" >
-        <table className="table tdet-table">
-          <thead>
-            <tr>
-              <th itemScope="col">Medicine Name</th>
-              <th scope="col">Quantity</th>
-            </tr>
-          </thead>
-          <tbody className="ml-tbody">
- {medicinesData.map((item, index) => (
-  <tr key={index} className="medicine-container">
-    <td>{item.medicine_name}</td>
-    <td>{item.quantity}</td>
-   
-  </tr>
-))}
-</tbody>
-        </table>
+        <div className="transfer-details-container">
+          <table className="table tdet-table">
+            <thead>
+              <tr>
+                <th itemScope="col">Medicine Name</th>
+                <th scope="col">Quantity</th>
+              </tr>
+            </thead>
+            <tbody className="ml-tbody">
+              {medicinesData.map((item, index) => (
+                <tr key={index} className="medicine-container">
+                  <td>{item.medicine_name}</td>
+                  <td>{item.quantity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      </div>
-
     </>
   );
 };
