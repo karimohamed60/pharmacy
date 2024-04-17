@@ -30,7 +30,7 @@ const LogoutButton = () => {
   };
 
   return (
-    <a  onClick={handleLogout} id="logoutBtn">
+    <a onClick={handleLogout} id="logoutBtn">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="30"

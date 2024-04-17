@@ -1,115 +1,103 @@
-table{
-    position: relative;
-    top:-650px;
-    left: 100px;
-    /* overflow-x: scroll; */
-    
-   
+table {
+  position: relative;
+  top: -650px;
+  left: 100px;
+  /* overflow-x: scroll; */
 }
-tbody{
-    height: 350px;
-    
+tbody {
+  height: 350px;
 }
 
-.medlistlabel
-{
-    position: relative;
-    top:-655px;
-    left: -270px;
-    font-size:x-large;
-    color: #032B55;
+.medlistlabel {
+  position: relative;
+  top: -655px;
+  left: -270px;
+  font-size: x-large;
+  color: #032b55;
 }
-.listofmedlabel{
-    position: relative;
-    top:-650px;
-    left: -400px;
-    color: #032B55;
-    font-style:initial;
+.listofmedlabel {
+  position: relative;
+  top: -650px;
+  left: -400px;
+  color: #032b55;
+  font-style: initial;
 }
-.seachinput{
-    margin-left: 170px;
-    max-width: 400px;
-    position: relative;
-    background-color:transparent;
-    top: -640px;
-    
-} 
-#srchinput
-{
-    background-color: #d5e3f0;
+.seachinput {
+  margin-left: 170px;
+  max-width: 400px;
+  position: relative;
+  background-color: transparent;
+  top: -640px;
 }
-.srchicon{
-   position: relative;
-   left: -37px;
-   top: 15px;
+#srchinput {
+  background-color: #d5e3f0;
 }
-
-
+.srchicon {
+  position: relative;
+  left: -37px;
+  top: 15px;
+}
 
 .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
+  position: relative;
+  display: inline-block;
+}
 
-  .filterdropdwn
-  {
-    position: relative;
-    left: 558px;  
-    top: -710px;  
-    width: 300px;
-    height: 50px;
-    border-radius: 8px;
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
 }
-.filterlabel{
-    position: relative;
-    top: 10px;
-    font-size: large;
-    padding-left: -50px;
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
-.filtericon{
-    position: relative;
-    left: -50px;
-    top: 8px;
+
+.filterdropdwn {
+  position: relative;
+  left: 558px;
+  top: -710px;
+  width: 300px;
+  height: 50px;
+  border-radius: 8px;
 }
-.filterdownicon
-{
-    position: relative;
-    left: 42px;
-    top: 8px;
+.filterlabel {
+  position: relative;
+  top: 10px;
+  font-size: large;
+  padding-left: -50px;
 }
-.filtercontent
-{
-    position: relative;
-    top: 30px;
+.filtericon {
+  position: relative;
+  left: -50px;
+  top: 8px;
 }
-#ingfilter
-{
-padding-left: 60px;
-padding-right: 60px;
+.filterdownicon {
+  position: relative;
+  left: 42px;
+  top: 8px;
 }
-#addmedbtn{
-    position: relative;
-    top: -685px;
-    left: 722px;
-    background-color:#d2e0ed;
-    /* font-weight: bolder; */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.filtercontent {
+  position: relative;
+  top: 30px;
+}
+#ingfilter {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+#addmedbtn {
+  position: relative;
+  top: -685px;
+  left: 722px;
+  background-color: #d2e0ed;
+  /* font-weight: bolder; */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 /* #addmedbtn{
@@ -120,65 +108,62 @@ padding-right: 60px;
     background-color: #d5e3f0;
     padding: 10px 15px 10px 15px;
 } */
-.medlistbtn{
-    color: #19355A;
-    padding: 20px 30px 20px 30px;
-   
+.medlistbtn {
+  color: #19355a;
+  padding: 20px 30px 20px 30px;
 }
-.commlabel{
-   position: relative;
-   top: 8px;
-}
-
-
-.pagination
-{
-    position: relative;
-    top: -50px;
-    
+.commlabel {
+  position: relative;
+  top: 8px;
 }
 
+.pagination {
+  position: relative;
+  top: -50px;
+}
 
-.translabel{
-padding-right: 100px;
-padding-left: 17px;
+.translabel {
+  padding-right: 100px;
+  padding-left: 17px;
 }
-.medffff{
-position: relative;
-left: 860px;
-width: 180px;
-height: 50px;
-top: -750px;
-border-radius: 8px;
-background-color: #d5e3f0;
+.medffff {
+  position: relative;
+  left: 860px;
+  width: 180px;
+  height: 50px;
+  top: -750px;
+  border-radius: 8px;
+  background-color: #d5e3f0;
 }
-.filterlabel1{
-position: relative;
-top: 10px;
-font-size: large;
-margin-right: -25px;
-margin-left: -20px;
+.filterlabel1 {
+  position: relative;
+  top: 10px;
+  font-size: large;
+  margin-right: -25px;
+  margin-left: -20px;
 }
-.filtercontentinv
-{
+.filtercontentinv {
   border-radius: 8px;
   position: relative;
   top: 50px;
   width: 180px;
   background-color: #d5e3f0;
 }
-.ingfilterr{
+.ingfilterr {
   position: relative;
   text-align: center;
 }
 
 #ml-table {
-    position: relative;
-    top: -630px;
-    left: 100px;
-    width: 110%;
-    overflow-x: scroll;
-  }
-  .ml-tbody {
-    height: 50px;
-  }
+  position: relative;
+  top: -630px;
+  left: 100px;
+  width: 110%;
+  overflow-x: scroll;
+}
+.ml-tbody {
+  height: 50px;
+}
+.pgmd{
+  margin-left: 9rem;
+}

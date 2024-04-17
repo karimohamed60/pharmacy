@@ -49,10 +49,10 @@ const Isidebar = () => {
               d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
             />
           </svg>
-            <img id="inventoryImage" src={logo} />
-            <label id="inventorydashboardlabel">
-              <b>Inventory</b>
-            </label>
+          <img id="inventoryImage" src={logo} />
+          <label id="inventorydashboardlabel">
+            <b>Inventory</b>
+          </label>
           {items.map((item, index) => (
             <IsidebarItem key={index} item={item} />
           ))}

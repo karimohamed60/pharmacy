@@ -1,16 +1,11 @@
 [
   {
-    "title": "Dashboard",
-    "icon": "bi-bar-chart-fill",
-    "path": "/inventory-dashboard"
-  },
-  {
     "title": " Medicines",
     "icon": "bi-capsule-pill",
     "childrens": [
       {
         "title": "Add Medicine",
-        "path": "/inventory-dashboard/addmedicine"
+        "path": "/inventory-dashboard/medicines/add"
       },
       {
         "title": "Medicines List",
@@ -41,7 +36,8 @@
         "title": "Invoices List",
         "path": "/inventory-dashboard/invoicesList"
       }
-    ]  },
+    ]
+  },
 
   {
     "title": "Transfers",

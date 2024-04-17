@@ -78,7 +78,6 @@ const Addtransfer = () => {
     };
     const token = getAuthTokenCookie();
 
-
     if (!token) {
       notify("error", "No token found");
       return;
@@ -105,7 +104,6 @@ const Addtransfer = () => {
       notify("error", "An error occurred while processing your request.");
     }
   };
-
 
   //To load medicines
   useEffect(() => {
@@ -154,6 +152,13 @@ const Addtransfer = () => {
 
     loadMedicines();
   }, [searchTerm]);
+  const handleQuantity = (index, e) => {
+    const value = e.target.value;
+    // Check if the input only contains numbers
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      handleMedicineChange(index, "quantity", value);
+    }
+  };
 
   return (
     <>
@@ -274,16 +279,10 @@ const Addtransfer = () => {
                       Quantity:
                       <input
                         className="at-input mb-2"
-                        type="number"
+                        type="text"
                         id="quantity"
                         value={medicine.quantity}
-                        onChange={(e) =>
-                          handleMedicineChange(
-                            index,
-                            "quantity",
-                            e.target.value
-                          )
-                        }
+                        onChange={(e) => handleQuantity(index, e)}
                       />
                     </label>
                     {medicines.length > 1 && (

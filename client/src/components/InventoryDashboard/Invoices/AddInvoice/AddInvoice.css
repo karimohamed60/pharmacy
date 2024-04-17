@@ -61,7 +61,7 @@
   position: relative;
   top: -75px;
 }
-.ai-form-group.add_medicinegroup{
+.ai-form-group.add_medicinegroup {
   display: flex;
   flex-direction: column;
   left: 25px;
@@ -79,7 +79,6 @@
   margin-left: 28px;
   font-size: medium;
 }
-
 
 .ai-input {
   width: 60%;
@@ -109,91 +108,79 @@
   margin-top: 50px;
   left: 390px;
   font-size: larger;
-    padding: 10px 30px 10px 30px;
-    color: #19355a;
-    background-color:  rgb(195, 212, 230);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
+  padding: 10px 30px 10px 30px;
+  color: #19355a;
+  background-color: rgb(195, 212, 230);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
-.comments_addinvRow{
+.comments_addinvRow {
   position: relative;
   top: 40px;
 }
-.totalamount{
+.totalamount {
   position: relative;
   width: 33%;
   left: 60%;
 }
-.ai-form-label.q-label{
+.ai-form-label.q-label {
   margin-left: 150px;
 }
-.ai-form-label.d-label{
+.ai-form-label.d-label {
   margin-left: 100px;
 }
-.ai-form-label.p-label{
+.ai-form-label.p-label {
   margin-left: 50px;
 }
 
-.ai-form-label.a-label{
+.ai-form-label.a-label {
   margin-left: 8px;
 }
-.ai-form-label.s-label{
+.ai-form-label.s-label {
   margin-left: 44px;
 }
-.ai-form-label.am-label{
+.ai-form-label.am-label {
   margin-left: 88px;
 }
-select[name="suppliersearch"]
-{
+select[name="suppliersearch"] {
   position: relative;
   border: transparent;
   top: -39px;
   margin-left: 20px;
- 
-  
 }
-#selectdropdown{
- position: relative;
- left: -6px;
- width: 340px;
- margin-right: -95px;
+#selectdropdown {
+  position: relative;
+  left: -6px;
+  width: 340px;
+  margin-right: -95px;
 }
-#suppliersdropdownmenu
-{
+#suppliersdropdownmenu {
   position: relative;
   width: 280px;
-  left:22px;
-  
+  left: 22px;
 }
-.ai-input.medicine-name
- {
+.ai-input.medicine-name {
   width: 150%;
 }
 
-.ai-input.quantity{
+.ai-input.quantity {
   width: 70%;
   margin-left: 150px;
-
 }
 
-.ai-input.discount
-{
+.ai-input.discount {
   width: 70%;
   margin-left: 100px;
-
-
 }
-.ai-input.price{
+.ai-input.price {
   width: 70%;
   margin-left: 50px;
-
-
 }
-.ai-input.amount{
+.ai-input.amount {
   width: 70%;
-  margin-left:10px ;
+  margin-left: 10px;
 }
 
 .addMedicineBtn {
@@ -222,22 +209,21 @@ select[name="suppliersearch"]
   margin-top: 23px;
   margin-left: -40px;
 }
-.ai-form-label.comments{
+.ai-form-label.comments {
   margin-top: -100px;
-
 }
 .c-textarea {
-max-height: 100px;
-min-height: 70px;
-margin-bottom: 20px;
+  max-height: 100px;
+  min-height: 70px;
+  margin-bottom: 20px;
 }
 
-.ad-warning-message{
+.ad-warning-message {
   color: rgb(199, 30, 30);
   font-weight: 500;
 }
 
-.ad-warning-message-od{
+.ad-warning-message-od {
   color: rgb(199, 30, 30);
   font-weight: 500;
   margin-left: -250px;
@@ -246,4 +232,3 @@ margin-bottom: 20px;
 body.no-scroll {
   overflow: hidden;
 }
-

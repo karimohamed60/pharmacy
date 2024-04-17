@@ -133,3 +133,6 @@
 body.no-scroll {
   overflow: hidden;
 }
+.pgtl {
+  margin-left: 9rem;
+}

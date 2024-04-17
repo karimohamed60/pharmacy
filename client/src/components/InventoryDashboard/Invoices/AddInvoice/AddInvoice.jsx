@@ -92,10 +92,40 @@ const AddInvoice = () => {
     setMedicines(updatedMedicines);
   };
 
+  const handleQuantity = (index, e) => {
+    const value = e.target.value;
+    // Check if the input only contains numbers
+    if (/^\d*\.?\d*$/.test(value) || value === "") {
+      handleMedicineChange(index, "quantity", value);
+    }
+  };
+  const handleOrderNumber = (e) => {
+    const value = e.target.value;
+    // Check if the input only contains numbers
+    if (/^\d*$/.test(value) || value === "") {
+      setorder_number(value);
+    }
+  };
+  const handleDiscount = (index, e) => {
+    const value = e.target.value;
+    // Check if the input only contains numbers
+    if (/^\d*$/.test(value) || value === "") {
+      handleMedicineChange(index, "discount", value);
+    }
+  };
+
+  const handlePrice = (index, e) => {
+    const value = e.target.value;
+    // Check if the input only contains numbers
+    if (/^\d*$/.test(value) || value === "") {
+      handleMedicineChange(index, "price", value);
+    }
+  };
+
   const handleMedicineChange = (index, field, value) => {
     const updatedMedicines = [...medicinesData];
     updatedMedicines[index][field] = value;
-    //Calculate amount based on quantity, price, and discount
+    // Calculate amount based on quantity, price, and discount
     const quantity = parseFloat(updatedMedicines[index].quantity) || 0;
     const price = parseFloat(updatedMedicines[index].price) || 0;
     const discount = parseFloat(updatedMedicines[index].discount) || 0;
@@ -189,47 +219,6 @@ const AddInvoice = () => {
     }
   };
 
-  //load medicines
-  /*useEffect(() => {
-    async function loadMedicines(searchTerm) {
-      const token = getAuthTokenCookie()
-      if (token) {
-        const response = await fetch(`${API_URL}/medicines/search?q=${searchTerm}`, { 
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          }
-        });
-        if (response.ok) {
-          const responseData = await response.json();
-          const medicineOptions = responseData.data.map(medicine => ({
-            value: medicine.attributes.id,
-            label: medicine.attributes.commercial_name
-          }));
-          setMedicineOptions(medicineOptions);
-        } else {
-          throw response;
-        }
-      } else {
-        setError("An error occured");
-        console.log("An error", e);
-      }
-    }
-    if (searchTerm.trim() !== '') {
-      loadMedicines();
-    } else {
-      setMedicineOptions([]); 
-    }
-
-  }, [searchTerm]);
-
-  useEffect(() => {
-    if (searchTerm) {
-      loadMedicines(searchTerm);
-    }
-  }, [searchTerm]);*/
-
   useEffect(() => {
     if (searchTerm.trim() !== "") {
       async function loadMedicines() {
@@ -315,7 +304,7 @@ const AddInvoice = () => {
                 type="text"
                 id="order_number"
                 value={order_number}
-                onChange={(e) => setorder_number(e.target.value)}
+                onChange={handleOrderNumber}
               />
               {orderNumberWarning && (
                 <span className="ad-warning-message-od">
@@ -396,12 +385,10 @@ const AddInvoice = () => {
                 </label>
                 <input
                   className="ai-input quantity"
-                  type="number"
+                  type="text"
                   id="quantity"
                   value={medicine.quantity}
-                  onChange={(e) =>
-                    handleMedicineChange(index, "quantity", e.target.value)
-                  }
+                  onChange={(e) => handleQuantity(index, e)}
                 />
               </div>
               <div className="ai-form-group">
@@ -410,12 +397,10 @@ const AddInvoice = () => {
                 </label>
                 <input
                   className="ai-input discount"
-                  type="number"
+                  type="text"
                   id="discount"
                   value={medicine.discount}
-                  onChange={(e) =>
-                    handleMedicineChange(index, "discount", e.target.value)
-                  }
+                  onChange={(e) => handleDiscount(index, e)}
                 />
               </div>
               <div className="ai-form-group">
@@ -424,12 +409,10 @@ const AddInvoice = () => {
                 </label>
                 <input
                   className="ai-input price"
-                  type="number"
+                  type="text"
                   id="price"
                   value={medicine.price}
-                  onChange={(e) =>
-                    handleMedicineChange(index, "price", e.target.value)
-                  }
+                  onChange={(e) => handlePrice(index, e)}
                 />
               </div>
               <div className="ai-form-group">
@@ -438,7 +421,7 @@ const AddInvoice = () => {
                 </label>
                 <input
                   className="ai-input amount"
-                  type="number"
+                  type="text"
                   id="amount"
                   value={medicine.amount}
                   disabled
@@ -484,7 +467,7 @@ const AddInvoice = () => {
             </label>
             <input
               className="ai-input total-amount"
-              type="number"
+              type="text"
               value={totalAmount}
               id="total_amount"
               disabled
