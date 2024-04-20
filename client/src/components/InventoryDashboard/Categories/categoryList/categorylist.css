@@ -132,12 +132,18 @@ input[name="catnameinputt"] {
 #aaddcaatt {
   background-color: #d5e3f0;
   position: relative;
-  left: 365px;
+  margin-left: 22rem;
+  top: -60px;
+}
+#uuddcaatt {
+  background-color: #d5e3f0;
+  position: relative;
+  margin-left: 24rem;
   top: -60px;
 }
 .medlistbtn2 {
-  padding: 20px 20px 20px 20px;
   color: #032b55;
+  padding: 1rem;
 }
 .medlistbtn {
   padding: 20px 20px 20px 20px;
@@ -152,7 +158,7 @@ input[name="catnameinputt"] {
 }
 .closeiconcatlist {
   position: relative;
-  left: 800px;
+  left: 55rem;
   top: 15px;
 }
 
