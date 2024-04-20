@@ -1,8 +1,6 @@
-import { Link, Outlet } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import Sidebar from "../../components/PharmacyDashboard/Sidebar/Sidebar";
+import { Outlet } from "react-router-dom";
+import React, {  useEffect } from "react";
 import LogoutButton from "../../auth/LogoutButton";
-import MedicineList from "../../components/PharmacyDashboard/Medicine/MedicineList/MedicineList";
 
 
 const PharmacyDashboard = () => {
@@ -19,12 +17,9 @@ const PharmacyDashboard = () => {
   return (
     <>
       <Outlet />
-{/* Sidebar */}
 
-<Sidebar/>
 
-<MedicineList/>
-
+<LogoutButton/>
     </>
   );
 };

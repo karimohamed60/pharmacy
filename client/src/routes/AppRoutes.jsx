@@ -22,17 +22,7 @@ import InvoicesList from "../components/InventoryDashboard/Invoices/InvoicesList
 import AddInvoice from "../components/InventoryDashboard/Invoices/AddInvoice/AddInvoice";
 import InoviceDetails from "../components/InventoryDashboard/Invoices/InvoiceDetails/InoviceDetails";
 import Addtransfer from "../components/InventoryDashboard/Transfers/addtransfer/addtransfer";
-import MedicineList from "../components/PharmacyDashboard/Medicine/MedicineList/MedicineList";
-import MedicineDetails from "../components/PharmacyDashboard/Medicine/MedicineDetails/MedicineDetails";
-import OrderList from "../components/PharmacyDashboard/Order/OrderList/OrderList";
-import OrderDetails from "../components/PharmacyDashboard/Order/OrderDetails/OrderDetails";
-import AddOrder from "../components/PharmacyDashboard/Order/AddOrder/AddOrder";
-import TransfersList from "../components/PharmacyDashboard/Transfer/TransfersList/TransfersList";
-import TransfersDetails from "../components/PharmacyDashboard/Transfer/TransfersDetails/TransfersDetails";
-import SalafRequest from "../components/PharmacyDashboard/Salaf/SalafRequest";
-import StudentsList from "../components/PharmacyDashboard/Students/StudentsList/StudentsList";
-import PrescriptionsList from "../components/PharmacyDashboard/Students/PrescriptionsList/ PrescriptionsList";
-import PrescriptionsDetails from "../components/PharmacyDashboard/Students/PrescriptionsDetails/PrescriptionsDetails";
+
 
 //const role = 'inventory_agent';
 
@@ -125,44 +115,7 @@ function AppRoutes() {
             )
           }
         />
-        <Route
-          path="/pharmacy-dashboard/medicineList/"
-          element={<MedicineList />}
-        />
-        <Route
-          path="/pharmacy-dashboard/medicineDetails/"
-          element={<MedicineDetails />}
-        />
-        <Route path="/pharmacy-dashboard/orderList/" element={<OrderList />} />
-        <Route
-          path="/pharmacy-dashboard/orderDetails/"
-          element={<OrderDetails />}
-        />
-        <Route path="/pharmacy-dashboard/addOrder/" element={<AddOrder />} />
-        <Route
-          path="/pharmacy-dashboard/transferList/"
-          element={<TransfersList />}
-        />
-        <Route
-          path="/pharmacy-dashboard/transfersDetails/"
-          element={<TransfersDetails />}
-        />
-        <Route
-          path="/pharmacy-dashboard/SalafRequest/"
-          element={<SalafRequest />}
-        />
-        <Route
-          path="/pharmacy-dashboard/StudentsList/"
-          element={<StudentsList />}
-        />
-        <Route
-          path="/pharmacy-dashboard/PrescriptionsList/"
-          element={<PrescriptionsList />}
-        />
-        <Route
-          path="/pharmacy-dashboard/PrescriptionsDetails/"
-          element={<PrescriptionsDetails />}
-        />
+
         <Route
           path="/salaf-requests-dashboard"
           element={
