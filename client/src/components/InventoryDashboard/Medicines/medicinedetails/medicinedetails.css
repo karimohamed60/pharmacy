@@ -65,14 +65,35 @@ input[name="exdetinp"] {
 }
 #boxx {
   background-color: #ffffff;
-  width: 300px;
   border: rgb(201, 191, 191) solid;
   padding: 35px;
   margin: 20px;
   width: 230px;
   position: relative;
   left: 840px;
-  top: -170px;
+  top: -200px;
+  margin-bottom: -170px;
+}
+#boxx2 {
+  background-color: #ffffff;
+  border: rgb(201, 191, 191) solid;
+  padding: 35px;
+  margin: 20px;
+  width: 230px;
+  position: relative;
+  left: 840px;
+  top: -190px;
+  margin-bottom: -170px;
+}
+#boxx3 {
+  background-color: #ffffff;
+  border: rgb(201, 191, 191) solid;
+  padding: 35px;
+  margin: 20px;
+  width: 230px;
+  position: relative;
+  left: 840px;
+  top: -200px;
   margin-bottom: -170px;
 }
 .barcode_categoriesRows {
