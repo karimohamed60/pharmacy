@@ -265,7 +265,7 @@ const Suppliers = () => {
           if (response.ok) {
             const responseData = await response.json();
             setSuppliers(responseData.data);
-  
+
             // Extract total pages from response headers
             const totalPages = Number(response.headers.get("Total-Pages"));
             setTotalPages(totalPages);
@@ -280,11 +280,9 @@ const Suppliers = () => {
         // Handle error or set error state here if needed
       }
     }
-    
+
     loadSuppliers(); // Call loadSuppliers function here
-  
   }, [currentPage]);
-  
 
   const handleSpecificSupplier = async (supplierId) => {
     try {
@@ -551,31 +549,30 @@ const Suppliers = () => {
       </Table>
       <div className="paginationandaddmedicineBtn">
         <nav>
-          <ul className="pagination">
-          <li className="page-item">
-  <button className="page-link" onClick={prePage}>
-    Prev
-  </button>
-</li>
-{numbers.map((n, i) => (
-  <li
-    className={`page-item ${currentPage === n ? "active" : ""}`}
-    key={i}
-  >
-    <button
-      className="page-link"
-      onClick={() => changeCurrentPage(n)}
-    >
-      {n}
-    </button>
-  </li>
-))}
-<li className="page-item">
-  <button className="page-link" onClick={nextPage}>
-    Next
-  </button>
-</li>
-
+          <ul className="pagination pdsl">
+            <li className="page-item">
+              <button className="page-link" onClick={prePage}>
+                Prev
+              </button>
+            </li>
+            {numbers.map((n, i) => (
+              <li
+                className={`page-item ${currentPage === n ? "active" : ""}`}
+                key={i}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => changeCurrentPage(n)}
+                >
+                  {n}
+                </button>
+              </li>
+            ))}
+            <li className="page-item">
+              <button className="page-link" onClick={nextPage}>
+                Next
+              </button>
+            </li>
           </ul>
         </nav>
 

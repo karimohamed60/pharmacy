@@ -103,6 +103,31 @@ const Categorylist = () => {
   };
 
   //API for adding
+  const handleCategoryUpdate = async (categoryId) => {
+    try {
+      const token = Cookies.get("token");
+      const response = await fetch(`${API_URL}/categories/${categoryId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("success");
+        console.log(responseData.data.attributes.category_name);
+        window.categoryname = responseData.data.attributes.category_name;
+        setCategory(responseData.data);
+        setSelectedCategoryValue(responseData.data.value || "");
+        openPopup1();
+      } else {
+        throw new Error("Failed to fetch category details");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -187,39 +212,13 @@ const Categorylist = () => {
       }
     }
     loadCategories();
-  }, [categories]);
+  }, []);
 
   const handleChange = (e) => {
     setCategoryName(e.target.value);
   };
 
   //Api for updating
-  const handleCategoryUpdate = async (categoryId) => {
-    try {
-      const token = Cookies.get("token");
-      const response = await fetch($`{API_URL}/categories/${categoryId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-        console.log("success");
-        console.log(responseData.data.attributes.category_name);
-        window.categoryname = responseData.data.attributes.category_name;
-        setCategory(responseData.data);
-        setSelectedCategoryValue(responseData.data.value || "");
-        openPopup1();
-      } else {
-        throw new Error("Failed to fetch category details");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
 
   const handleCategoryValueUpdate = async () => {
     try {
@@ -394,7 +393,7 @@ const Categorylist = () => {
               onClick={handleCategoryValueUpdate}
               className="btn btn-light btn-lg
              "
-              id="aaddcaatt"
+              id="uuddcaatt"
             >
               <b className="medlistbtn2">Update </b>
             </button>

@@ -79,7 +79,7 @@ const Medicinelist = () => {
   
           // Extract total pages from response headers
           const totalPages = Number(response.headers.get("Total-Pages"));
-          setTotalPages(totalPages);
+          totalPages(totalPages);
         } else {
           throw response;
         }
