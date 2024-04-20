@@ -430,7 +430,7 @@ const Medicinedetails = () => {
             />
           </div>
         </div>
-        <div id="boxx">
+        <div id="boxx2">
           Quantity in Pharmacy
           <hr />
           <b>{window.quantity_in_pharmacy}</b>
@@ -481,7 +481,7 @@ const Medicinedetails = () => {
             />
           </div>
         </div>
-        <div id="boxx">
+        <div id="boxx3">
           {" "}
           Quantity Sold
           <hr />
