@@ -47,6 +47,14 @@ Rails.application.routes.draw do
           get 'search'
         end
       end
+
+      resources :orders, only: [:index, :show, :create] do
+        collection do
+          get 'search'
+        end
+
+        get 'generate_pdf', on: :member
+      end
     end
   end
 end
