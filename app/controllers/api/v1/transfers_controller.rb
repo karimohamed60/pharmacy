@@ -21,20 +21,20 @@ class Api::V1::TransfersController < ApiControllerBase
     end
 
     def create
-        @transfer = Transfer.create_transfer(transfer_params)
+        @transfer = Transfer.new(transfer_params)
         authorize @transfer
 
         Transfer.transaction do
             if @transfer.save && create_transfer_medicines
                 render_success(serialized_transfer(@transfer), :created)
             else
-                @transfer.destroy
-                render_error("There is not enough quantity.", :bad_request)
+                render_error("Failed to create a transfer.", :unprocessable_entity)
+                raise ActiveRecord::Rollback
             end
         end
 
     rescue => e
-        render_error("An error occurred: #{e.message}", :not_found)
+        render_error("An error occurred: #{e.message}", :internal_server_error)
     end
 
     def update
@@ -43,7 +43,7 @@ class Api::V1::TransfersController < ApiControllerBase
         if @transfer.update(transfer_params) && update_transfer_medicines
             render_success(serialized_transfer(@transfer), :ok)
         else
-            render_error("There is not enough quantity.", :bad_request)
+            render_error("Failed to update a transfer", :unprocessable_entity)
         end
     rescue => e
         render_error("An error occurred: #{e.message}", :unprocessable_entity)
