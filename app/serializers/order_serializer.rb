@@ -1,9 +1,15 @@
 class OrderSerializer
   include JSONAPI::Serializer
 
-  attributes :id, :created_at, :updated_at
+  attributes :id, :student_id, :created_at
 
-  belongs_to :student
-  belongs_to :user
-  has_many :orders_medicines
+  attribute :medicines do |object|
+    object.order_medicines.map do |medicine|
+      {
+        id: medicine.medicine_id,
+        medicine_name: medicine.medicine.commercial_name,
+        quantity: medicine.quantity,
+      }
+    end
+  end
 end
