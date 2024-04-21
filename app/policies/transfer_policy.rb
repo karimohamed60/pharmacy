@@ -7,11 +7,11 @@ class TransferPolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin? || user.inventory_agent? 
+    user.admin? || user.inventory_agent? || user.pharmacy_agent?
   end
 
   def show?
-    user.admin? || user.inventory_agent?
+    user.admin? || user.inventory_agent? || user.pharmacy_agent?
   end
 
   def create?
@@ -19,7 +19,7 @@ class TransferPolicy < ApplicationPolicy
   end
 
   def update? 
-    user.admin? || user.inventory_agent?
+    user.admin? || user.inventory_agent? || user.pharmacy_agent?
   end
 
   def destroy?
