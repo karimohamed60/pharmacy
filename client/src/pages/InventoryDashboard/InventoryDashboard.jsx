@@ -140,7 +140,6 @@ const InventoryDashboard = () => {
       <Isidebar />
       <Outlet />
 
-      <Medicinelist />
 
       <div className="twocards" id="bigcard">
         <div className="row">
@@ -155,8 +154,8 @@ const InventoryDashboard = () => {
                 <br></br>
                 {/*         <b className='textcrd'>Total no of Medicines</b>
 /*  */}{" "}
-                <b className="card-text cardtext2">24</b>
-                */ <br></br>
+{/*                 <b className="card-text cardtext2">24</b>
+ */}                */ <br></br>
                 {/*         <b className='textcrd2'>Categories</b>
                  */}
               </div>
