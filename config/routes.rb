@@ -55,6 +55,12 @@ Rails.application.routes.draw do
 
         get 'generate_pdf', on: :member
       end
+
+      resources :salaf_requests, only: [:index, :show, :create, :update] do
+        collection do
+          get 'search'
+        end
+      end
     end
   end
 end
