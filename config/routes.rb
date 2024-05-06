@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { sessions: 'admin/sessions' }, skip: [:registrations]
+
+  devise_scope :user do
+    delete 'users/sign_out', to: 'admin/sessions#destroy', as: :destroy_admin_session
+  end
+
   devise_for :users, skip: [:registrations, :sessions]
+
+  ActiveAdmin.routes(self)
 
   namespace :api do
     namespace :v1 do

@@ -5,7 +5,15 @@ class Invoice < ApplicationRecord
     belongs_to :user, class_name: "User"
     belongs_to :supplier, class_name: "Supplier"
     has_many :invoices_medicines, class_name: "InvoicesMedicine", dependent: :destroy
+    accepts_nested_attributes_for :invoices_medicines
 
+    def self.ransackable_attributes(auth_object = nil)
+        ["comments", "created_at", "id", "order_number", "total_amount", "updated_at", "user_id", "supplier_id"]
+    end
+
+    def self.ransackable_associations(auth_object = nil)
+        ["invoices_medicines", "supplier", "user"]
+    end
 
     def self.create_invoice(invoice_params)
         invoice = Invoice.new(invoice_params.except(:invoice_medicines))

@@ -19,6 +19,13 @@ gem 'devise-jwt'
 
 gem 'jsonapi-serializer'
 
+gem 'kaminari'
+# Used for admin panel
+gem 'activeadmin'
+
+gem "sprockets-rails"
+
+gem "sassc-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

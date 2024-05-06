@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_21_235256) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_28_190552) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "category_name", limit: 20, null: false
   end
@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_21_235256) do
     t.string "minor_unit", limit: 20, null: false
     t.string "medium_unit", limit: 20, null: false
     t.string "major_unit", limit: 20, null: false
-    t.decimal "price_per_unit", precision: 4, scale: 2, null: false
+    t.decimal "price_per_unit", precision: 6, scale: 2, null: false
     t.integer "quantity_in_inventory", default: 0, null: false
     t.integer "quantity_in_pharmacy", default: 0, null: false
     t.integer "quantity_sold", default: 0
@@ -102,7 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_21_235256) do
     t.string "medicine_name", limit: 100, null: false
     t.string "dosage", limit: 200, null: false
     t.integer "got_medicine", default: 3
-    t.integer "quantity", default: 0
+    t.integer "quantity", default: 0  
     t.index ["prescription_id"], name: "index_prescriptions_medicines_on_prescription_id"
   end
 
