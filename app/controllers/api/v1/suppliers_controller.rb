@@ -22,7 +22,7 @@ class Api::V1::SuppliersController < ApiControllerBase
             else
                 search_query = "%#{params[:q]}%"
                 @suppliers = Supplier.where("supplier_name LIKE ?", search_query)
-                render_success(serialized_suppliers(@suppliers), :ok)
+                render_success(serialized_suppliers(@suppliers), :ok, total_suppliers: @suppliers.count)
             end
         else
             render_error('Parameter "q" is required.', :bad_request)
