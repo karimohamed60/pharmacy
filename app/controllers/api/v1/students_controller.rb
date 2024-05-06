@@ -27,7 +27,7 @@ class Api::V1::StudentsController < ApiControllerBase
             else
                 search_query = "%#{params[:q]}%"
                 @students = Student.where("student_national_id LIKE ?", search_query)
-                render_success(serialized_students(@students), :ok)
+                render_success(serialized_students(@students), :ok, total_students: @students.count)
             end
         else
             render_error('Parameter "q" is required.', :bad_request)
