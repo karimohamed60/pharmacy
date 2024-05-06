@@ -43,7 +43,7 @@ class Api::V1::InvoicesController < ApiControllerBase
             else
                 search_query = "%#{params[:q]}%"
                 @invoices = Invoice.where("id LIKE ? OR order_number LIKE ?", search_query, search_query)
-                render_success(serialized_invoices(@invoices), :ok)
+                render_success(serialized_invoices(@invoices), :ok, total_invoices: @invoices.count)
             end
         else
             render_error('Parameter "q" is required.', :bad_request)
