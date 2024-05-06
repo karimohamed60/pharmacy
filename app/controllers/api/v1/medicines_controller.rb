@@ -28,7 +28,7 @@ class Api::V1::MedicinesController < ApiControllerBase
             else
                 search_query = "%#{params[:q]}%"
                 @medicines = Medicine.where("ingredient_name LIKE ? OR commercial_name LIKE ?", search_query, search_query)
-                render_success(serialized_medicines(@medicines), :ok)
+                render_success(serialized_medicines(@medicines), :ok, total_medicines: @medicines.count)
             end
         else
             render_error('Parameter "q" is required.', :bad_request)
