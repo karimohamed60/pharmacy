@@ -4,6 +4,8 @@ class PrescriptionsMedicine < ApplicationRecord
 
     belongs_to :prescription, class_name: "Prescription"
 
+    enum got_medicine: { no: 0, yes: 1, partial: 2 }
+
     def self.update_prescription_medicines(prescriptions_params, prescription)
         return unless prescriptions_params.present?
 
