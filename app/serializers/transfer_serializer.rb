@@ -3,15 +3,7 @@ class TransferSerializer
 
   attributes :id, :status, :created_at, :updated_at
 
-  attribute :status do |object|
-    if object.status == 0
-      "pending"
-    elsif object.status == 1
-      "accepted"
-    else
-      "rejected"
-    end 
-  end
+  attribute :status
 
   attribute :user do |object|
     {
