@@ -136,30 +136,44 @@ const Suppliers = () => {
       const errorMessage = await response.text();
       alert('No token found');
     }
-  }
-// to show all suppliers
+  };
+
+
+  
   useEffect(() => {
-    async function loadSuppliers() {
-      const token = getAuthTokenCookie()
-      if (token) {
-        const response = await fetch(`${API_URL}/suppliers`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          }
-        });
-        if (response.ok) {
-          const responseData = await response.json();
-          setSuppliers(responseData.data);
-        } else {
-          throw response;
-        }
-      } else {
-        setError("An error occurred");
-      }
+    if (isModalOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
     }
-    loadSuppliers();
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [isModalOpen]);
+
+  function prePage() {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+
+  function changeCurrentPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+  useEffect(() => {
+    // Remove scroll bar
+    document.body.style.overflow = "hidden";
+
+    // Cleanup on component unmount
+    return () => {
+      document.body.style.overflow = "visible";
+    };
   }, []);
 //to show the details of a specific supplier
   const handleSpecificSupplier = async (supplierId) => {

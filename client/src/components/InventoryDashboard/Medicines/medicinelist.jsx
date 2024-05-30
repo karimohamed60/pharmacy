@@ -2,121 +2,110 @@ import "./medicinelist.css";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
-import Cookies from "js-cookie";
-import { API_URL } from "../../../constants";
-import { getAuthTokenCookie } from "../../../services/authService";
+import { getAuthTokenCookie } from '../../../../services/authService';
+import { API_URL } from "../../../../constants";
+import ReactPaginate from "react-paginate";
 
 const Medicinelist = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const{id} =useParams();
+  const { id } = useParams();
   const [medicines, setMedicines] = useState([]);
   const recordsPerPage = 10;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
+  const [totalPages, setTotalPages] = useState(0);
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    loadMedicines();
+  }, [currentPage, search]);
+
+  const loadMedicines = async () => {
+    try {
+      const authToken = getAuthTokenCookie();
+      if (!authToken) {
+        console.error("Token not found");
+        return;
+      }
+      console.log(authToken)
+
+      setToken(authToken);
+
+      let url = `${API_URL}/medicines?per_page=${recordsPerPage}&page=${currentPage}`;
+
+      if (search.trim() !== "") {
+        // If search term is present, use search API endpoint
+        url = `${API_URL}/medicines/search?q=${search}&per_page=${recordsPerPage}&page=${currentPage}`;
+      }
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:`Bearer ${authToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      const totalMedicines = data.total_medicines;
+      setTotalPages(Math.ceil(totalMedicines / recordsPerPage));
+      setMedicines(data.data);
+    } catch (error) {
+      console.error("Error occurred: ", error.message);
+    }
+  };
+
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected + 1);
+  };
+
+  const handleSpecificMedicine = async (medicineId) => {
+    try {
+      const authToken = getAuthTokenCookie();
+      const response = await fetch(`${API_URL}/medicines/${medicineId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        window.medicineID = responseData.data.id;
+        window.medicine_name = responseData.data.medicine_name;
+        window.ingredient_namefordetails =
+          responseData.data.attributes.ingredient_name;
+        setMedicines(responseData.data);
+      } else {
+        throw new Error("Failed to fetch category details");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const filteredData = medicines.filter(
     (item) =>
       search.toLowerCase() === "" ||
-      item.attributes.ingredient_name.toLowerCase().includes(search.toLowerCase())||
-      item.attributes.commercial_name.toLowerCase().includes(search.toLowerCase())
+      item.attributes.ingredient_name
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      item.attributes.commercial_name
+        .toLowerCase()
+        .includes(search.toLowerCase())
   );
-  const npage = Math.ceil(medicines.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
-  }, [isModalOpen]);
-
-  function prePage() {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  }
-
-  function changeCurrentPage(id) {
-    setCurrentPage(id);
-  }
-
-  function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
-  useEffect(() => {
-    // Remove scroll bar
-    document.body.style.overflow = 'hidden';
-
-    // Cleanup on component unmount
-    return () => {
-      document.body.style.overflow = 'visible';
-    };
-  }, []);
- 
-      useEffect(() => {
-        async function loadMedicines() {
-          const token = getAuthTokenCookie()
-          if (token) {
-            
-            const per_page= 100;
-            const response = await fetch(`${API_URL}/medicines?per_page=${per_page}&page${currentPage}`, { 
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-              }
-            });
-            if (response.ok) {
-              const responseData = await response.json();
-              setMedicines(responseData.data);
-            } else {
-              throw response;
-            }
-          } else {
-            setError("An error occured");
-            console.log("An error", e);
-          }
-        }
-        loadMedicines();
-      }, [currentPage]);
+  const renderedMedicines = filteredData.slice(
+    (currentPage - 1) * recordsPerPage,
+    currentPage * recordsPerPage
+  );
 
 
-      //fetch a specific medicine 
-      const handleSpecificMedicine = async (medicineId) => {
-        try {
-          const token = Cookies.get('token');
-          const response = await fetch(`${API_URL}/medicines/${medicineId}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
-            }
-          });
-    
-          if (response.ok) {
-            const responseData = await response.json();
-            window.medicineID=responseData.data.id;
-            window.medicine_name=responseData.data.medicine_name
-            window.ingredient_namefordetails=responseData.data.attributes.ingredient_name;
-            setMedicines(responseData.data);
-            
-          } else {
-            throw new Error('Failed to fetch category details');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
-    
-     
+  const renderMedicines = search.trim() !== "" ? renderedMedicines : filteredData;
 
   return (
     <>
@@ -139,9 +128,6 @@ const Medicinelist = () => {
       <label className="medlistlabel">
         <b>Medicine List</b>
       </label>
-      {/* <p className='listofmedlabel'> <b>List of medicines available </b></p>
-       */}
-
       <div className="input-group rounded seachinput ">
         <input
           type="search"
@@ -150,8 +136,10 @@ const Medicinelist = () => {
           placeholder="Search by Ingrediant or Commercial name"
           aria-label="Search"
           aria-describedby="search-addon"
-          onChange={(e) => setSearch(e.target.value)}
-
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1); // Reset to the first page on search
+          }}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -164,19 +152,31 @@ const Medicinelist = () => {
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
       </div>
-      <Table triped  hover id="ml-table" className="">
+      <Table triped hover id="ml-table" className="">
         <thead>
           <tr>
-            <th><p>Ingrediant Name</p></th>
-            <th ><p>Commercial Name</p></th>
-            <th>Pharmacy Quantity</th>
-            <th>Inventory Quantity</th>
-            <th>Sold Quantity</th>
-            <th><p>Details</p></th>
+            <th>
+              <p>Ingrediant Name</p>
+            </th>
+            <th>
+              <p>Commercial Name</p>
+            </th>
+            <th>
+              <p>Pharmacy Quantity</p>
+            </th>
+            <th>
+              <p>Inventory Quantity</p>
+            </th>
+            <th>
+              <p>Sold Quantity</p>
+            </th>
+            <th>
+              <p>Details</p>
+            </th>
           </tr>
         </thead>
         <tbody className="ml-tbody">
-          {filteredData.slice(firstIndex, lastIndex).map((item, index) => (
+          {renderMedicines.map((item, index) => (
             <tr key={index} className="medicine-container">
               <td>{item.attributes.ingredient_name}</td>
               <td>{item.attributes.commercial_name}</td>
@@ -190,7 +190,7 @@ const Medicinelist = () => {
                     width="20"
                     height="20"
                     fill="#032B55"
-                    class="bi bi-eye-fill"
+                    className="bi bi-eye-fill"
                     viewBox="0 0 16 16"
                     onClick={() => handleSpecificMedicine(item.id)}
                   >
@@ -202,38 +202,29 @@ const Medicinelist = () => {
             </tr>
           ))}
         </tbody>
-        
       </Table>
-      <nav>
-        <ul className="pagination">
-          <li className="page-item">
-            <a href="#!" className="page-link" onClick={prePage}>
-              Prev
-            </a>
-          </li>
-          {numbers.map((n, i) => (
-            <li
-              className={`page-item ${currentPage === n ? "active" : ""}`}
-              key={i}
-              
-            >
-              <a
-                href="#!"
-                className="page-link"
-                onClick={() => changeCurrentPage(n)}
-              >
-                {n}
-              </a>
-            </li>
-          ))}
-          <li className="page-item">
-            <a href="#!" className="page-link" onClick={nextPage}>
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
-
+      {totalPages > 0 && (
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={totalPages}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+          className=""
+        />
+      )}
       <div>
         <Link to={"/inventory-dashboard/addmedicine"}>
           <button
@@ -245,8 +236,8 @@ const Medicinelist = () => {
           </button>
         </Link>
       </div>
-      
     </>
   );
 };
+
 export default Medicinelist;

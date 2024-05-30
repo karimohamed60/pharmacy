@@ -1,0 +1,190 @@
+.Medicinedetails-Title {
+  position: relative;
+  color: #787272;
+  top: -37.7rem;
+  left: -25rem;
+  transform: translate(-50%, -50%);
+  width: 10%;
+  text-align: center;
+  font-size: x-large;
+  font-style: Bold;
+}
+
+.Arrowicon {
+  margin-left: 3rem;
+  margin-right: 3rem;
+  position: relative;
+  left: -22.5rem;
+  margin-bottom: 42.5rem;
+  top: 5.5rem;
+}
+
+.MedicineDetails-Title {
+  position: relative;
+  top: -41.1rem;
+  left: -14rem;
+  font-size: x-large;
+  color: #032b55;
+  margin-bottom: 0.75rem;
+}
+
+.backButton {
+  position: relative;
+  top: -1.5rem;
+  left: 35rem;
+  height: 48px;
+  background-color: #d5e3f0;
+}
+
+#back {
+  padding: 1rem;
+  position: relative;
+  
+}
+.backbtn-pharmacy
+{
+  position: relative;
+  top: -15px;
+  left: 3rem;
+  margin-right: 5px;
+  padding-right: 1.9px;
+  padding-top: 7px;
+}
+
+.md-form-container {
+  width: 120%;
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  position: relative;
+  top: -40rem;
+  left: 4.8rem;
+  height: 46rem;
+  width: 75rem;
+  margin-top: -2rem;
+}
+.form-control
+{
+    height: 50px;
+    width: 1px;
+    background-color: #f0f7fe;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    
+}
+#ingInput{
+  position: relative;
+  width: 61%;
+}
+#categoryInput
+{
+  position: relative;
+  width: 180%;
+  left: -210px; 
+  top: 15px;
+}
+
+.detlabels {
+  position: relative;
+  padding: 5px 10px 5px 10px;
+}
+
+.md-ingrediantName {
+  position: relative;
+  margin-left: -26rem;
+}
+.md-price {
+  position: relative;
+  margin-left: -48rem;;
+}
+.md-commercial {
+  position: relative;
+  margin-left: -30rem;
+}
+
+.md-expire {
+  position: relative;
+  margin-left: -41rem;
+}
+.md-international {
+  position: relative;
+  margin-left: -24rem;
+  margin-top: 1rem;
+}
+.price-inputcategory
+{
+    margin-left: 5rem;
+
+}
+
+.md-category{
+  margin-left: -22rem; 
+}
+
+.munit {
+  position: relative;
+  margin-left: -29.5rem;
+  margin-top: 7px;
+}
+.md-createdby
+{
+    position: relative;
+    margin-left: -46rem;
+}
+
+.md-created-at
+{
+    position: relative;
+    margin-left: -45.5rem;
+}
+.md-medium {
+  position: relative;
+  margin-left: -65rem;
+}
+.catedet {
+  position: relative;
+  margin-left: -715px;
+}
+
+
+
+#exdetinp {
+  position: relative;
+  width: 54%;
+  left: 65px;
+}
+#boxx {
+  background-color: #ffffff;
+  width: 300px;
+  border: rgb(201, 191, 191) solid;
+  padding: 35px;
+  margin: 20px;
+  width: 230px;
+  position: relative;
+  left: 840px;
+  top: -170px;
+  margin-bottom: -170px;
+}
+#commdet {
+  position: relative;
+  width: 54%;
+}
+.einput {
+  position: relative;
+  width: 60%;
+}
+.medicineDetailsInputs{
+  position: relative;
+  top: -3rem;
+}
+.MunitsInputs{
+  position: relative;
+  top: -5rem;
+}
+#mediuminput {
+  position: relative;
+  width: 29%;
+}

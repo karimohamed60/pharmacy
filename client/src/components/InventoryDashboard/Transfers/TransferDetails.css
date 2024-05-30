@@ -1,25 +1,66 @@
-.TransferDetails-label{
+.ptransferd-title {
     position: relative;
-    top: -655px;
-    left: -250px;
+    color: #787272;
+    top: -37.5rem;
+    left: -26.5rem;
+    transform: translate(-50%, -50%);
+    width: 10%;
+    text-align: center;
     font-size: x-large;
-    color:#032B55 ;
-}
+    font-style: Bold;
+    
+  }
 
-.butnn{
-    position: relative;
-    top: -660px;
-    left: 560px;
-}
-#back-btn
+.Arrowicon
 {
-   padding: 10px 10px 10px 10px;
-}
-.updatelabel{
-    padding-left: 9px;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    position: relative;
+    left: -22.5rem;
+    margin-bottom: 42.5rem;
+    top: 5.5rem;
 }
 
-.td-container {
+.ptransferdLabel {
+    position: relative;
+    top: -41rem;
+    left: -13.2rem;
+    font-size: x-large;
+    color: #032b55;
+    margin-bottom: .75rem;
+  }
+  .backButton {
+    position: relative;
+    top: -41.5rem;
+    left: 35rem;
+    height: 48px;
+  }
+  
+  #back {
+    padding: 1rem;
+  }
+  .savebtn{
+    position: relative;
+    top: 1rem;
+    left: 24rem;
+    padding: 1rem;
+    width: 17%;
+    height: 48px;
+
+}
+#oooo
+{
+    position: relative;
+    background-color: #d5e3f0;
+    
+}
+.pupdatelabel{
+    
+    padding: 1rem;
+    position: relative;
+}
+
+.ptd-container {
     width: 80%;
     margin: auto;
     padding: 20px;
@@ -28,8 +69,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
     position: relative;
-    top: -600px;
-    left: 70px;
+    top: -40rem;
+    left: 3rem;
     min-height: 600px;
     max-height: 700px;
     width: 1150px;
