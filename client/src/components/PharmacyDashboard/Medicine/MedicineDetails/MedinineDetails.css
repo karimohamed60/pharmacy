@@ -2,7 +2,7 @@
   position: relative;
   color: #787272;
   top: -37.7rem;
-  left: -26.5rem;
+  left: -25rem;
   transform: translate(-50%, -50%);
   width: 10%;
   text-align: center;
@@ -22,7 +22,7 @@
 .MedicineDetails-Title {
   position: relative;
   top: -41.1rem;
-  left: -12rem;
+  left: -14rem;
   font-size: x-large;
   color: #032b55;
   margin-bottom: 0.75rem;
@@ -30,13 +30,23 @@
 
 .backButton {
   position: relative;
-  top: -41.5rem;
+  top: -1.5rem;
   left: 35rem;
   height: 48px;
+  background-color: #d5e3f0;
 }
 
 #back {
   padding: 1rem;
+  position: relative;
+}
+.backbtn-pharmacy {
+  position: relative;
+  top: -15px;
+  left: 3rem;
+  margin-right: 5px;
+  padding-right: 1.9px;
+  padding-top: 7px;
 }
 
 .md-form-container {
@@ -48,20 +58,28 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   position: relative;
-  top: -36.5rem;
-  left: 3rem;
-  height: 40rem;
+  top: -40rem;
+  left: 4.8rem;
+  height: 44rem;
   width: 75rem;
   margin-top: -2rem;
 }
-.form-control
-{
-    height: 50px;
-    width: 1px;
-    background-color: #f0f7fe;
-    border-radius: 7px;
-    margin-bottom: 10px;
-    
+.form-control {
+  height: 50px;
+  width: 1px;
+  background-color: #f0f7fe;
+  border-radius: 7px;
+  margin-bottom: 10px;
+}
+#ingInput {
+  position: relative;
+  width: 61%;
+}
+#categoryInput {
+  position: relative;
+  width: 180%;
+  left: -210px;
+  top: 15px;
 }
 
 .detlabels {
@@ -75,7 +93,7 @@
 }
 .md-price {
   position: relative;
-  margin-left: -48rem;;
+  margin-left: -48rem;
 }
 .md-commercial {
   position: relative;
@@ -89,16 +107,15 @@
 .md-international {
   position: relative;
   margin-left: -24rem;
-  margin-top: 1rem;
+  margin-top: 3rem;
 }
-.price-inputcategory
-{
-    margin-left: 5rem;
-
+.price-inputcategory {
+  margin-left: 5rem;
 }
 
-.md-category{
-  margin-left: -22rem; 
+.md-category {
+  margin-left: -22rem;
+  margin-top: 2rem;
 }
 
 .munit {
@@ -106,16 +123,14 @@
   margin-left: -29.5rem;
   margin-top: 7px;
 }
-.md-createdby
-{
-    position: relative;
-    margin-left: -46rem;
+.md-createdby {
+  position: relative;
+  margin-left: -46rem;
 }
 
-.md-created-at
-{
-    position: relative;
-    margin-left: -45.5rem;
+.md-created-at {
+  position: relative;
+  margin-left: -45.5rem;
 }
 .md-medium {
   position: relative;
@@ -125,8 +140,6 @@
   position: relative;
   margin-left: -715px;
 }
-
-
 
 #exdetinp {
   position: relative;
@@ -153,7 +166,48 @@
   position: relative;
   width: 60%;
 }
+.medicineDetailsInputs {
+  position: relative;
+  top: -3rem;
+}
+.MunitsInputs {
+  position: relative;
+  top: -5rem;
+}
 #mediuminput {
   position: relative;
   width: 29%;
+}
+#boxx1p {
+  background-color: #ffffff;
+  border: rgb(201, 191, 191) solid;
+  padding: 35px;
+  margin: 20px;
+  width: 230px;
+  position: relative;
+  left: 840px;
+  top: -195px;
+  margin-bottom: -170px;
+}
+#boxx2p {
+  background-color: #ffffff;
+  border: rgb(201, 191, 191) solid;
+  padding: 35px;
+  margin: 20px;
+  width: 230px;
+  position: relative;
+  left: 840px;
+  top: -232.5px;
+  margin-bottom: -170px;
+}
+#boxx3p {
+  background-color: #ffffff;
+  border: rgb(201, 191, 191) solid;
+  padding: 35px;
+  margin: 20px;
+  width: 230px;
+  position: relative;
+  left: 840px;
+  top: -220px;
+  margin-bottom: -170px;
 }

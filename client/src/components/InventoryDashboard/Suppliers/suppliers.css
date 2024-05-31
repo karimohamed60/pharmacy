@@ -16,8 +16,8 @@
 }
 #addmedbtnsupp {
   position: relative;
-  top: -675px;
-  left: 600px;
+  top: -3.8rem;
+  left: 38rem;
   margin-left: 10px;
   background-color: #d2e0ed;
   color: #19355a;
@@ -142,12 +142,16 @@ textarea[name="suppdescin2"] {
   margin-bottom: -55px;
   background-color: transparent;
 }
+#sstl {
+  margin-left: 10rem;
+}
 
 #sl-table {
   position: relative;
   top: -650px;
-  left: 100px;
+  left: 4rem;
   overflow-x: scroll;
+  width: 103%;
 }
 .sl-tbody {
   height: 50px;
@@ -161,15 +165,10 @@ input[name="suppliernameinputt"] {
   top: -100px;
   background-color: #d5e3f0;
 }
-.paginationandaddmedicineBtn {
-  position: relative;
-  top: -30px;
-}
-.pdsl{
-  margin-left: 9rem;
-}
+
 .pagination {
-  margin-top: 10px;
+  margin-top: -5.5rem;
+  margin-left: -39rem;
 }
 
 .pagination button {
@@ -183,4 +182,59 @@ input[name="suppliernameinputt"] {
 .pagination button.active {
   background-color: #007bff;
   color: #fff;
+}
+
+/* For small devices (e.g., phones) */
+@media (max-width: 576px) {
+  /* Adjustments for small devices */
+  #addmedbtnsupp {
+    left: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .listofsupplabel {
+    left: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* For medium devices (e.g., tablets) */
+@media (min-width: 577px) and (max-width: 768px) {
+  /* Adjustments for medium devices */
+  #addmedbtnsupp {
+    left: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .listofsupplabel {
+    left: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* For large devices and desktops */
+@media (min-width: 769px) {
+  /* Adjustments for large devices */
+  #addmedbtnsupp {
+    /* Your original styles */
+    position: relative;
+    top: -3.8rem;
+    left: 38rem;
+    margin-left: 10px;
+    background-color: #d2e0ed;
+    color: #19355a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .listofsupplabel {
+    /* Your original styles */
+    position: relative;
+    top: -650px;
+    left: -400px;
+    color: #032b55;
+    font-style: initial;
+  }
 }

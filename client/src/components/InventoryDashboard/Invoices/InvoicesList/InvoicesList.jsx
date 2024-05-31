@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { API_URL } from "../../../../constants";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { format } from "date-fns";
+import ReactPaginate from "react-paginate";
+
 const InvoicesList = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,35 +15,18 @@ const InvoicesList = () => {
   const [endDate, setEndDate] = useState("");
   const [invoices, setInvoices] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
-  const [filterButtonClicked, setFilterButtonClicked] = useState(false);
-
+  const [filterButtonClicked, setFilterButtonClicked] = useState(true);
+  const [isFilterActive, setIsFilterActive] = useState(false);
   const recordsPerPage = 10;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
 
-  const filteredData = invoices.filter(
-    (item) =>
-      search.toLowerCase() === "" ||
-      item.attributes.order_number
-        .toLowerCase()
-        .includes(search.toLowerCase()) ||
-      item.id.toLowerCase().includes(search.toLowerCase())
-  );
-  const records = invoices.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(invoices.length / recordsPerPage);
-  const numbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-
-  function handleFilterButtonClick() {
-    setFilterButtonClicked(true);
-  }
-
-  function handleClearButtonClick() {
-    setStartDate("");
-    setEndDate("");
-    setFilterButtonClicked(false);
-  }
+  const [token, setToken] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const renderedInvoices = invoices.slice(
+    (currentPage - 1) * recordsPerPage,
+    currentPage * recordsPerPage
+  );
+    const renderInvoices = search.trim() !== "" ? renderedInvoices : invoices;
 
   useEffect(() => {
     // Remove scroll bar
@@ -52,62 +37,105 @@ const InvoicesList = () => {
       document.body.style.overflow = "visible";
     };
   }, []);
-  function prePage() {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  }
+  const formatDate = (dateString) => {
+    const [day, month, year] = dateString.split("-");
+    return `${year}-${month}-${day}`;
+  };
 
-  function changeCurrentPage(id) {
-    setCurrentPage(id);
-  }
-
-  function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
-
-  //Api for showing invoices
   useEffect(() => {
-    async function loadInvoices() {
-      const token = getAuthTokenCookie();
-      if (token) {
-        const response = await fetch(
-          `${API_URL}/invoices?per_page=${recordsPerPage}&page=${currentPage}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          const responseData = await response.json();
-          setInvoices(responseData.data);
-          const totalInvoices = responseData.total_invoices;
-          const totalPages = Math.ceil(totalInvoices / recordsPerPage);
-          setTotalPages(totalPages);
-        } else {
-          throw response;
-        }
-      } else {
-        setError("An error occurred");
-      }
-    }
     loadInvoices();
-  }, [currentPage, recordsPerPage]);
+  }, [currentPage, search, isFilterActive, startDate, endDate]); // Load invoices whenever the currentPage, search term, or filter status changes
 
-  //Api for navigating to a specific invoice by clicking on details icon
+  const loadInvoices = async () => {
+    try {
+      const authToken = getAuthTokenCookie();
+      if (!authToken) {
+        console.error("Token not found");
+        return;
+      }
+
+      setToken(authToken);
+
+      let url = `${API_URL}/invoices?per_page=${recordsPerPage}&page=${currentPage}`;
+
+      if (search.trim() !== "") {
+        // If search term is present, use search API endpoint
+        url = `${API_URL}/invoices/search?q=${search}&per_page=${recordsPerPage}&page=${currentPage}`;
+      }
+
+      if (isFilterActive && startDate && endDate) {
+        // If filter is active and both startDate and endDate are provided, apply date filtering
+        const formattedStartDate = formatDate(startDate);
+        const formattedEndDate = formatDate(endDate);
+        url = `${API_URL}/invoices/filter?start_date=${formattedStartDate}&end_date=${formattedEndDate}`;
+      }
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      const totalInvoices = data["total_invoices"];
+
+      // Calculate total pages based on the total number of invoices
+      const calculatedTotalPages = Math.ceil(totalInvoices / recordsPerPage);
+
+      // Set total pages, considering the possibility of fewer recordsPerPage when there is a search term
+      setTotalPages(calculatedTotalPages > 0 ? calculatedTotalPages : 1);
+
+      setInvoices(data.data);
+    } catch (error) {
+      console.error("Error occurred: ", error.message);
+    }
+  };
+
+  /*   const fetchInvoices = async (page, token) => {
+    try {
+      const response = await fetch(
+        `${API_URL}/invoices?per_page=${recordsPerPage}&page=${page}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch invoices");
+      }
+
+      const fetchedInvoices = await response.json();
+      return fetchedInvoices.data;
+    } catch (error) {
+      console.error("Error fetching ivoices: ", error.message);
+      return [];
+    }
+  };
+ */
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected + 1); // Update currentPage when pagination is clicked
+  };
+
+  // Api for navigating to a specific invoice by clicking on details icon
+
   const handleSpecificInvoice = async (invoice_id) => {
     try {
-      const token = getAuthTokenCookie();
+      const authToken = getAuthTokenCookie();
       const response = await fetch(`${API_URL}/invoices/${invoice_id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${authToken}`,
         },
       });
 
@@ -115,11 +143,21 @@ const InvoicesList = () => {
         const responseData = await response.json();
         setInvoices(responseData.data);
       } else {
-        throw new Error("Failed to fetch category details");
+        throw new Error("Failed to fetch invoice details");
       }
     } catch (error) {
       console.error("Error:", error);
     }
+  };
+
+  const handleFilterButtonClick = () => {
+    setIsFilterActive((prevState) => !prevState); // Toggle filter state
+  };
+
+  const handleClearButtonClick = () => {
+    setStartDate("");
+    setEndDate("");
+    setIsFilterActive(false); // Reset filter
   };
 
   return (
@@ -234,7 +272,7 @@ const InvoicesList = () => {
           </tr>
         </thead>
         <tbody className="il-tbody">
-          {filteredData.slice(firstIndex, lastIndex).map((item, index) => (
+          {renderInvoices.map((item, index) => (
             <tr key={index}>
               <td>{item.attributes.id}</td>
               <td>{item.attributes.order_number}</td>
@@ -250,7 +288,7 @@ const InvoicesList = () => {
                     width="20"
                     height="20"
                     fill="#032B55"
-                    class="bi bi-eye-fill"
+                    className="bi bi-eye-fill"
                     viewBox="0 0 16 16"
                     onClick={() => handleSpecificInvoice(item.id)}
                   >
@@ -263,34 +301,28 @@ const InvoicesList = () => {
           ))}
         </tbody>
       </Table>
-      <nav>
-        <ul className="pagination pgil">
-          <li className="page-item">
-            <a href="#!" className="page-link" onClick={prePage}>
-              Prev
-            </a>
-          </li>
-          {numbers.map((n, i) => (
-            <li
-              className={`page-item ${currentPage === n ? "active" : ""}`}
-              key={i}
-            >
-              <a
-                href="#!"
-                className="page-link"
-                onClick={() => changeCurrentPage(n)}
-              >
-                {n}
-              </a>
-            </li>
-          ))}
-          <li className="page-item">
-            <a href="#!" className="page-link" onClick={nextPage}>
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+      {totalPages > 0 && (
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={totalPages}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+          className=""
+        />
+      )}
       <Link to={"/inventory-dashboard/addInvoice"}>
         <button className="addinvoiceButton ">
           <b>Add Invoice</b>

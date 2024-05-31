@@ -1,7 +1,7 @@
 .transferLabel {
   position: relative;
   top: -655px;
-  left: -270px;
+  left: -237px;
   font-size: x-large;
   color: #032b55;
 }
@@ -88,9 +88,10 @@
 #td-table {
   position: relative;
   margin-top: -38px;
-  left: 100px;
+  left: 5rem;
   margin-bottom: 10px;
   overflow-x: scroll;
+  width: 101%;
 }
 .tl-tbody {
   height: 50px;
@@ -110,9 +111,8 @@
 
 .addTransferButton {
   position: relative;
-  top: -690px;
-  left: 614px;
-  margin-left: 10px;
+  top: -3.8rem;
+  left: 38rem;
   padding: 10px 35px 10px 35px;
   background-color: rgb(195, 212, 230);
   color: #19355a;
@@ -135,4 +135,21 @@ body.no-scroll {
 }
 .pgtl {
   margin-left: 9rem;
+}
+.pagination {
+  margin-top: -2rem;
+  margin-left: -42rem;
+}
+
+.pagination button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
 }

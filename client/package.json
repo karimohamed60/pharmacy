@@ -17,8 +17,9 @@
     "js-cookie": "^3.0.5",
     "math": "^0.0.3",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.10.0",
+    "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
+    "react-paginate": "^8.2.0",
     "react-router-dom": "^6.20.0",
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
@@ -32,6 +33,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
-    "vite": "^5.1.5"
+    "vite": "^5.2.12"
   }
 }

@@ -26,7 +26,7 @@
 }
 .ingdet {
   position: relative;
-  margin-left: -380px;
+  margin-left: -400px;
 }
 .prcdet {
   position: relative;
@@ -63,7 +63,7 @@ input[name="exdetinp"] {
   width: 54%;
   left: 65px;
 }
-#boxx {
+#boxx1 {
   background-color: #ffffff;
   border: rgb(201, 191, 191) solid;
   padding: 35px;
@@ -71,7 +71,7 @@ input[name="exdetinp"] {
   width: 230px;
   position: relative;
   left: 840px;
-  top: -200px;
+  top: -195px;
   margin-bottom: -170px;
 }
 #boxx2 {
@@ -82,7 +82,7 @@ input[name="exdetinp"] {
   width: 230px;
   position: relative;
   left: 840px;
-  top: -190px;
+  top: -215px;
   margin-bottom: -170px;
 }
 #boxx3 {
@@ -93,7 +93,7 @@ input[name="exdetinp"] {
   width: 230px;
   position: relative;
   left: 840px;
-  top: -200px;
+  top: -220px;
   margin-bottom: -170px;
 }
 .barcode_categoriesRows {
@@ -258,4 +258,25 @@ select[name="categoryMenu"] {
   position: relative;
   left: -90px;
   top: 20px;
+}
+/* Media Query for Tablet Screens */
+@media screen and (max-width: 768px) {
+  .form-container {
+    width: 90%; /* Adjust as needed */
+    left: 5%;
+    height: auto;
+  }
+
+  /* Adjust other styles as needed */
+}
+
+/* Media Query for Mobile Screens */
+@media screen and (max-width: 480px) {
+  .form-container {
+    width: 95%; /* Adjust as needed */
+    left: 2.5%;
+    height: auto;
+  }
+
+  /* Adjust other styles as needed */
 }

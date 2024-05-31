@@ -3,18 +3,20 @@ import { Link, useParams } from "react-router-dom";
 import { API_URL } from "../../../../constants";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
+import { format } from "date-fns";
 import "./OrderDetails.css";
 const OrderDetails = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [invoices, setInvoices] = useState([]);
   const [medicinesData, setMedicinesData] = useState([]);
-  const { id } = useParams();
+  const [orders, setOrders] = useState([]);
 
+  const { id, order_id } = useParams();
+
+  
   useEffect(() => {
     // Remove scroll bar
     document.body.style.overflow = "hidden";
-    handleSpecificInvoicebyId(id);
-    // fetchMedicine()
+    //handleSpecificOrder(id);
     // Cleanup on component unmount
     return () => {
       document.body.style.overflow = "visible";
@@ -25,7 +27,7 @@ const OrderDetails = () => {
     const intervalId = setInterval(() => {
       setCurrentDate(new Date());
     }, 1000);
-    fetchMedicines();
+    
     return () => clearInterval(intervalId);
   }, []);
 
@@ -41,90 +43,78 @@ const OrderDetails = () => {
     return date.toLocaleDateString("en-US", options);
   };
 
-  const handlePrint = () => {
-    const printableContent = document.querySelector(".id-container").innerHTML;
-    const newWindow = window.open("", "_blank");
-
-    if (newWindow) {
-      newWindow.document.write(`
-        <html>
-        <head>
-          <title>PHU</title>
-          <link rel="stylesheet" href="/src/components/InventoryDashboard/Invoices/InvoiceDetails.css" />
-        </head>
-        <body>
-          ${printableContent}
-        </body>
-      </html>
-        `);
-
-      newWindow.document.close();
-      newWindow.print();
-    }
-  };
-
-  //API for showing  a specific invoice details
-  const handleSpecificInvoicebyId = async (invoice_id) => {
+ //print
+   const handlePrint = async () => {
     try {
       const token = getAuthTokenCookie();
-      const response = await fetch(`${API_URL}/invoices/${invoice_id}`, {
+      const response = await fetch(`${API_URL}/orders/${order_id}/generate_pdf`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+          "Authorization": `Bearer ${token}`
+        }
       });
 
       if (response.ok) {
-        const responseData = await response.json();
-        console.log(responseData);
-        // console.log("Medicine details showed successfully")
-        setInvoices(responseData.data);
-        setMedicinesData(responseData.data.attributes.medicines);
-        const dataArray = responseData.data.attributes.medicines;
-        window.medicineData = dataArray;
-        console.log(dataArray);
-        window.order_number = responseData.data.attributes.order_number;
-        window.invoice_id = responseData.data.attributes.id;
-        window.created_at = responseData.data.attributes.created_at;
-        window.comments = responseData.data.attributes.comments;
-        window.supplier = responseData.data.attributes.supplier.supplier_name;
-        window.total_amount = responseData.data.attributes.total_amount;
-        // window.medicine_name=medicinesData.data.attributes.commercial_name
-        // window.price_per_unit = responseData.data.attributes.price_per_unit
-        // window.quantity_in_inventory = responseData.data.attributes.quantity_in_inventory;
-        // window.quantity_in_pharmacy = responseData.data.attributes.quantity_in_pharmacy;
-        // window.quantity_sold = responseData.data.attributes.quantity_sold;
+        // Handle the PDF file received from the backend
+        // For example, you can prompt the user to download the file
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'order_details.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
       } else {
-        throw new Error("Failed to fetch category details");
+        throw new Error('Failed to generate PDF');
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
+  
 
-  const fetchMedicines = async () => {
-    const token = getAuthTokenCookie();
-    const medicineIds = invoices.attributes.medicines.map(
-      (medicine) => medicine.medicine_id
-    );
-    const medicineDataArray = [];
-    for (const id of medicineIds) {
-      const medicineResponse = await fetch(`${API_URL}/medicines/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(id);
-      if (medicineResponse.ok) {
-        const medicineData = await medicineResponse.json();
-        const medicine_name = medicineData.data.attributes.commercial_name;
-        // Update medicinesData with commercial names
-      }
+  useEffect(() => {
+  
+    if (order_id) {
+      handleSpecificOrder();
     }
-  };
+  }, [order_id]);
+    // navigate to a specific order
+    const handleSpecificOrder= async () => {
+      try {
+        const token = getAuthTokenCookie();
+        const response = await fetch(`${API_URL}/orders/${order_id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        });
+    
+        if (response.ok) {
+          const responseData = await response.json();    
+          setOrders(responseData.data);
+          setMedicinesData(responseData.data.attributes.medicines);
+          window.created_at = responseData.data.attributes.created_at;
+          window.formattedCreatedAt = format(new Date(window.created_at), 'yyyy-MM-dd');
+          window.national_id=responseData.data.attributes.student.student_national_id
+          window.student_name=responseData.data.attributes.student.student_name
+          window.created_by=responseData.data.attributes.user.user_name
+          console.log(responseData)
+          window.order_num=responseData.data.attributes.id;
+
+        } else {
+          throw new Error('Failed');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+
 
   return (
     <>
@@ -162,7 +152,7 @@ const OrderDetails = () => {
           <b className="ordernum-label">Order</b>
         </label>
         <label>
-          <p className="ordernumcode-label">#</p>
+          <p className="ordernumcode-label">#{window.order_num}</p>
         </label>
       </div>
       <div className="col-12-lg backbtn ">
@@ -186,7 +176,7 @@ const OrderDetails = () => {
         <div className="id-row">
           <div className="id-ordernum-label">
             Order Number:
-            <span> </span>{" "}
+            <span>{window.order_num} </span>{" "}
           </div>
 
           <div>
@@ -199,6 +189,7 @@ const OrderDetails = () => {
                 fill="currentColor"
                 className="bi bi-printer"
                 viewBox="0 0 16 16"
+                onClick={handlePrint}
               >
                 <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
                 <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1" />
@@ -208,15 +199,15 @@ const OrderDetails = () => {
         </div>
         <div className="id-row">
           <div className="id-date-label">
-            Date: <span> </span>
+            Date: <span> {window.formattedCreatedAt}</span>
           </div>
           <div className="id-createdby-label">
-            Created by: <span></span>{" "}
+            Created by: <span> {window.created_by}</span>{" "}
           </div>
         </div>
         <div className="id-row">
-          <div className="id-national-label">National ID: <span></span></div>
-          <div className="id-studentname-label">Student Name: <span></span> </div>
+          <div className="id-national-label">National ID: <span>{window.national_id} </span></div>
+          <div className="id-studentname-label">Student Name: <span>{window.student_name}</span> </div>
         </div>
 
 

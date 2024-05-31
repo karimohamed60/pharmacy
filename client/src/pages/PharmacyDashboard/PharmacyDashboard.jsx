@@ -4,9 +4,8 @@ import Sidebar from "../../components/PharmacyDashboard/Sidebar/Sidebar";
 import LogoutButton from "../../auth/LogoutButton";
 import MedicineList from "../../components/PharmacyDashboard/Medicine/MedicineList/MedicineList";
 
-
 const PharmacyDashboard = () => {
- useEffect(() => {
+  useEffect(() => {
     // Remove scroll bar
     document.body.style.overflow = "hidden";
 
@@ -19,12 +18,11 @@ const PharmacyDashboard = () => {
   return (
     <>
       <Outlet />
-{/* Sidebar */}
+      {/* Sidebar */}
 
-<Sidebar/>
+      <Sidebar />
 
-<MedicineList/>
-
+      <MedicineList />
     </>
   );
 };

@@ -1,12 +1,10 @@
- :root {
+:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,6 +16,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -29,6 +28,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow: hidden;
+  flex-direction: column;
 }
 
 h1 {
@@ -47,9 +47,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -60,54 +62,46 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
-  
+
   .card {
-    padding: 2px;
+    padding: 1em;
     background: rgba(var(--card-rgb), 0);
     border: 1px solid rgba(var(--card-border-rgb), 0);
-    margin-right: 950px;
-    width: 550px;
+    margin: 1em;
+    width: calc(100% - 2em); /* Ensures the card adapts to screen size */
+    max-width: 550px;
     border-radius: 20px;
+    box-sizing: border-box;
   }
-  
-  #login{
+
+  #login {
     color: #19355a;
   }
-  #placeholder
-  {
-    color: "#19355a" 
+
+  #placeholder {
+    color: "#19355a";
   }
-  #submit
-  {
+
+  #submit {
     background-color: #19355a;
   }
-  
-  #icon
-  {
+
+  #icon {
     color: #19355a;
-    width:23px;
-    height:25px
+    width: 23px;
+    height: 25px;
   }
-  #pass
-  {
+
+  #pass {
     color: #19355a;
     margin-left: -380px;
   }
-
 }
-
-
-
-
-
-
-
-
-
-

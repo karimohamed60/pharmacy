@@ -232,3 +232,71 @@ select[name="suppliersearch"] {
 body.no-scroll {
   overflow: hidden;
 }
+
+/* For small devices (e.g., phones) */
+@media only screen and (max-width: 576px) {
+  .addinvoice-label {
+    top: -20px;
+    left: -10px;
+  }
+  .bakbtn {
+    top: -20px;
+    left: 10px;
+  }
+  .ai-container {
+    width: 95%;
+    left: 2.5%;
+    top: 0;
+    max-width: none;
+  }
+  .ai-form-label {
+    margin-left: 10px;
+  }
+  .ai-input {
+    width: 80%;
+    margin-left: 5px;
+  }
+  .addMedicineBtn {
+    width: 40%;
+  }
+}
+
+/* For medium devices (e.g., tablets) */
+@media only screen and (min-width: 577px) and (max-width: 992px) {
+  .ai-container {
+    width: 90%;
+    left: 5%;
+    top: -300px;
+    max-width: none;
+  }
+  .ai-form-label {
+    margin-left: 20px;
+  }
+  .ai-input {
+    width: 60%;
+    margin-left: 10px;
+  }
+  .addMedicineBtn {
+    width: 50%;
+  }
+}
+
+/* For large devices and desktops */
+@media only screen and (min-width: 993px) {
+  .ai-container {
+    width: 80%;
+    left: 6%;
+    top: -590px;
+    max-width: 1150px;
+  }
+  .ai-form-label {
+    margin-left: 28px;
+  }
+  .ai-input {
+    width: 60%;
+    margin-left: 15px;
+  }
+  .addMedicineBtn {
+    width: 50%;
+  }
+}

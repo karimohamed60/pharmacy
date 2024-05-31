@@ -8,6 +8,7 @@ import { API_URL } from "../../../../constants";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReactPaginate from "react-paginate";
 
 const Categorylist = () => {
   const [isPopup1Open, setPopup1Open] = useState(false);
@@ -16,10 +17,10 @@ const Categorylist = () => {
   const [selectedCategoryValue, setSelectedCategoryValue] = useState(null);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState({});
-  const [, setError] = useState(null);
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 5;
+  const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const filteredData = categories.filter(
@@ -27,8 +28,18 @@ const Categorylist = () => {
       search.toLowerCase() === "" ||
       item.attributes.category_name.toLowerCase().includes(search.toLowerCase())
   );
+  const totalPages = Math.ceil(filteredData.length / recordsPerPage);
+  const renderedCategories = filteredData.slice(
+    (currentPage - 1) * recordsPerPage,
+    currentPage * recordsPerPage
+  );
+  const renderCategories =
+    search.trim() !== "" ? renderedCategories : filteredData;
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected + 1);
+  };
+
   const npage = Math.ceil(categories.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -273,7 +284,7 @@ const Categorylist = () => {
         <b>Categories List</b>
       </label>
 
-      <div className="input-group rounded seachinput ">
+      <div className="input-group rounded seachinput " id="scltl">
         <input
           type="search"
           className="form-control rounded "
@@ -305,28 +316,30 @@ const Categorylist = () => {
             </tr>
           </thead>
           <tbody className="cl-tbody">
-            {filteredData.slice(firstIndex, lastIndex).map((item, index) => (
-              <tr key={index} className="category-container">
-                <td>{item.attributes.category_name}</td>
-                <td>
-                  {/* <Link to={/inventory-dashboard/${Category.category_name}}> */}
-                  {/* {window.currentItem} */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="#032B55"
-                    class="bi bi-eye-fill"
-                    viewBox="0 0 16 16"
-                    onClick={() => handleCategoryUpdate(item.id)}
-                  >
-                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                  </svg>
-                  {/* </Link> */}
-                </td>
-              </tr>
-            ))}
+            {renderCategories
+              .slice(firstIndex, lastIndex)
+              .map((item, index) => (
+                <tr key={index} className="category-container">
+                  <td>{item.attributes.category_name}</td>
+                  <td>
+                    {/* <Link to={/inventory-dashboard/${Category.category_name}}> */}
+                    {/* {window.currentItem} */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="#032B55"
+                      className="bi bi-eye-fill"
+                      viewBox="0 0 16 16"
+                      onClick={() => handleCategoryUpdate(item.id)}
+                    >
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                    </svg>
+                    {/* </Link> */}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
 
@@ -343,10 +356,36 @@ const Categorylist = () => {
           </Link>
         </div>
 
+        {totalPages > 0 && (
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            pageCount={totalPages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            activeClassName={"active"}
+            className=""
+          />
+        )}
         <Popup
           open={isPopup1Open}
           onClose={closePopup1}
           position="right center"
+          contentStyle={{
+            width: "100%", // Adjust as needed
+            maxWidth: "980px", // Adjust as needed
+          }}
         >
           <div>
             <Link to="/inventory-dashboard/categorylist">
@@ -356,7 +395,7 @@ const Categorylist = () => {
                   width="19"
                   height="19"
                   fill="currentColor"
-                  class="bi bi-x-lg "
+                  className="bi bi-x-lg "
                   viewBox="0 0 16 16"
                 >
                   <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
@@ -409,7 +448,7 @@ const Categorylist = () => {
               draggable
               pauseOnHover
               theme="light"
-              transition:Bounce
+              transition="Bounce"
             />
           </div>
         </Popup>
@@ -418,6 +457,10 @@ const Categorylist = () => {
           open={isPopup2Open}
           onClose={closePopup2}
           position="right center"
+          contentStyle={{
+            width: "100%", // Adjust as needed
+            maxWidth: "990px", // Adjust as needed
+          }}
         >
           <Link to="/inventory-dashboard/categorylist">
             <button className="closeiconcatlist" onClick={goBack}>
@@ -426,7 +469,7 @@ const Categorylist = () => {
                 width="19"
                 height="19"
                 fill="currentColor"
-                class="bi bi-x-lg "
+                className="bi bi-x-lg "
                 viewBox="0 0 16 16"
               >
                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
@@ -464,7 +507,6 @@ const Categorylist = () => {
             >
               <b className="medlistbtn2">Add </b>
             </button>
-
             <ToastContainer
               position="top-center"
               autoClose={5000}
@@ -476,7 +518,7 @@ const Categorylist = () => {
               draggable
               pauseOnHover
               theme="light"
-              transition:Bounce
+              transition="Bounce"
             />
           </form>
         </Popup>

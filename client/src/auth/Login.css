@@ -193,7 +193,9 @@ body {
   cursor: pointer;
   transition: 0.2s;
 }
-
+.form-label {
+  margin-left: -22.5rem;
+}
 .login__submit:active,
 .login__submit:focus,
 .login__submit:hover {
@@ -221,7 +223,7 @@ body {
 
 .input-group {
   position: relative;
-  left: -65px;
+  left: -5.6rem;
   border-radius: 20px;
   background-color: #fff;
 }

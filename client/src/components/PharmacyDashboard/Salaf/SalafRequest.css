@@ -30,7 +30,7 @@
   
   .s-container {
     position: relative;
-    top: -38.5rem;
+    top: -43rem;
     width: 80%;
     min-width: 50rem;
     left: 4rem;
@@ -69,8 +69,38 @@
     position: relative;
     border-radius: 1rem;
     background-color: #fff;
+    
   }
-  
+  #s-testarea {
+    display: flex;
+    align-items: center;
+    margin-left: 5rem;
+    position: relative;
+    border-radius: 1rem;
+    background-color: #e3ebf3;
+    width: 93%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s;
+    max-height:6rem;
+    margin-left: 2rem;
+  }
+  .s-national{
+    left: 5rem;
+  }
+
+  .ao-select {
+    background-color: #e3ebf3;
+    width: 93%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    margin-left: 2.5rem;
+
+  }
   .s-form-group {
     display: flex;
     flex-direction: column;
@@ -106,8 +136,20 @@
     border-radius: 8px;
     transition: border-color 0.3s;
     margin-left: 2.5rem;
+    max-height:200px;
   }
-  
+  .s-testarea{
+    background-color: #e3ebf3;
+    width: 93%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    margin-left: 2.5rem;
+    max-height:200px;
+  }
+
   .s-addMedicineBtn {
     background-color: #ffffff;
     color: rgba(0, 154, 241, 1);

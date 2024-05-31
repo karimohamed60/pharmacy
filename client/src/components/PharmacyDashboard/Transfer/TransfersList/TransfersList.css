@@ -2,7 +2,7 @@
     position: relative;
     color: #787272;
     top: -37.5rem;
-    left: -30rem;
+    left: -26rem;
     transform: translate(-50%, -50%);
     width: 10%;
     text-align: center;
@@ -31,10 +31,10 @@
   }
   .tl-search-group{
     position: relative;
-    left: -26rem;
+    left: -3.5rem;
     border-radius: 2rem;
     background-color: #FFF;
-    width: 20rem;
+    width: 22rem;
   }
 
   #srchinput
@@ -53,7 +53,7 @@
 
 .tl-search-icon{
     position: relative;
-    left: 8rem;
+    left: 9rem;
     top: -3rem;
  }
 
@@ -67,23 +67,11 @@
     border-radius: 1px;
   }
   
-  .tl-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    padding: 12px 16px;
-    z-index: 1;
-  }
   
-  .tl-dropdown:hover .tl-dropdown-content {
-    display: block;
-  }
   
-  .filterdropdwn {
+  .pfilterdropdwn {
     position: relative;
-    left: 33rem;
+    left: 36rem;
     top: -46.2rem;
     width: 19rem;
     height: 50px;
@@ -117,12 +105,13 @@
     padding-right: 60px;
   }
   
-  #td-table {
+  #ptd-table {
     position: relative;
     margin-top: -38px;
-    left: 100px;
+    left: 5rem;
     margin-bottom: 10px;
     overflow-x: scroll;
+    width: 103.5%;
   }
   .tl-tbody {
     height: 50px;

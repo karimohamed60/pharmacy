@@ -1,95 +1,98 @@
-  .Medicine-title {
-      position: relative;
-      color: #787272;
-      top: -37.5rem;
-      left: -27.5rem;
-      transform: translate(-50%, -50%);
-      width: 10%;
-      text-align: center;
-      font-size: x-large;
-      font-style: Bold;
-      
-    }
+.Medicine-title {
+  position: relative;
+  color: #787272;
+  top: -37.5rem;
+  left: -27rem;
+  transform: translate(-50%, -50%);
+  width: 10%;
+  text-align: center;
+  font-size: x-large;
+  font-style: Bold;
+}
 
-    
-  .Arrowicon
-  {
-      margin-left: 3rem;
-      margin-right: 3rem;
-      position: relative;
-      left: -22.5rem;
-      margin-bottom: 42.5rem;
-      top: 5.5rem;
-  }
+.Arrowicon {
+  margin-left: 3rem;
+  margin-right: 3rem;
+  position: relative;
+  left: -22.5rem;
+  margin-bottom: 42.5rem;
+  top: 5.5rem;
+}
 
-  .MedicineList-title {
-      position: relative;
-      top: -40.94rem;
-      left: -13.5rem;
-      font-size: x-large;
-      color: #032b55;
-      margin-bottom: .75rem;
-    }
+.MedicineList-title {
+  position: relative;
+  top: -40.94rem;
+  left: -13rem;
+  font-size: x-large;
+  color: #032b55;
+  margin-bottom: 0.75rem;
+}
 
-    .search-group{
-      position: relative;
-      left: -11rem;
-      border-radius: 2rem;
-      background-color: #FFF;
-    }
+.search-group {
+  position: relative;
+  left: -5rem;
+  border-radius: 2rem;
+  background-color: #fff;
+}
 
-    #srchinput
-    {
-        background-color: #d5e3f0;
-    }
-    
-    .search-input{
-      margin-left: 10.9rem;
-      max-width: 400px;
-      position: relative;
-      background-color:transparent;
-      top: -40rem;
-      
-  } 
+#p-srchinput {
+  background-color: #d5e3f0;
+  width: 430px;
+}
 
+.search-input {
+  margin-left: 10.9rem;
+  position: relative;
+  background-color: transparent;
+  top: -40rem;
+}
+/*
   .search-icon{
       position: relative;
-      left: 10rem;
-      top: -3rem;
-  }
+      left: 12.6rem;
+      top: -15rem;
+  }*/
+.iconInmedicine_list {
+  position: relative;
+  left: 12.6rem;
+  top: -3rem;
+}
+#medicinetable {
+  position: relative;
+  top: -645px;
+  left: 3.7rem;
+  width: 110%;
+  overflow-x: scroll;
+}
 
-  #medicinetable{
-      position: relative;
-      top: -39rem;
-      left: .2rem;
-      width: 135%;
-      overflow-x: scroll;
-    }
-    .medicinetable-body {
-      height: 1.5rem;
-    }
+.medicinetable-body {
+  height: 1.5rem;
+}
 
+.pagination {
+  position: relative;
+  left: -5.7rem;
+}
 
-  .pagination {
-      position: relative;
-      left: .2rem;
+.page-item {
+  margin-right: 1rem;
+  margin-top: 1.5rem;
+}
 
-    }
-    
-    .page-item {
-      margin-right: 1rem;
-      margin-top: 1.5rem;
-    }
-    
-    .page-link {
-      cursor: pointer;
-    }
+.page-link {
+  cursor: pointer;
+}
 
-
-    .toleft{
-      margin-left: 2.2rem;
-    }
-
+.toleft {
+  margin-left: 2.2rem;
+}
+.p-orderMEdicine {
+  position: relative;
+  left: 41rem;
+  top: -36.5rem;
+  background-color: #d5e3f0;
+  width: 22%;
+}
 .ao-container {
   position: relative;
   top: -38.5rem;
@@ -155,7 +158,11 @@
   color: rgba(25, 53, 90, 0.66);
   font-size: large;
   font-weight: 900;
-  margin-left: 40px;
+  margin-left: 38px;
+}
+.national_idLabel {
+  position: relative;
+  left: -30px;
 }
 .ao-select {
   background-color: #e3ebf3;
@@ -175,6 +182,22 @@
   border: 1px solid #ced4da;
   border-radius: 8px;
   transition: border-color 0.3s;
+  position: relative;
+  top: 3px;
+  height: 50px;
+}
+.medicine_idInput {
+  background-color: #e3ebf3;
+  width: 93%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  position: relative;
+  top: 3px;
+  left: -40px;
+  height: 50px;
 }
 
 .ao-addMedicineBtn {
@@ -225,16 +248,19 @@
 .awesome {
   /* Add your awesome styles here */
   background-color: #f0f0f0;
+  position: relative;
+  top: 11px;
   width: 60px;
-  border-radius: .5rem;
+  height: 47px;
+  border-radius: 0.5rem;
   text-align: center;
 }
-.dmarge{
+.dmarge {
   margin-top: -2rem;
 }
 
 /* Add more styles as needed */
-.aoo-input-group{
+.aoo-input-group {
   margin-left: -2rem;
   justify-content: space-between;
 }

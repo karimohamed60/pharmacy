@@ -107,7 +107,7 @@
 
 .ao-input {
   background-color: #e3ebf3;
-  width: 93%;
+  width: 85%;
   padding: 8px;
   box-sizing: border-box;
   border: 1px solid #ced4da;
@@ -162,4 +162,8 @@
 
 body.no-scroll {
   overflow: hidden;
+}
+
+.otl{
+  margin-left: 10rem;
 }

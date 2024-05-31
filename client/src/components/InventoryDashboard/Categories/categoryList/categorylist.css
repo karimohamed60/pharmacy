@@ -2,7 +2,7 @@
   position: relative;
   color: #787272;
   top: -600px;
-  left: -388px;
+  left: -25.7rem;
   transform: translate(-50%, -50%);
   width: 10%;
   text-align: center;
@@ -11,7 +11,7 @@
 }
 #aaddmedd {
   position: relative;
-  top: -650px;
+  top: -582px;
   left: 590px;
   margin-left: 10px;
   background-color: #d2e0ed;
@@ -23,7 +23,7 @@
 }
 .catlistlabel2 {
   position: relative;
-  left: -247px;
+  left: -13.5rem;
   top: -655px;
   font-size: x-large;
   color: #032b55;
@@ -41,6 +41,9 @@
   top: -693px;
   margin-top: 80px;
   background-color: transparent;
+}
+#scltl {
+  margin-left: 10.7rem;
 }
 #srchinput {
   background-color: #d5e3f0;
@@ -165,9 +168,87 @@ input[name="catnameinputt"] {
 #cd-table {
   position: relative;
   top: -652px;
-  left: 100px;
+  left: 5rem;
   overflow-x: scroll;
 }
 .cl-tbody {
   height: 50px;
+}
+.pgil {
+  margin-left: 49rem;
+}
+
+.pagination {
+  position: relative;
+  margin-top: -40.5rem;
+  margin-left: -40rem;
+}
+
+.pagination button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+/* Media Query for Tablet Screens */
+@media only screen and (max-width: 768px) {
+  .catlistlabel {
+    font-size: large;
+    top: -100px; /* Adjust as needed */
+    left: 50%;
+  }
+
+  .catlistlabel2 {
+    font-size: large;
+    top: -300px; /* Adjust as needed */
+    left: 50%;
+  }
+
+  /* Add more responsive styles as needed */
+}
+
+/* Media Query for Tablet Screens */
+@media only screen and (max-width: 768px) {
+  .catlistlabel {
+    font-size: large;
+    top: -100px; /* Adjust as needed */
+    left: 50%;
+  }
+
+  .catlistlabel2 {
+    font-size: large;
+    top: -300px; /* Adjust as needed */
+    left: 50%;
+  }
+
+  .popupfrmcategory {
+    margin-left: 0; /* Adjust as needed */
+    margin-top: 50px; /* Adjust as needed */
+  }
+}
+
+/* Media Query for Mobile Screens */
+@media only screen and (max-width: 480px) {
+  .catlistlabel {
+    font-size: medium;
+    top: -150px; /* Adjust as needed */
+    left: 50%;
+  }
+
+  .catlistlabel2 {
+    font-size: medium;
+    top: -400px; /* Adjust as needed */
+    left: 50%;
+  }
+
+  .popupfrmcategory {
+    margin-left: 0; /* Adjust as needed */
+    margin-top: 100px; /* Adjust as needed */
+  }
 }

@@ -245,7 +245,7 @@ const AddMedicine = () => {
             <b>Add Medicine</b>
           </label>
           <div className="col-md-6 price-input1 ">
-            <label htmlFor="ingredient_name" className="form-label ing">
+            <label htmlFor="ingredient_name" className="imd-imd-form-label ing">
               <b>Ingredient Name</b>
             </label>
             <input
@@ -259,7 +259,7 @@ const AddMedicine = () => {
             />
           </div>
           <div className="col-md-6 price-input1">
-            <label htmlFor="commercial_name" className="form-label ing">
+            <label htmlFor="commercial_name" className="imd-imd-form-label ing">
               <b>Commercial Name</b>
             </label>
             <input
@@ -275,7 +275,7 @@ const AddMedicine = () => {
           <div className="col-md-6 price-input">
             <label
               htmlFor="international_barcode"
-              className="form-label barcode"
+              className="imd-imd-form-label barcode"
             >
               <b>International Barcode</b>
             </label>
@@ -290,7 +290,7 @@ const AddMedicine = () => {
             />
           </div>
           <div className="col-md-6 price-input">
-            <label htmlFor="expire_date" className="form-label mjr">
+            <label htmlFor="expire_date" className="imd-imd-form-label mjr">
               <b>Expire Date</b>
             </label>
             <input
@@ -304,7 +304,7 @@ const AddMedicine = () => {
             />
           </div>
           <div className="col-md-6 price-input ">
-            <label htmlFor="price_per_unit" className="form-label prc">
+            <label htmlFor="price_per_unit" className="imd-imd-form-label prc">
               <b>Price</b>
             </label>
             <input
@@ -319,7 +319,7 @@ const AddMedicine = () => {
           </div>
 
           <div className="col-md-4 price-inputcategory">
-            <label htmlFor="category_id" className="form-label cat">
+            <label htmlFor="category_id" className="imd-imd-form-label cat">
               <b>Category</b>
             </label>
 
@@ -342,7 +342,7 @@ const AddMedicine = () => {
             </select>
           </div>
           <div className="col-md-6 price-input" id="addinput1">
-            <label htmlFor="minor_unit" className="form-label minor">
+            <label htmlFor="minor_unit" className="imd-imd-form-label minor">
               <b>Minor Unit</b>
             </label>
             <input
@@ -357,7 +357,7 @@ const AddMedicine = () => {
           </div>
 
           <div className="col-md-6 price-input" id="addinput1">
-            <label htmlFor="medium_unit" className="form-label med">
+            <label htmlFor="medium_unit" className="imd-imd-form-label med">
               <b>Medium Unit</b>
             </label>
             <input
@@ -371,7 +371,7 @@ const AddMedicine = () => {
             />
           </div>
           <div className="col-md-6 price-input">
-            <label htmlFor="major_unit" className="form-label mjr">
+            <label htmlFor="major_unit" className="imd-form-label mjr">
               <b>Major Unit</b>
             </label>
             <input

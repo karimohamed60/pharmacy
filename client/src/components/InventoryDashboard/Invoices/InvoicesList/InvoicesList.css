@@ -1,7 +1,7 @@
 .invoicesLabel {
   position: relative;
   top: -655px;
-  left: -270px;
+  left: -14rem;
   font-size: x-large;
   color: #032b55;
 }
@@ -42,7 +42,8 @@
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
-  width: 80%;
+  width: 100%;
+  left: -2.2rem;
 }
 
 .il-dropdown:hover .il-dropdown-content {
@@ -51,7 +52,7 @@
 
 .il-filterdropdwn {
   position: relative;
-  left: 558px;
+  left: 37rem;
   top: -687px;
   width: 300px;
   height: 50px;
@@ -103,17 +104,12 @@
 #il-table {
   position: relative;
   top: -650px;
-  left: 100px;
+  left: 5rem;
   overflow-x: scroll;
+  width: 105%;
 }
 .il-tbody {
   height: 50px;
-}
-
-.pagination {
-  position: relative;
-  top: -620px;
-  left: 100px;
 }
 
 .page-item {
@@ -126,9 +122,8 @@
 
 .addinvoiceButton {
   position: relative;
-  top: -692px;
-  left: 618px;
-  margin-left: 10px;
+  top: -3.8rem;
+  left: 41.3rem;
   padding: 10px 35px 10px 35px;
   color: #19355a;
   background-color: rgb(195, 212, 230);
@@ -141,6 +136,74 @@
 body.no-scroll {
   overflow: hidden;
 }
-.pgil{
-  margin-left: 9rem;
+
+.pagination {
+  position: relative;
+  margin-top: -40.5rem;
+  margin-left: -40rem;
+}
+
+.pagination button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+/* Responsive styles */
+
+@media (max-width: 767px) {
+  /* Adjustments for small screens */
+
+  .invoicesLabel {
+    top: -545px;
+    left: -120px;
+  }
+
+  .searchInput {
+    margin-left: 50px;
+    max-width: 300px;
+    top: -530px;
+  }
+
+  .il-dropdown {
+    left: 150px;
+    top: -570px;
+    width: 200px;
+  }
+
+  .filtericon {
+    left: -20px;
+    top: 8px;
+  }
+
+  .il-filterdownicon {
+    left: 22px;
+    top: 8px;
+  }
+
+  .il-filtercontent {
+    top: 45px;
+    margin-left: 0;
+  }
+
+  #il-table {
+    top: -550px;
+    left: 20px;
+  }
+
+  .addinvoiceButton {
+    top: -2.8rem;
+    left: 20rem;
+  }
+
+  .pagination {
+    margin-top: -37.5rem;
+    margin-left: -30rem;
+  }
 }

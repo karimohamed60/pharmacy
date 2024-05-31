@@ -3,8 +3,6 @@
     "title": " Medicines",
     "icon": "bi-capsule",
     "path": "/pharmacy-dashboard/medicineList/"
-
-
   },
 
   {
@@ -14,10 +12,6 @@
       {
         "title": "Students List",
         "path": "/pharmacy-dashboard/StudentsList/"
-      },
-      {
-        "title": "Prescriptions List",
-        "path": "/pharmacy-dashboard/PrescriptionsList"
       }
     ]
   },
@@ -25,12 +19,11 @@
     "title": " Orders",
     "icon": "bi-receipt-cutoff",
     "path": "/pharmacy-dashboard/orderList"
-  },  {
+  },
+  {
     "title": " Transfers",
     "icon": "bi-arrow-left-right",
     "path": "/pharmacy-dashboard/TransferList/"
-
-
   },
 
   {

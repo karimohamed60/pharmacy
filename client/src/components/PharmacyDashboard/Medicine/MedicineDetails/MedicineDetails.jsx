@@ -1,9 +1,77 @@
 import React from "react";
+import { useState , useEffect} from "react";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
 import "./MedinineDetails.css";
-import { Link } from "react-router-dom";
-
+import { Link , useParams} from "react-router-dom";
+import { API_URL } from "../../../../constants";
+import { getAuthTokenCookie } from "../../../../services/authService";
 const MedicineDetails = () => {
+  const { id } = useParams();
+  const [medicine, setMedicine] = useState({});
+  const [formattedCreatedAt, setFormattedCreatedAt] = useState('');
+
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    handleSpecificMedicineby(id);
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, [id]);
+
+   // get specific medicine
+   const handleSpecificMedicineby = async (medicineId) => {
+    try {
+      const token = getAuthTokenCookie();
+      const response = await fetch(`${API_URL}/medicines/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        setMedicine(responseData.data);
+        const createdAt = new Date(responseData.data.attributes.created_at);
+        const formattedDate = createdAt.toLocaleDateString('en-US', {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric',
+        });
+        const formattedTime = createdAt.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true,
+        }).toLowerCase().replace(/\s/g, '');
+  
+        setFormattedCreatedAt(`${formattedDate} ${formattedTime}`);
+  
+        console.log(responseData.data);
+        window.ingredient_name = responseData.data.attributes.ingredient_name;
+        window.commercial_name = responseData.data.attributes.commercial_name;
+        window.international_barcode = responseData.data.attributes.international_barcode;
+        window.minor_unit = responseData.data.attributes.minor_unit;
+        window.major_unit = responseData.data.attributes.major_unit;
+        window.medium_unit = responseData.data.attributes.medium_unit;
+        window.price_per_unit = responseData.data.attributes.price_per_unit;
+        window.quantity_in_inventory = responseData.data.attributes.quantity_in_inventory;
+        window.quantity_in_pharmacy = responseData.data.attributes.quantity_in_pharmacy;
+        window.quantity_sold = responseData.data.attributes.quantity_sold;
+        window.category_name = responseData.data.attributes.category.category_name;
+        window.expire_date = responseData.data.attributes.expire_date;
+        window.created_at = responseData.data.attributes.created_at;
+        window.created_by = responseData.data.attributes.user.username;
+        window.medicineId = responseData.data.attributes.id;
+      } else {
+        throw new Error("Failed to fetch category details");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  
   return (
     <>
       <Sidebar />
@@ -27,7 +95,7 @@ const MedicineDetails = () => {
         <b>Medicine Details</b>
       </label>
 
-      <div className="col-12-lg backbtn ">
+      <div className="col-12-lg backbtn-pharmacy ">
         <Link to={"/pharmacy-dashboard/medicineList/"}>
           <button className=" backButton">
             <svg
@@ -53,9 +121,10 @@ const MedicineDetails = () => {
             </label>
             <input
               type="text"
-              className="form-control"
-              id="inppopup"
+              className="form-control "
+              id="ingInput"
               aria-label="First name"
+              value={window.ingredient_name}
               disabled
             />{" "}
           </div>
@@ -68,6 +137,7 @@ const MedicineDetails = () => {
               className="form-control leftmove"
               id="einput"
               aria-label="Last name"
+              value={window.price_per_unit}
               disabled
             />
           </div>
@@ -82,6 +152,7 @@ const MedicineDetails = () => {
               className="form-control"
               id="commdet"
               aria-label="First name"
+              value={window.commercial_name}
               disabled
             />
           </div>
@@ -94,16 +165,17 @@ const MedicineDetails = () => {
               className="form-control leftmove"
               id="exdetinp"
               aria-label="Last name"
+              value={window.expire_date}
               disabled
             />
           </div>
         </div>
-        <div id="boxx">
+        <div id="boxx1p">
           Quantity in inventory
           <hr />
-          <b></b>
+          <b>{window.quantity_in_inventory}</b>
         </div>
-        <div className="row">
+        <div className="row medicineDetailsInputs">
           <div className="col ">
             <label className="detlabels md-international ">
               <b>International Barcode</b>
@@ -112,7 +184,9 @@ const MedicineDetails = () => {
               type="text"
               className="form-control"
               id="einput"
+              
               aria-label="First name"
+              value={window.international_barcode}
               disabled
             />
           </div>
@@ -126,16 +200,17 @@ const MedicineDetails = () => {
                 <b>Category</b>
               </label>
 
-              <select
+              <input
                 name="categoryMenu"
-                className="form-select "
-                id="category_id"
+                className="form-control "
+                id="categoryInput"
+                value={window.category_name}
                 disabled
-              ></select>
+              />
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row medicineDetailsInputs">
           <div className="col">
             <label className="detlabels munit">
               <b>Minor Unit</b>
@@ -144,8 +219,9 @@ const MedicineDetails = () => {
               type="text"
               className="form-control"
               id="einput"
-              o
+              
               aria-label="First name"
+              value={window.minor_unit}
               disabled
             />
           </div>
@@ -158,16 +234,17 @@ const MedicineDetails = () => {
               className="form-control leftmove"
               id="einput"
               aria-label="Last name"
+              value={window.created_by}
               disabled
             />
           </div>
         </div>
-        <div id="boxx">
+        <div id="boxx2p">
           Quantity in Pharmacy
           <hr />
-          <b></b>
+          <b>{window.quantity_in_pharmacy}</b>
         </div>
-        <div className="row">
+        <div className="row MunitsInputs">
           <div className="col">
             <label className="detlabels munit">
               <b>Major Unit</b>
@@ -177,23 +254,26 @@ const MedicineDetails = () => {
               className="form-control"
               id="einput"
               aria-label="First name"
+              value={window.major_unit}
               disabled
             />
           </div>
           <div className="col">
-            <label className="detlabels md-created-at">
-              <b>Created At</b>
-            </label>
-            <input
-              type="text"
-              className="form-control leftmove"
-              id="einput"
-              aria-label="Last name"
-              disabled
-            />
-          </div>
+  <label className="detlabels md-created-at">
+    <b>Created At</b>
+  </label>
+  <input
+    type="text"
+    className="form-control leftmove"
+    id="einput"
+    aria-label="Last name"
+    value={formattedCreatedAt}
+    disabled
+  />
+</div>
+
         </div>
-        <div className="row">
+        <div className="row MunitsInputs">
           <div className="col">
             <label className="detlabels md-medium">
               <b>Medium Unit</b>
@@ -203,14 +283,15 @@ const MedicineDetails = () => {
               className="form-control"
               id="mediuminput"
               varia-label="First name"
+              value={window.medium_unit}
               disabled
             />
           </div>
         </div>
-        <div id="boxx">
+        <div id="boxx3p">
           Quantity Sold
           <hr />
-          <b></b>
+          <b>{window.quantity_sold}</b>
         </div>
       </form>
     </>

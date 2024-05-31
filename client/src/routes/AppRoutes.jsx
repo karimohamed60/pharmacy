@@ -55,12 +55,12 @@ function AppRoutes() {
     <Routes>
       <Route element={<PrivateRoutes />}>
         <Route
-          path="/inventory-dashboard"
+          path="/inventory-dashboard/"
           element={
             role.includes("inventory_agent") ? (
               <InventoryDashboard />
             ) : (
-              <Navigate to="/" />
+              <Navigate to="/inventory-dashboard/medicinelist" />
             )
           }
         >
@@ -130,12 +130,12 @@ function AppRoutes() {
           element={<MedicineList />}
         />
         <Route
-          path="/pharmacy-dashboard/medicineDetails/"
+          path="/pharmacy-dashboard/medicineDetails/:id"
           element={<MedicineDetails />}
         />
         <Route path="/pharmacy-dashboard/orderList/" element={<OrderList />} />
         <Route
-          path="/pharmacy-dashboard/orderDetails/"
+          path="/pharmacy-dashboard/orderDetails/:id"
           element={<OrderDetails />}
         />
         <Route path="/pharmacy-dashboard/addOrder/" element={<AddOrder />} />
@@ -156,11 +156,11 @@ function AppRoutes() {
           element={<StudentsList />}
         />
         <Route
-          path="/pharmacy-dashboard/PrescriptionsList/"
+          path="/pharmacy-dashboard/students/:id/Prescriptions/"
           element={<PrescriptionsList />}
         />
         <Route
-          path="/pharmacy-dashboard/PrescriptionsDetails/"
+          path="/pharmacy-dashboard/students/:studentId/PrescriptionsDetails/:prescription_id"
           element={<PrescriptionsDetails />}
         />
         <Route

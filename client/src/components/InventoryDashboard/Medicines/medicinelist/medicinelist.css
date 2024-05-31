@@ -11,7 +11,7 @@ tbody {
 .medlistlabel {
   position: relative;
   top: -655px;
-  left: -270px;
+  left: -240px;
   font-size: x-large;
   color: #032b55;
 }
@@ -22,8 +22,11 @@ tbody {
   color: #032b55;
   font-style: initial;
 }
+#mlitl{
+  margin-left: 9.8rem;
+}
 .seachinput {
-  margin-left: 170px;
+  margin-left: 100px;
   max-width: 400px;
   position: relative;
   background-color: transparent;
@@ -91,23 +94,14 @@ tbody {
 }
 #addmedbtn {
   position: relative;
-  top: -685px;
-  left: 722px;
+  top: -3.8rem;
+  left: 47.4rem;
   background-color: #d2e0ed;
-  /* font-weight: bolder; */
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-/* #addmedbtn{
-    position: relative;
-    left: 980px;
-    top: 8px;
-    color: #032B55;
-    background-color: #d5e3f0;
-    padding: 10px 15px 10px 15px;
-} */
 .medlistbtn {
   color: #19355a;
   padding: 20px 30px 20px 30px;
@@ -115,11 +109,6 @@ tbody {
 .commlabel {
   position: relative;
   top: 8px;
-}
-
-.pagination {
-  position: relative;
-  top: -50px;
 }
 
 .translabel {
@@ -156,14 +145,152 @@ tbody {
 
 #ml-table {
   position: relative;
-  top: -630px;
-  left: 100px;
-  width: 110%;
+  top: -645px;
+  left: 4rem;
+  width: 115%;
   overflow-x: scroll;
 }
 .ml-tbody {
   height: 50px;
 }
-.pgmd{
+.pgmd {
   margin-left: 9rem;
+}
+
+.pagination {
+  margin-top: -5.5rem;
+  margin-left: -40rem;
+}
+
+.pagination button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+@media (max-width: 1200px) {
+  .medlistlabel {
+    top: -630px;
+    left: -270px;
+  }
+  
+  .listofmedlabel {
+    top: -625px;
+    left: -400px;
+  }
+  
+  .seachinput {
+    margin-left: 100px;
+  }
+  
+  #addmedbtn {
+    left: calc(50% + 360px);
+  }
+  
+  #ml-table {
+    top: -635px;
+    left: 100px;
+  }
+  
+  .pagination {
+    margin-left: -37rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .medlistlabel {
+    top: -600px;
+  }
+  
+  .listofmedlabel {
+    top: -600px;
+  }
+  
+  .seachinput {
+    top: -600px;
+    margin-left: 50px;
+  }
+  
+  #addmedbtn {
+    top: -2.8rem;
+    left: calc(50% + 360px);
+  }
+  
+  #ml-table {
+    top: -600px;
+    left: 100px;
+  }
+  
+  .pagination {
+    margin-left: -34rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .medlistlabel {
+    top: -570px;
+    left: -270px;
+  }
+  
+  .listofmedlabel {
+    top: -570px;
+    left: -400px;
+  }
+  
+  .seachinput {
+    top: -570px;
+    margin-left: 20px;
+  }
+  
+  #addmedbtn {
+    top: -2.5rem;
+    left: calc(50% + 320px);
+  }
+  
+  #ml-table {
+    top: -570px;
+    left: 100px;
+  }
+  
+  .pagination {
+    margin-left: -31rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .medlistlabel {
+    top: -540px;
+    left: -270px;
+  }
+  
+  .listofmedlabel {
+    top: -540px;
+    left: -400px;
+  }
+  
+  .seachinput {
+    top: -540px;
+    margin-left: 10px;
+  }
+  
+  #addmedbtn {
+    top: -2.2rem;
+    left: calc(50% + 280px);
+  }
+  
+  #ml-table {
+    top: -540px;
+    left: 100px;
+  }
+  
+  .pagination {
+    margin-left: -28rem;
+  }
 }

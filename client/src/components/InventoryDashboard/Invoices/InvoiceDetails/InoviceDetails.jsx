@@ -29,27 +29,38 @@ const InoviceDetails = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const handlePrint = () => {
-    const printableContent = document.querySelector(".id-container").innerHTML;
-    const newWindow = window.open("", "_blank");
+ //print 
+const handlePrint = async () => {
+  try {
+    const token = getAuthTokenCookie();
+    const response = await fetch(`${API_URL}/invoices/${invoice_id}/generate_pdf`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
 
-    if (newWindow) {
-      newWindow.document.write(`
-      <html>
-      <head>
-        <title>PHU</title>
-        <link rel="stylesheet" href="/src/components/InventoryDashboard/Invoices/InvoiceDetails.css" />
-      </head>
-      <body>
-        ${printableContent}
-      </body>
-    </html>
-      `);
-
-      newWindow.document.close();
-      newWindow.print();
+    if (response.ok) {
+      // Handle the PDF file received from the backend
+      // For example, you can prompt the user to download the file
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Invoice_details.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } else {
+      throw new Error('Failed to generate PDF');
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 
   //API for showing  a specific invoice details
   const handleSpecificInvoicebyId = async (invoice_id) => {
@@ -194,7 +205,7 @@ const InoviceDetails = () => {
           </div>
         </div>
         <div className="id-row">
-          <table class="table id-table">
+          <table className="table id-table">
             <thead className="id-table-header">
               <tr>
                 <th id="id-table-header" scope="col">

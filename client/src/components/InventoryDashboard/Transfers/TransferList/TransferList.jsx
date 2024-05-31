@@ -7,26 +7,34 @@ import { Link } from "react-router-dom";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 import { format } from "date-fns";
+import ReactPaginate from "react-paginate";
 const TransferList = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [transfers, setTransfers] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+
   const recordsPerPage = 10;
   const [statusFilter, setStatusFilter] = useState(null);
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const filteredData = transfers.filter(
-    (item) =>
-      (statusFilter
-        ? item.attributes.status.toLowerCase() === statusFilter.toLowerCase()
-        : true) &&
-      (search === "" ||
-        item.id.toString().toLowerCase() === search.toLowerCase())
+  const filteredData = transfers.filter((item) => {
+    const statusMatches =
+      !statusFilter ||
+      item.attributes.status.toLowerCase() === statusFilter.toLowerCase();
+    const searchMatches =
+      search === "" ||
+      item.id.toString().toLowerCase().includes(search.toLowerCase());
+    return statusMatches && searchMatches;
+  });
+  const renderedTransfers = filteredData.slice(
+    (currentPage - 1) * recordsPerPage,
+    currentPage * recordsPerPage
   );
-  const records = transfers.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(transfers.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
+  const renderTransfers =
+    search.trim() !== "" ? renderedTransfers : filteredData;
 
+  const [token, setToken] = useState("");
   const getStatusColors = (status) => {
     switch (status.toLowerCase()) {
       case "accepted":
@@ -59,50 +67,103 @@ const TransferList = () => {
     };
   }, []);
 
-  function prePage() {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  }
-
-  function changeCurrentPage(id) {
-    setCurrentPage(id);
-  }
-
-  function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
-
   //fetch transfers
+
   useEffect(() => {
-    async function loadTransfers() {
-      const token = getAuthTokenCookie();
-      if (token) {
-        const response = await fetch(
-          `${API_URL}/transfers?per_page=100&page=${currentPage}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          const responseData = await response.json();
-          setTransfers(responseData.data);
-        } else {
-          throw response;
-        }
-      } else {
-        setError("An error occured");
-        console.log("An error", e);
-      }
-    }
     loadTransfers();
-  }, [currentPage]);
+  }, []);
+  useEffect(() => {
+    // Load transfers whenever search or status filter changes
+    loadTransfers();
+  }, [search, statusFilter]);
+
+  const loadTransfers = async () => {
+    try {
+      const authToken = getAuthTokenCookie();
+      if (!authToken) {
+        console.error("Token not found");
+        return;
+      }
+
+      setToken(authToken);
+
+      // Construct the API URL with the search query
+      // Construct the API URL with the search query and status filter
+      let url = `${API_URL}/transfers?per_page=${recordsPerPage}&page=${currentPage}`;
+
+      if (statusFilter) {
+        url += `&status=${statusFilter}`;
+      }
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      const totalTransfers = data["total_transfers"];
+      const calculatedTotalPages = Math.ceil(totalTransfers / recordsPerPage);
+
+      setTotalPages(calculatedTotalPages > 0 ? calculatedTotalPages : 1);
+      setTransfers(data.data);
+    } catch (error) {
+      console.error("Error occurred: ", error.message);
+    }
+  };
+
+  const fetchTransfers = async (page, token) => {
+    try {
+      const response = await fetch(
+        `${API_URL}/transfers?per_page=${recordsPerPage}&page=${page}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch transfers");
+      }
+      const fetchedTransfers = await response.json();
+      return fetchedTransfers.data;
+    } catch (error) {
+      console.error("Error fetching transfers: ", error.message);
+      return [];
+    }
+  };
+  const handlePageClick = async (data) => {
+    try {
+      const selectedPage = data.selected + 1;
+      setCurrentPage(selectedPage);
+
+      const fetchedTransfers = await fetchTransfers(selectedPage, token);
+
+      // Calculate the index range for the current page
+      const firstIndex = (selectedPage - 1) * recordsPerPage;
+      const lastIndex = Math.min(firstIndex + recordsPerPage, transfers.length);
+
+      // Update only the portion of data for the current page
+      const newTransfers = [...transfers];
+      newTransfers.splice(
+        firstIndex,
+        lastIndex - firstIndex,
+        ...fetchedTransfers
+      );
+      setTransfers(newTransfers);
+    } catch (error) {
+      console.error("Error fetching transfers:", error);
+    }
+  };
 
   //navigate to a specific transfer
   const handleSpecificTrasfer = async (transfer_id) => {
@@ -120,7 +181,7 @@ const TransferList = () => {
         const responseData = await response.json();
         setTransfers(responseData.data);
       } else {
-        throw new Error("Failed to fetch category details");
+        throw new Error("Failed to fetch transfer details");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -230,7 +291,7 @@ const TransferList = () => {
           </tr>
         </thead>
         <tbody className="tl-tbody">
-          {filteredData.slice(firstIndex, lastIndex).map((item, index) => (
+          {renderTransfers.slice(firstIndex, lastIndex).map((item, index) => (
             <tr key={index}>
               <td>{item.id}</td>
               <td>
@@ -255,7 +316,7 @@ const TransferList = () => {
                     width="20"
                     height="20"
                     fill="#032B55"
-                    class="bi bi-eye-fill"
+                    className="bi bi-eye-fill"
                     viewBox="0 0 16 16"
                     onClick={() => handleSpecificTrasfer(item.id)}
                   >
@@ -268,34 +329,29 @@ const TransferList = () => {
           ))}
         </tbody>
       </Table>
-      <nav>
-        <ul className="pagination pgtl">
-          <li className="page-item">
-            <a href="#!" className="page-link" onClick={prePage}>
-              Prev
-            </a>
-          </li>
-          {numbers.map((n, i) => (
-            <li
-              className={`page-item ${currentPage === n ? "active" : ""}`}
-              key={i}
-            >
-              <a
-                href="#!"
-                className="page-link"
-                onClick={() => changeCurrentPage(n)}
-              >
-                {n}
-              </a>
-            </li>
-          ))}
-          <li className="page-item">
-            <a href="#!" className="page-link" onClick={nextPage}>
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+      {totalPages > 0 && (
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={totalPages}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+          className=""
+        />
+      )}
+
       <Link to={"/inventory-dashboard/addTransfer"}>
         <button className="addTransferButton ">
           <b>Add Transfer</b>

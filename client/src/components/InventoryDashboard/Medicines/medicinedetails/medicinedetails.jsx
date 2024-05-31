@@ -106,9 +106,6 @@ const Medicinedetails = () => {
     .toString()
     .padStart(2, "0")}:${createdDate.getMinutes().toString().padStart(2, "0")}`;
   const formattedDateTime = `${formattedDate}, ${formattedTime}`;
-
-  console.log(formattedDateTime);
-
   // load categories
   useEffect(() => {
     async function loadCategories() {
@@ -138,7 +135,6 @@ const Medicinedetails = () => {
         }
       } else {
         setError("An error occured");
-        console.log("An error", e);
       }
     }
     loadCategories();
@@ -159,7 +155,6 @@ const Medicinedetails = () => {
       if (response.ok) {
         const responseData = await response.json();
         setMedicine(responseData.data);
-        console.log(responseData);
         window.ingredient_name = responseData.data.attributes.ingredient_name;
         window.commercial_name = responseData.data.attributes.commercial_name;
         window.international_barcode =
@@ -178,7 +173,6 @@ const Medicinedetails = () => {
         window.expire_date = responseData.data.attributes.expire_date;
         window.created_at = responseData.data.attributes.created_at;
         window.created_by = responseData.data.attributes.user.username;
-        console.log(window.created_by);
         window.medicineId = responseData.data.attributes.id;
       } else {
         throw new Error("Failed to fetch category details");
@@ -193,7 +187,6 @@ const Medicinedetails = () => {
     e.preventDefault();
 
     try {
-      console.log("Selected category value: ", selectedingredient_name);
       const user_id = Cookies.get("user_id");
       const token = Cookies.get("token");
       const requestBody = {
@@ -229,7 +222,6 @@ const Medicinedetails = () => {
         body: JSON.stringify(requestBody),
       });
 
-      console.log(user_id);
       if (response.ok) {
         notify("success", "Medicine Updated sucessfully");
         const responseData = await response.json();
@@ -266,7 +258,7 @@ const Medicinedetails = () => {
       </label>
 
       <div className="col-12-lg backbtn ">
-        <Link to={"/inventory-dashboard/medicines"}>
+        <Link to={"/inventory-dashboard/medicinelist"}>
           <button className=" butnn2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -284,8 +276,8 @@ const Medicinedetails = () => {
       </div>
 
       <form className="form-container" onSubmit={handleMedicineUpdate}>
-        <div class="row">
-          <div class="col">
+        <div className="row">
+          <div className="col">
             <label htmlFor="ingredient_name" className="detlabels ingdet">
               <b>Ingredient Name</b>
             </label>
@@ -301,7 +293,7 @@ const Medicinedetails = () => {
             />
           </div>
 
-          <div class="col">
+          <div className="col">
             <label htmlFor="price" className="detlabels prcdet">
               <b>Price</b>
             </label>
@@ -316,14 +308,14 @@ const Medicinedetails = () => {
             />
           </div>
         </div>
-        <div class="row">
-          <div class="col">
+        <div className="row">
+          <div className="col">
             <label htmlFor="commercial_name" className="detlabels comlabel">
               <b>Commercial Name</b>
             </label>
             <input
               type="text"
-              className="form-control"
+              className="form-control mb-4"
               id="commercial_name"
               name="commdet"
               value={selectedcommercial_name || ""}
@@ -348,7 +340,7 @@ const Medicinedetails = () => {
             />
           </div>
         </div>
-        <div id="boxx">
+        <div id="boxx1">
           Quantity in inventory
           <hr />
           <b>{window.quantity_in_inventory}</b>
@@ -357,7 +349,7 @@ const Medicinedetails = () => {
           <div className="col ">
             <label
               htmlFor="international_barcode"
-              className="detlabels intdet "
+              className="detlabels intdet mt-3"
             >
               <b>International Barcode</b>
             </label>
