@@ -17,10 +17,10 @@ const Categorylist = () => {
   const [selectedCategoryValue, setSelectedCategoryValue] = useState(null);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState({});
-  const [, setError] = useState(null);
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 5;
+  const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const filteredData = categories.filter(

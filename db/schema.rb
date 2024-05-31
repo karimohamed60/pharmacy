@@ -102,7 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_28_190552) do
     t.string "medicine_name", limit: 100, null: false
     t.string "dosage", limit: 200, null: false
     t.integer "got_medicine", default: 3
-    t.integer "quantity", default: 0  
+    t.integer "quantity", default: 0
     t.index ["prescription_id"], name: "index_prescriptions_medicines_on_prescription_id"
   end
 

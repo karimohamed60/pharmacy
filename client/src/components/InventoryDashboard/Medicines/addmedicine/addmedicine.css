@@ -46,6 +46,7 @@
   top: -40rem;
   padding-bottom: 5rem;
 }
+
 .custom-width {
   width: 70%;
   background-color: #d5e3f0;
@@ -60,6 +61,7 @@ input[name="inputIng"] {
   width: 70%;
   margin-left: 80px;
 }
+
 .addprdbtn {
   position: relative;
   left: 940px;
@@ -69,11 +71,13 @@ input[name="inputIng"] {
   margin-top: 2rem;
   margin-right: 5rem;
 }
+
 .Addmedbtn {
   color: #032b55;
   font-size: large;
   padding: 2rem;
 }
+
 #oooo {
   position: relative;
   background-color: #d5e3f0;
@@ -115,6 +119,7 @@ input[name="inputIng"] {
   padding: 10px 10px 4px 12px;
   color: #032b55;
 }
+
 .backbutton {
   position: relative;
   left: 63.5%;
@@ -123,6 +128,7 @@ input[name="inputIng"] {
   padding: 10px 10px 10px 10px;
   background-color: #d5e3f0;
 }
+
 select[name="inputState"] {
   background-color: #d5e3f0;
   width: 106%;
