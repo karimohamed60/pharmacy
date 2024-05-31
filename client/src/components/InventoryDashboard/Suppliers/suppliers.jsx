@@ -321,13 +321,13 @@ const Suppliers = () => {
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="19"
-          height="19"
+          width="16"
+          height="16"
           fill="currentColor"
-          className="bi bi-search srchicon"
-          viewBox="0 0 11 16"
+          className="bi bi-caret-right-fill arrowicon"
+          viewBox="0 0 16 16"
         >
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
         </svg>
       </div>
 
@@ -453,11 +453,8 @@ const Suppliers = () => {
                   fill="#032B55"
                   className="bi bi-eye-fill"
                   viewBox="0 0 16 16"
-                  // onClick={openPopup2}
-                  onClick={() => handleSpecificSupplier(item.id)}
                 >
-                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
                 </svg>
               </td>
             </tr>
@@ -570,14 +567,14 @@ const Suppliers = () => {
                   onChange={(e) => setDate(e.target.value)}
                 />
               </div>
-            </div>
-
+            </form>
             <button
               type="submit"
               className="btn btn-light btn-lg "
-              id="aaddsupp"
+              id="editsupplierdetails"
+              onClick={handleSupplierValueUpdate}
             >
-              <b className="medlistbtn2">Add </b>
+              <b className="medlistbtn2">Update</b>
             </button>
             <ToastContainer
               position="top-center"
