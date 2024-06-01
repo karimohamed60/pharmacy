@@ -62,7 +62,7 @@ class Api::V1::InvoicesController < ApiControllerBase
 
             if start_date <= end_date
                 @invoices = Invoice.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
-                render_success(serialized_invoices(@invoices), :ok)
+                render_success(serialized_invoices(@invoices), :ok, total_invoices: @invoices.count)
             else
                 render_error('Start date cannot be after end date.', :bad_request)
             end
