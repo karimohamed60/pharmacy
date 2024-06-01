@@ -1,0 +1,176 @@
+.catlistlabel{
+position: relative;
+color:#787272;
+top: -600px;
+left: -388px;
+transform: translate(-50%, -50%);
+width: 10%;
+text-align: center;
+font-size: x-large ;
+font-style: Bold;
+}
+#aaddmedd
+{
+    position: relative;
+    top: -695px;
+    left: 590px;
+    margin-left: 10px;
+    background-color:  #d2e0ed;
+    color: #19355a;
+    /* font-weight: bolder; */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.catlistlabel2{
+    position: relative;
+    left: -200px;
+    top: -655px;
+    font-size: x-large;
+    color:#032B55;
+}
+.listofcat{
+    position: relative;
+    top: -270px;
+    left: -370px;
+    color: #032B55;
+}
+.seachinput2{
+    margin-left: 170px;
+    max-width: 400px;
+    position: relative;
+    top: -693px;
+    margin-top: 80px;
+    background-color: transparent;
+} 
+#srchinput
+{
+    background-color: #d5e3f0;
+}
+.srchicon{
+   position: relative;
+   left: -37px;
+   top: 15px;
+}
+.arrowiconcat
+{
+    margin-left: -200px;
+      position: relative;
+      left: -20%;
+      margin-bottom: 680px;
+      top: 88px;
+}
+.filterdropdwncat
+{
+    position: relative;
+    left: 284px;  
+    top: -740px;  
+    width: 300px;
+    height: 50px;
+    border-radius: 8px;
+}
+.catnamerow{
+    margin-left: -350px;
+}
+#tabcat
+{
+    margin-left: -30px;
+    width: 80%;
+    margin-top:-25px;
+    overflow-y: scroll;
+
+}
+
+.catnamelabel{
+    position: relative;
+    left: -165px;
+}
+.sorticon
+{
+    position: relative;
+    left: -140px;
+}
+.detnamelabel{
+    position: relative;
+    left: -125px;
+}
+.leftdetmove
+{
+    position: relative;
+    left: -125px;
+}
+.addmedbtncat{
+    position: relative;
+    left: 562px;
+    top: 10px;
+    margin-top: 5px;
+    margin-left: -15px;
+}
+.popupfrmcategory{
+    position: relative;
+    margin-left: 60px;
+    margin-top: 200px;
+    height: 190px;
+    
+}
+input[name="catnameinputt"]
+{
+position: relative;
+left: 100px;
+width: 70%;
+margin-right: 150%px;
+margin-bottom: 20px;
+top:-90px;
+background-color: #d5e3f0;
+
+}
+.addcatpopup{
+    position: relative;
+    left: 330px;
+    top: 40px;
+    font-size: x-large;
+}
+.adca
+{
+    position: relative;
+    top: -80px;
+    left: 100px;
+    color: #032B55;
+    font-size: larger;
+    margin-bottom: 35px;
+}
+
+#aaddcaatt
+{
+    background-color: #d5e3f0;
+    position: relative;
+    left: 365px;
+    top:-60px;
+}
+.medlistbtn2{
+    padding: 20px 20px 20px 20px;
+}
+.editcatpopup{
+    position: relative;
+    left: 330px;
+    top: 40px;
+    color: #032B55;
+    font-size: x-large;
+
+}
+.closeiconcatlist{
+    position: relative;
+    left: 800px;
+    top: 15px;
+}
+
+#cd-table {
+    position: relative;
+    top: -650px;
+    left: 100px;
+    overflow-x: scroll;
+  }
+  .cl-tbody {
+    height: 50px;
+  }
+  

@@ -102,7 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_28_190552) do
     t.string "medicine_name", limit: 100, null: false
     t.string "dosage", limit: 200, null: false
     t.integer "got_medicine", default: 3
-    t.integer "quantity", default: 0
+    t.integer "quantity", default: 0  
     t.index ["prescription_id"], name: "index_prescriptions_medicines_on_prescription_id"
   end
 
@@ -167,7 +167,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_28_190552) do
     t.string "jti", null: false
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.integer "sign_in_count", default: 0, null: false
+    t.integer "sign_in_count", default: 0
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
     t.index ["username"], name: "index_users_on_user_id", unique: true

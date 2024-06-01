@@ -17,7 +17,7 @@ end
     quantity_in_pharmacy: Faker::Number.between(from: 0, to: 100),
     quantity_sold: Faker::Number.between(from: 0, to: 50),
     expire_date: Faker::Date.forward(days: 365),
-    user_id: 1, 
+    user_id: 7, 
     category_id: 1
   )
 end
@@ -29,4 +29,4 @@ end
     user_id: 1,
     date: Faker::Date.backward(days: 365)
   )
-end 
+end

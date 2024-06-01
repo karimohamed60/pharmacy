@@ -1,240 +1,172 @@
-#tabcatsub {
-  position: relative;
-  top: -670px;
-}
-.detnamelabel1 {
-  position: relative;
-  left: 10px;
-}
-.leftdetmovesupp {
-  position: relative;
-  left: 10px;
-}
-.detnamelabelsupp {
-  position: relative;
-  left: -178px;
-}
-#addmedbtnsupp {
-  position: relative;
-  top: -3.8rem;
-  left: 38rem;
-  margin-left: 10px;
-  background-color: #d2e0ed;
-  color: #19355a;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.listofsupplabel {
-  position: relative;
-  top: -650px;
-  left: -400px;
-  color: #032b55;
-  font-style: initial;
-}
-input[name="supplierameinputt"] {
-  position: relative;
-  left: 140px;
-  width: 65%;
-  margin-right: 150%px;
-  margin-bottom: 200px;
-  top: -100px;
-  background-color: #d5e3f0;
-}
-input[name="suppnamein"] {
-  position: relative;
-  left: 140px;
-  width: 65%;
-  margin-right: 150%px;
-  margin-bottom: 200px;
-  top: -100px;
-  background-color: #d5e3f0;
-}
-.adcasuppnm {
-  position: relative;
-  top: -110px;
-  left: 150px;
-  color: #032b55;
-  font-size: larger;
-}
-.adcasuppdes2 {
-  position: relative;
-  top: -285px;
-  left: 150px;
-  color: #032b55;
-  font-size: larger;
-}
-textarea[name="suppdescin"] {
-  position: relative;
-  left: 140px;
-  width: 65%;
-  max-width: 620px;
-  margin-right: 150%px;
-  margin-bottom: 200px;
-  max-height: 240px;
-  top: -270px;
-  height: 140px;
-  background-color: #d5e3f0;
-}
-textarea[name="suppdescin2"] {
-  position: relative;
-  left: 140px;
-  width: 65%;
-  max-height: 115px;
-  height: 100px;
-  margin-right: 150%px;
-  margin-bottom: 200px;
-  top: -280px;
-  background-color: #d5e3f0;
-}
-.adcasupp {
-  position: relative;
-  top: -110px;
-  left: 150px;
-  color: #032b55;
-  font-size: larger;
-}
-.adcasuppdes {
-  position: relative;
-  top: -280px;
-  left: 150px;
-  color: #032b55;
-  font-size: larger;
-}
-#aaddsupp {
-  background-color: #d5e3f0;
-  position: relative;
-  left: 380px;
-  top: -450px;
-}
-#editsupplierdetails {
-  background-color: #d5e3f0;
-  position: relative;
-  left: 425px;
-  top: -50px;
-}
-.popupfrmsupp {
-  position: relative;
-  margin-left: 60px;
-  margin-top: 200px;
-  height: 320px;
-}
-.editsupppopup {
-  position: relative;
-  left: 370px;
-  top: 50px;
-  color: #032b55;
-  margin-top: 10px;
-}
-.addsupppopup {
-  position: relative;
-  left: 370px;
-  top: 50px;
-  color: #032b55;
-  margin-top: 10px;
-}
-.seachinput {
-  position: relative;
-  margin-left: 170px;
-  max-width: 400px;
-  top: -720px;
-  margin-top: 80px;
-  margin-bottom: -55px;
-  background-color: transparent;
-}
-#sstl {
-  margin-left: 10rem;
-}
-
-#sl-table {
-  position: relative;
-  top: -650px;
-  left: 4rem;
-  overflow-x: scroll;
-  width: 103%;
-}
-.sl-tbody {
-  height: 50px;
-}
-input[name="suppliernameinputt"] {
-  position: relative;
-  left: 140px;
-  width: 65%;
-  margin-right: 150%px;
-  margin-bottom: 20px;
-  top: -100px;
-  background-color: #d5e3f0;
-}
-
-.pagination {
-  margin-top: -5.5rem;
-  margin-left: -39rem;
-}
-
-.pagination button {
-  margin-right: 5px;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  cursor: pointer;
-}
-
-.pagination button.active {
-  background-color: #007bff;
-  color: #fff;
-}
-
-/* For small devices (e.g., phones) */
-@media (max-width: 576px) {
-  /* Adjustments for small devices */
-  #addmedbtnsupp {
-    left: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .listofsupplabel {
-    left: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* For medium devices (e.g., tablets) */
-@media (min-width: 577px) and (max-width: 768px) {
-  /* Adjustments for medium devices */
-  #addmedbtnsupp {
-    left: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .listofsupplabel {
-    left: auto;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* For large devices and desktops */
-@media (min-width: 769px) {
-  /* Adjustments for large devices */
-  #addmedbtnsupp {
-    /* Your original styles */
+#tabcatsub{
     position: relative;
-    top: -3.8rem;
-    left: 38rem;
+    top: -670px;
+
+}
+.detnamelabel1
+{
+    position: relative;
+    left: 10px;
+}
+.leftdetmovesupp{
+    position: relative;
+    left: 10px;
+}
+.detnamelabelsupp{
+    position: relative;
+    left: -178px;
+}
+#addmedbtnsupp{
+    position: relative;
+    top: -675px;
+    left: 600px;
     margin-left: 10px;
     background-color: #d2e0ed;
     color: #19355a;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  .listofsupplabel {
-    /* Your original styles */
+
+}
+.listofsupplabel{
+    position: relative;
+    top:-650px;
+    left: -400px;
+    color: #032B55;
+    font-style:initial;
+}
+input[name="supplierameinputt"]
+{
+    position: relative;
+    left: 140px;
+    width: 65%;
+margin-right: 150%px;
+margin-bottom: 200px;
+top: -100px;
+background-color: #d5e3f0;
+}
+input[name="suppnamein"]{
+    position: relative;
+    left: 140px;
+    width: 65%;
+margin-right: 150%px;
+margin-bottom: 200px;
+top: -100px;
+background-color: #d5e3f0;
+}
+.adcasuppnm{
+    position: relative;
+    top: -110px;
+    left: 150px;
+    color: #032B55;
+    font-size: larger;
+}
+.adcasuppdes2{
+    position: relative;
+    top: -285px;
+    left: 150px;
+    color: #032B55;
+    font-size: larger
+}
+textarea[name="suppdescin"]
+{
+    position: relative;
+    left: 140px;
+    width: 65%;
+    max-width: 620px;
+    margin-right: 150%px;
+    margin-bottom: 200px;
+    max-height: 240px;
+    top: -270px;
+    height: 140px;
+    background-color: #d5e3f0;
+
+}
+textarea[name="suppdescin2"]{
+    position: relative;
+    left: 140px;
+    width: 65%;
+    max-height: 115px;
+    height: 100px;
+    margin-right: 150%px;
+    margin-bottom: 200px;
+    top: -280px;
+    background-color: #d5e3f0;
+}
+.adcasupp{
+    position: relative;
+    top: -110px;
+    left: 150px;
+    color: #032B55;
+    font-size: larger;
+}
+.adcasuppdes{
+    position: relative;
+    top: -280px;
+    left: 150px;
+    color: #032B55;
+    font-size: larger;
+}
+#aaddsupp{
+
+    background-color: #d5e3f0;
+    position: relative;
+    left: 380px;
+    top:-450px;
+}
+#editsupplierdetails{
+    background-color: #d5e3f0;
+    position: relative;
+    left: 425px;
+    top:-50px;
+}
+.popupfrmsupp
+{
+    position: relative;
+    margin-left: 60px;
+    margin-top: 200px;
+    height: 320px;
+}
+.editsupppopup{
+    position: relative;
+    left: 370px;
+    top: 50px;
+    color: #032B55;
+    margin-top: 10px;
+}
+.addsupppopup{
+    position: relative;
+    left: 370px;
+    top: 50px;
+    color: #032B55;
+    margin-top: 10px;
+}
+.seachinputsupplier{
+    position: relative;
+    margin-left: 170px;
+    max-width: 400px;
+    top: -683px;
+    margin-top: 80px;
+    background-color: transparent;
+}
+
+#sl-table {
     position: relative;
     top: -650px;
-    left: -400px;
-    color: #032b55;
-    font-style: initial;
+    left: 100px;
+    overflow-x: scroll;
   }
-}
+  .sl-tbody {
+    height: 50px;
+  }
+input[name="suppliernameinputt"]
+   {
+    position: relative;
+    left: 140px;
+    width: 65%;
+margin-right: 150%px;
+margin-bottom: 20px;
+top:-100px;
+background-color: #d5e3f0;
+
+   }
