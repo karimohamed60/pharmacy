@@ -1,0 +1,228 @@
+/* Existing styles */
+.price-input1 {
+  margin-top: 70px;
+}
+
+.addlabel {
+  color: #032b55;
+  font-size: x-large;
+  margin-top: 35px;
+  margin-left: -33rem;
+  margin-bottom: 1rem;
+}
+
+.addlabel2 {
+  color: #032b55;
+  font-size: x-large;
+  margin-left: -460px;
+  position: relative;
+  top: -654px;
+  left: -30px;
+}
+
+.imd-form-label {
+  margin-left: -22.5rem;
+}
+
+.form-control {
+  height: 50px;
+  width: 1px;
+  background-color: #f0f7fe;
+  border-radius: 7px;
+}
+
+.price-inputcategory {
+  margin-left: 80px;
+}
+
+.frm {
+  background-color: #ffffff;
+  border-radius: 7px;
+  width: 120%;
+  height: 700px;
+  margin-right: 800%;
+  margin-top: 800px;
+  position: relative;
+  top: -40rem;
+  padding-bottom: 5rem;
+}
+
+.custom-width {
+  width: 70%;
+  background-color: #d5e3f0;
+}
+
+.my-input {
+  width: 10%;
+}
+
+input[name="inputIng"] {
+  background-color: rgb(213, 227, 240);
+  width: 70%;
+  margin-left: 80px;
+}
+
+.addprdbtn {
+  position: relative;
+  left: 940px;
+  margin-left: -490px;
+  margin-bottom: 9px;
+  height: 50px;
+  margin-top: 2rem;
+  margin-right: 5rem;
+}
+
+.Addmedbtn {
+  color: #032b55;
+  font-size: large;
+  padding: 2rem;
+}
+
+#oooo {
+  position: relative;
+  background-color: #d5e3f0;
+}
+
+.formborder {
+  margin-left: 110px;
+}
+
+.ing {
+  margin-left: -22.5rem;
+}
+
+.prc {
+  margin-left: -28rem;
+}
+
+.mjr {
+  margin-left: -25rem;
+}
+
+.minor {
+  margin-left: -25.7rem;
+}
+
+.med {
+  margin-left: -24.7rem;
+}
+
+.cat {
+  margin-left: -22.5rem;
+}
+
+.barcode {
+  margin-left: -20rem;
+}
+
+#bckbtn {
+  padding: 10px 10px 4px 12px;
+  color: #032b55;
+}
+
+.backbutton {
+  position: relative;
+  left: 63.5%;
+  margin-bottom: 19px;
+  top: -660px;
+  padding: 10px 10px 10px 10px;
+  background-color: #d5e3f0;
+}
+
+select[name="inputState"] {
+  background-color: #d5e3f0;
+  width: 106%;
+  height: 60%;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .addlabel {
+    margin-left: -300px;
+  }
+  .addlabel2 {
+    margin-left: -300px;
+  }
+
+  .price-inputcategory {
+    margin-left: 0;
+  }
+  .formborder {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .addlabel {
+    margin-left: -150px;
+  }
+  .addlabel2 {
+    margin-left: -150px;
+    top: -500px;
+  }
+
+  .frm {
+    width: 100%;
+    margin-right: 0;
+    margin-top: 0;
+    top: 0;
+  }
+  .backbutton {
+    left: 50%;
+    top: -500px;
+  }
+  .addprdbtn {
+    left: 50%;
+  }
+  input[name="inputIng"] {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .addlabel {
+    margin-left: 0;
+    text-align: center;
+  }
+  .addlabel2 {
+    margin-left: 0;
+    text-align: center;
+    top: -400px;
+  }
+
+  .frm {
+    width: 100%;
+    margin-right: 0;
+    margin-top: 0;
+    top: 0;
+    padding-bottom: 2rem;
+  }
+  .backbutton {
+    left: 0;
+    top: -300px;
+    width: 100%;
+    text-align: center;
+  }
+  .addprdbtn {
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
+  }
+  input[name="inputIng"] {
+    margin-left: 0;
+    width: 90%;
+  }
+  select[name="inputState"] {
+    width: 90%;
+  }
+}
+
+@media (max-width: 576px) {
+  .addlabel2 {
+    top: -300px;
+  }
+  .backbutton {
+    top: -200px;
+  }
+}

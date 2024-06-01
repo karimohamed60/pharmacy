@@ -1,0 +1,145 @@
+.transferlabels {
+  position: relative;
+  left: 90px;
+}
+.addtransferlabel {
+  position: relative;
+  top: -655px;
+  left: -270px;
+  font-size: x-large;
+  color: #032b55;
+}
+#arrowiconfortransfer {
+  position: relative;
+  left: -180px;
+}
+.at-container {
+  position: relative;
+  top: -38rem;
+  width: 75%;
+  left: 4rem;
+  max-height: 800px;
+  margin: auto;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  margin-top: -40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.addtransfer-title {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-top: 20px;
+  color: #032b55;
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.close-btn {
+  background-color: #ffffff;
+  border: none;
+  font-size: x-large;
+  cursor: pointer;
+  color: #495057;
+  transition: color 0.3s;
+  margin-top: -10px;
+}
+.close-btn:hover {
+  color: #495057;
+}
+.at-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.at-form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.at-label {
+  display: block;
+  text-align: start;
+  color: rgba(25, 53, 90, 0.66);
+  font-size: large;
+  font-weight: 900;
+  margin-left: 40px;
+}
+.at-select {
+  background-color: #e3ebf3;
+  width: 93%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.at-input {
+  background-color: #e3ebf3;
+  width: 93%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.at-addMedicineBtn {
+  background-color: #ffffff;
+  color: rgba(0, 154, 241, 1);
+  border: none;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 650px;
+  font-size: larger;
+  font-weight: bolder;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 20%;
+}
+
+.quantity-and-remove {
+  display: flex;
+  align-items: center;
+  margin-left: 22px;
+}
+
+.removebtn {
+  background-color: #bd2727;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.at-tranfer-btn {
+  position: relative;
+  font-size: larger;
+  /* font-weight: bolder; */
+  padding: 10px 35px 10px 35px;
+  color: #19355a;
+  background-color: rgb(195, 212, 230);
+  /* font-weight: bolder; */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 25px;
+  margin-left: -65px;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+#medicinedropdownmenu {
+  width: 350px;
+}

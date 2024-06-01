@@ -1,0 +1,282 @@
+.meddetails {
+  position: relative;
+  top: -655px;
+  left: -250px;
+  font-size: x-large;
+  color: #032b55;
+}
+.form-container {
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  position: relative;
+  top: -600px;
+  left: 70px;
+  height: 650px;
+  width: 1150px;
+  margin-top: -50px;
+}
+.detlabels {
+  position: relative;
+  padding: 5px 10px 5px 10px;
+}
+.ingdet {
+  position: relative;
+  margin-left: -400px;
+}
+.prcdet {
+  position: relative;
+  margin-left: -740px;
+}
+.crdet {
+  position: relative;
+  margin-left: -700px;
+}
+.mdet {
+  position: relative;
+  margin-left: -440px;
+  margin-top: 7px;
+}
+.mdudet {
+  position: relative;
+  margin-left: -990px;
+}
+.catedet {
+  position: relative;
+  margin-left: -715px;
+}
+.intdet {
+  position: relative;
+  margin-left: -360px;
+  margin-top: 8px;
+}
+.exdet {
+  position: relative;
+  margin-left: -630px;
+}
+input[name="exdetinp"] {
+  position: relative;
+  width: 54%;
+  left: 65px;
+}
+#boxx1 {
+  background-color: #ffffff;
+  border: rgb(201, 191, 191) solid;
+  padding: 35px;
+  margin: 20px;
+  width: 230px;
+  position: relative;
+  left: 840px;
+  top: -195px;
+  margin-bottom: -170px;
+}
+#boxx2 {
+  background-color: #ffffff;
+  border: rgb(201, 191, 191) solid;
+  padding: 35px;
+  margin: 20px;
+  width: 230px;
+  position: relative;
+  left: 840px;
+  top: -215px;
+  margin-bottom: -170px;
+}
+#boxx3 {
+  background-color: #ffffff;
+  border: rgb(201, 191, 191) solid;
+  padding: 35px;
+  margin: 20px;
+  width: 230px;
+  position: relative;
+  left: 840px;
+  top: -220px;
+  margin-bottom: -170px;
+}
+.barcode_categoriesRows {
+  position: relative;
+  top: -40px;
+}
+.minor_created_byRows {
+  position: relative;
+  top: -40px;
+}
+.major_created_atRows {
+  position: relative;
+  top: -75px;
+}
+.medium_unitRow {
+  position: relative;
+  top: -70px;
+}
+
+input[name="commdet"] {
+  position: relative;
+  width: 54%;
+}
+#einput {
+  position: relative;
+  width: 60%;
+}
+input[name="mediuminput"] {
+  position: relative;
+  width: 29%;
+}
+.leftmove {
+  position: relative;
+  margin-left: -130px;
+}
+.comlabel {
+  position: relative;
+  margin-left: -445px;
+}
+
+.butnn {
+  position: relative;
+  top: -660px;
+  left: 65px;
+}
+.upd {
+  background-color: #d5e3f0;
+}
+.updatelabel {
+  padding-right: 30px;
+  position: relative;
+  left: 15px;
+}
+.butnn2 {
+  position: relative;
+  top: -660px;
+  left: 580px;
+  height: 48px;
+  background-color: #d5e3f0;
+}
+.updatebutnn {
+  position: relative;
+  top: -130px;
+  left: 115px;
+  height: 55px;
+}
+#bCK {
+  padding: 10px 10px 10px 10px;
+}
+
+.popup-content {
+  margin: auto;
+  background: rgb(255, 255, 255);
+  width: 50%;
+  padding: 5px;
+  position: relative;
+  top: 50px;
+  left: -20px;
+  border-radius: 10px;
+}
+.popup-arrow {
+  color: rgb(255, 255, 255);
+}
+[role="tooltip"].popup-content {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-popup="tooltip"].popup-overlay {
+  background: transparent;
+}
+
+input[name="inppopup"] {
+  position: relative;
+  width: 325px;
+  margin-left: 2px;
+}
+
+#prcpopup {
+  position: relative;
+  width: 400px;
+  margin-left: -15px;
+}
+.popuplabel {
+  position: relative;
+  margin-left: 58px;
+}
+.epopup {
+  position: relative;
+  margin-left: 60px;
+}
+.mpopup {
+  position: relative;
+  margin-left: 58px;
+}
+.cpopup {
+  position: relative;
+  margin-left: 58px;
+}
+.catpopup {
+  position: relative;
+  margin-left: 58px;
+}
+.intpopup {
+  position: relative;
+  margin-left: 58px;
+}
+.popupfrm {
+  position: relative;
+  height: 600px;
+}
+#updatepopup {
+  position: relative;
+  left: 730px;
+  top: -80px;
+  padding: 8px 25px 8px 25px;
+  background-color: #d5e3f0;
+}
+.editpopup {
+  position: relative;
+  left: 67px;
+  margin-top: 20px;
+}
+.closeicon {
+  position: relative;
+  left: 820px;
+}
+.updpopup {
+  color: #032b55;
+}
+select[name="categoryMenu"] {
+  position: relative;
+  left: -210px;
+  top: 15px;
+  width: 180%;
+  height: 47px;
+}
+#categorylabel {
+  position: relative;
+  left: -90px;
+  top: 20px;
+}
+/* Media Query for Tablet Screens */
+@media screen and (max-width: 768px) {
+  .form-container {
+    width: 90%; /* Adjust as needed */
+    left: 5%;
+    height: auto;
+  }
+
+  /* Adjust other styles as needed */
+}
+
+/* Media Query for Mobile Screens */
+@media screen and (max-width: 480px) {
+  .form-container {
+    width: 95%; /* Adjust as needed */
+    left: 2.5%;
+    height: auto;
+  }
+
+  /* Adjust other styles as needed */
+}

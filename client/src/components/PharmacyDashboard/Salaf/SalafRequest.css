@@ -1,0 +1,196 @@
+.salaf-title {
+  position: relative;
+  color: #787272;
+  top: -37.5rem;
+  left: -25.5rem;
+  transform: translate(-50%, -50%);
+  width: 10%;
+  text-align: center;
+  font-size: x-large;
+  font-style: Bold;
+}
+
+.Arrowicon {
+  margin-left: 3rem;
+  margin-right: 3rem;
+  position: relative;
+  left: -22.5rem;
+  margin-bottom: 42.5rem;
+  top: 5.5rem;
+}
+
+.salf-Title {
+  position: relative;
+  top: -40.94rem;
+  left: -13.5rem;
+  font-size: x-large;
+  color: #032b55;
+  margin-bottom: 0.75rem;
+}
+
+.s-container {
+  position: relative;
+  top: -43rem;
+  width: 80%;
+  min-width: 50rem;
+  left: 4rem;
+  max-height: 48.5rem;
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.newrequest-title {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-top: 1rem;
+  color: #032b55;
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.s-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.s-input-group {
+  display: flex;
+  align-items: center;
+  margin-left: 5rem;
+  position: relative;
+  border-radius: 1rem;
+  background-color: #fff;
+}
+#s-testarea {
+  display: flex;
+  align-items: center;
+  margin-left: 5rem;
+  position: relative;
+  border-radius: 1rem;
+  background-color: #e3ebf3;
+  width: 93%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s;
+  max-height: 6rem;
+  margin-left: 2rem;
+}
+.s-national {
+  left: 5rem;
+}
+
+.ao-select {
+  background-color: #e3ebf3;
+  width: 93%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  margin-left: 2.5rem;
+}
+.s-form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.s-label {
+  display: block;
+  text-align: start;
+  color: rgba(25, 53, 90, 0.66);
+  font-size: large;
+  font-weight: 900;
+  margin-left: 40px;
+  margin-bottom: 0.5rem;
+}
+.s-select {
+  background-color: #e3ebf3;
+  width: 93%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  margin-left: 2.5rem;
+}
+
+.s-input {
+  background-color: #e3ebf3;
+  width: 93%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  margin-left: 2.5rem;
+  max-height: 200px;
+}
+.s-testarea {
+  background-color: #e3ebf3;
+  width: 93%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  margin-left: 2.5rem;
+  max-height: 200px;
+}
+
+.s-addMedicineBtn {
+  background-color: #ffffff;
+  color: rgba(0, 154, 241, 1);
+  border: none;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 28rem;
+  font-size: larger;
+  font-weight: bolder;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  width: 30%;
+}
+
+.quantity-and-remove {
+  display: flex;
+  align-items: center;
+  margin-left: 1.2rem;
+}
+
+.removebtn {
+  background-color: #bd2727;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.s-confirm-btn {
+  position: relative;
+  font-size: larger;
+  /* font-weight: bolder; */
+  padding: 10px 35px 10px 35px;
+  color: #19355a;
+  background-color: rgb(195, 212, 230);
+  /* font-weight: bolder; */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}

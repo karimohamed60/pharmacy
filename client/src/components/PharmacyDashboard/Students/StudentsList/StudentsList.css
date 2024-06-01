@@ -1,0 +1,71 @@
+.Students-title {
+  position: relative;
+  color: #787272;
+  top: -37.5rem;
+  left: -25rem;
+  transform: translate(-50%, -50%);
+  width: 10%;
+  text-align: center;
+  font-size: x-large;
+  font-style: Bold;
+  margin-right: -36px;
+}
+
+.student-Arrowicon {
+  margin-left: 3rem;
+  margin-right: -2.5rem;
+  position: relative;
+  left: -22.5rem;
+  margin-bottom: 42.5rem;
+  top: 5.5rem;
+}
+
+.StudentsList-title {
+  position: relative;
+  top: -40.94rem;
+  left: -11rem;
+  font-size: x-large;
+  color: #032b55;
+  margin-bottom: 0.75rem;
+}
+.Students-title-group {
+  position: relative;
+  left: -15px;
+}
+.Students-search-group {
+  position: relative;
+  left: -2.5rem;
+  border-radius: 2rem;
+  background-color: #fff;
+  width: 55%;
+  margin-top: -8px;
+}
+
+#srchinputforstudents {
+  background-color: #d5e3f0;
+}
+
+.search-input {
+  margin-left: 10.9rem;
+  max-width: 400px;
+  position: relative;
+  background-color: transparent;
+  top: -60px;
+}
+
+.Students-search-icon {
+  position: relative;
+  left: 10rem;
+  top: -3rem;
+}
+
+#Studentstable {
+  position: relative;
+  top: -645px;
+  left: 6rem;
+  width: 100%;
+  overflow-x: scroll;
+}
+.Studentstable-body {
+  height: 1.5rem;
+}

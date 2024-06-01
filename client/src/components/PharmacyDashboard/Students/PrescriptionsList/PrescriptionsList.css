@@ -1,0 +1,195 @@
+.Prescriptions-title {
+  position: relative;
+  color: #787272;
+  top: -37.5rem;
+  left: -25.2rem;
+  transform: translate(-50%, -50%);
+  width: 10%;
+  text-align: center;
+  font-size: x-large;
+  font-style: Bold;
+}
+
+.pl-Arrowicon {
+  margin-left: 3rem;
+  margin-right: 3rem;
+  position: relative;
+  left: -21.5rem;
+  margin-bottom: 42.5rem;
+  top: 5.5rem;
+}
+
+.PrescriptionsLabel {
+  position: relative;
+  top: -40.94rem;
+  left: -10rem;
+  font-size: x-large;
+  color: #032b55;
+  margin-bottom: 0.75rem;
+}
+
+#srchinput {
+  background-color: #d5e3f0;
+}
+
+.search-input {
+  margin-left: 8.5rem;
+  max-width: 400px;
+  position: relative;
+  background-color: transparent;
+  top: -40.5rem;
+}
+
+.pl-search-icon {
+  position: relative;
+  left: 10rem;
+  top: -3rem;
+}
+
+.pl-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+  width: 98%;
+  margin-left: 3px;
+  background-color: #fcfcfc;
+  border-radius: 1px;
+}
+
+.pl-search-group {
+  position: relative;
+  left: -2.5rem;
+  border-radius: 2rem;
+  width: 25rem;
+}
+.pl-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  width: 100%;
+}
+.pl-filterdropdwn {
+  position: relative;
+  left: 33rem;
+  top: -46.2rem;
+  width: 19rem;
+  height: 50px;
+  border-radius: 8px;
+}
+.pl-filterlabel {
+  position: relative;
+  top: 10px;
+  font-size: large;
+  padding-left: -50px;
+}
+.pl-filtericon {
+  position: relative;
+  left: -50px;
+  top: 8px;
+}
+.pl-filterdownicon {
+  position: relative;
+  left: 42px;
+  top: 8px;
+}
+.pl-filtercontent {
+  position: absolute;
+  top: 7px;
+  max-height: 200px;
+  overflow-y: visible;
+  min-width: 30rem;
+}
+#statusfilter {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+#pl-table {
+  position: relative;
+  top: -645px;
+  left: 6rem;
+  width: 103%;
+  overflow-x: scroll;
+}
+.pl-tbody {
+  height: 50px;
+}
+
+.status-item {
+  padding: 3px;
+  border-radius: 20px;
+  width: 38%;
+  display: inline-block;
+  font-weight: bold;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+.pl-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+  width: 98%;
+  margin-left: 3px;
+  background-color: #fcfcfc;
+  border-radius: 1px;
+}
+
+.pl-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.pl-dropdown:hover .pl-dropdown-content {
+  display: block;
+}
+.pl-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+  width: 98%;
+  margin-left: 3px;
+  background-color: #fcfcfc;
+  border-radius: 1px;
+}
+
+.pfilterdropdwn {
+  position: relative;
+  left: 36.7rem;
+  top: -46.2rem;
+  width: 19rem;
+  height: 50px;
+  border-radius: 8px;
+}
+#statusfilter {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+.pl-backbtn-pharmacy {
+  position: relative;
+  top: -15px;
+  left: 3rem;
+  margin-right: 5px;
+  padding-right: 1.9px;
+  padding-top: 7px;
+}
+
+.pl-backButton {
+  position: relative;
+  top: -42.5rem;
+  left: 39.5rem;
+  height: 48px;
+  background-color: #d5e3f0;
+  margin-top: -15rem;
+  margin-bottom: -15rem;
+}
