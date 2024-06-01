@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../../assets/Images/logouni 7.png";
-import './Sidebar.css'
+import "./Sidebar.css";
 import SidebarItem from "./SidebarItem";
-import items from "../../../data/sidebar.json"
+import items from "../../../data/sidebar.json";
 import LogoutButton from "../../../auth/LogoutButton";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
-
   const toggleClose = (shouldOpen) => {
     setIsOpen(shouldOpen);
   };
-
 
   useEffect(() => {
     // Remove scroll bar
@@ -55,12 +53,13 @@ const Sidebar = () => {
           <label id="inventorydashboardlabel">
             <b>Pharmacy</b>
           </label>
-          
-          { items.map((item, index) => <SidebarItem key={index} item={item} />) }
 
+          {items.map((item, index) => (
+            <SidebarItem key={index} item={item} />
+          ))}
         </>
       }
-      <LogoutButton/>
+      <LogoutButton />
     </div>
   );
 };

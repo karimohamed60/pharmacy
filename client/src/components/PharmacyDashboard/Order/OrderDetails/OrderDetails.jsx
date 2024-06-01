@@ -12,7 +12,6 @@ const OrderDetails = () => {
 
   const { id, order_id } = useParams();
 
-  
   useEffect(() => {
     // Remove scroll bar
     document.body.style.overflow = "hidden";
@@ -27,7 +26,7 @@ const OrderDetails = () => {
     const intervalId = setInterval(() => {
       setCurrentDate(new Date());
     }, 1000);
-    
+
     return () => clearInterval(intervalId);
   }, []);
 
@@ -43,78 +42,80 @@ const OrderDetails = () => {
     return date.toLocaleDateString("en-US", options);
   };
 
- //print
-   const handlePrint = async () => {
+  //print
+  const handlePrint = async () => {
     try {
       const token = getAuthTokenCookie();
-      const response = await fetch(`${API_URL}/orders/${order_id}/generate_pdf`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+      const response = await fetch(
+        `${API_URL}/orders/${order_id}/generate_pdf`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
 
       if (response.ok) {
         // Handle the PDF file received from the backend
         // For example, you can prompt the user to download the file
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
-        a.download = 'order_details.pdf';
+        a.download = "order_details.pdf";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
       } else {
-        throw new Error('Failed to generate PDF');
+        throw new Error("Failed to generate PDF");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
-  
 
   useEffect(() => {
-  
     if (order_id) {
       handleSpecificOrder();
     }
   }, [order_id]);
-    // navigate to a specific order
-    const handleSpecificOrder= async () => {
-      try {
-        const token = getAuthTokenCookie();
-        const response = await fetch(`${API_URL}/orders/${order_id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          }
-        });
-    
-        if (response.ok) {
-          const responseData = await response.json();    
-          setOrders(responseData.data);
-          setMedicinesData(responseData.data.attributes.medicines);
-          window.created_at = responseData.data.attributes.created_at;
-          window.formattedCreatedAt = format(new Date(window.created_at), 'yyyy-MM-dd');
-          window.national_id=responseData.data.attributes.student.student_national_id
-          window.student_name=responseData.data.attributes.student.student_name
-          window.created_by=responseData.data.attributes.user.user_name
-          console.log(responseData)
-          window.order_num=responseData.data.attributes.id;
+  // navigate to a specific order
+  const handleSpecificOrder = async () => {
+    try {
+      const token = getAuthTokenCookie();
+      const response = await fetch(`${API_URL}/orders/${order_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        } else {
-          throw new Error('Failed');
-        }
-      } catch (error) {
-        console.error('Error:', error);
+      if (response.ok) {
+        const responseData = await response.json();
+        setOrders(responseData.data);
+        setMedicinesData(responseData.data.attributes.medicines);
+        window.created_at = responseData.data.attributes.created_at;
+        window.formattedCreatedAt = format(
+          new Date(window.created_at),
+          "yyyy-MM-dd"
+        );
+        window.national_id =
+          responseData.data.attributes.student.student_national_id;
+        window.student_name = responseData.data.attributes.student.student_name;
+        window.created_by = responseData.data.attributes.user.user_name;
+        console.log(responseData);
+        window.order_num = responseData.data.attributes.id;
+      } else {
+        throw new Error("Failed");
       }
-    };
-  
-
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <>
@@ -206,10 +207,13 @@ const OrderDetails = () => {
           </div>
         </div>
         <div className="id-row">
-          <div className="id-national-label">National ID: <span>{window.national_id} </span></div>
-          <div className="id-studentname-label">Student Name: <span>{window.student_name}</span> </div>
+          <div className="id-national-label">
+            National ID: <span>{window.national_id} </span>
+          </div>
+          <div className="id-studentname-label">
+            Student Name: <span>{window.student_name}</span>{" "}
+          </div>
         </div>
-
 
         <div className="id-row">
           <div className="order-details-container">

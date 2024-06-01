@@ -22,7 +22,7 @@ tbody {
   color: #032b55;
   font-style: initial;
 }
-#mlitl{
+#mlitl {
   margin-left: 9.8rem;
 }
 .seachinput {
@@ -180,25 +180,25 @@ tbody {
     top: -630px;
     left: -270px;
   }
-  
+
   .listofmedlabel {
     top: -625px;
     left: -400px;
   }
-  
+
   .seachinput {
     margin-left: 100px;
   }
-  
+
   #addmedbtn {
     left: calc(50% + 360px);
   }
-  
+
   #ml-table {
     top: -635px;
     left: 100px;
   }
-  
+
   .pagination {
     margin-left: -37rem;
   }
@@ -208,26 +208,26 @@ tbody {
   .medlistlabel {
     top: -600px;
   }
-  
+
   .listofmedlabel {
     top: -600px;
   }
-  
+
   .seachinput {
     top: -600px;
     margin-left: 50px;
   }
-  
+
   #addmedbtn {
     top: -2.8rem;
     left: calc(50% + 360px);
   }
-  
+
   #ml-table {
     top: -600px;
     left: 100px;
   }
-  
+
   .pagination {
     margin-left: -34rem;
   }
@@ -238,27 +238,27 @@ tbody {
     top: -570px;
     left: -270px;
   }
-  
+
   .listofmedlabel {
     top: -570px;
     left: -400px;
   }
-  
+
   .seachinput {
     top: -570px;
     margin-left: 20px;
   }
-  
+
   #addmedbtn {
     top: -2.5rem;
     left: calc(50% + 320px);
   }
-  
+
   #ml-table {
     top: -570px;
     left: 100px;
   }
-  
+
   .pagination {
     margin-left: -31rem;
   }
@@ -269,27 +269,27 @@ tbody {
     top: -540px;
     left: -270px;
   }
-  
+
   .listofmedlabel {
     top: -540px;
     left: -400px;
   }
-  
+
   .seachinput {
     top: -540px;
     margin-left: 10px;
   }
-  
+
   #addmedbtn {
     top: -2.2rem;
     left: calc(50% + 280px);
   }
-  
+
   #ml-table {
     top: -540px;
     left: 100px;
   }
-  
+
   .pagination {
     margin-left: -28rem;
   }

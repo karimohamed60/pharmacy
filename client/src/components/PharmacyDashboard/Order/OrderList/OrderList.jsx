@@ -60,29 +60,27 @@ const OrderList = () => {
     }
   }, [search, currentPage]);
 
-  
- const handleSearch = async (value, page = 1) => {
-  try {
-    const token = getAuthTokenCookie();
-    const response = await fetch(`${API_URL}/orders/search?q=${value}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  const handleSearch = async (value, page = 1) => {
+    try {
+      const token = getAuthTokenCookie();
+      const response = await fetch(`${API_URL}/orders/search?q=${value}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    if (!response.ok) throw new Error("Failed to search medicines");
+      if (!response.ok) throw new Error("Failed to search medicines");
 
-    const data = await response.json();
-    setResults(data.data);
-    setTotalPages(Math.ceil(data.data.length / recordsPerPage));
-    setCurrentPage(1);
-  } catch (error) {
-    console.error("Error searching medicines:", error.message);
-  }
-};
-
+      const data = await response.json();
+      setResults(data.data);
+      setTotalPages(Math.ceil(data.data.length / recordsPerPage));
+      setCurrentPage(1);
+    } catch (error) {
+      console.error("Error searching medicines:", error.message);
+    }
+  };
 
   useEffect(() => {
     getOrders();

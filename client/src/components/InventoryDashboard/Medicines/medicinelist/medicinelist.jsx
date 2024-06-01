@@ -104,12 +104,12 @@ const Medicinelist = () => {
     currentPage * recordsPerPage
   );
 
-
-  const renderMedicines = search.trim() !== "" ? renderedMedicines : filteredData;
+  const renderMedicines =
+    search.trim() !== "" ? renderedMedicines : filteredData;
 
   return (
     <>
-          <Isidebar />
+      <Isidebar />
 
       <svg
         xmlns="http://www.w3.org/2000/svg"

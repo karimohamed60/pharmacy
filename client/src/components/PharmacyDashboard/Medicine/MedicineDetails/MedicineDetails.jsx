@@ -1,15 +1,14 @@
 import React from "react";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
 import "./MedinineDetails.css";
-import { Link , useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { API_URL } from "../../../../constants";
 import { getAuthTokenCookie } from "../../../../services/authService";
 const MedicineDetails = () => {
   const { id } = useParams();
   const [medicine, setMedicine] = useState({});
-  const [formattedCreatedAt, setFormattedCreatedAt] = useState('');
-
+  const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -19,8 +18,8 @@ const MedicineDetails = () => {
     };
   }, [id]);
 
-   // get specific medicine
-   const handleSpecificMedicineby = async (medicineId) => {
+  // get specific medicine
+  const handleSpecificMedicineby = async (medicineId) => {
     try {
       const token = getAuthTokenCookie();
       const response = await fetch(`${API_URL}/medicines/${id}`, {
@@ -30,36 +29,43 @@ const MedicineDetails = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-  
+
       if (response.ok) {
         const responseData = await response.json();
         setMedicine(responseData.data);
         const createdAt = new Date(responseData.data.attributes.created_at);
-        const formattedDate = createdAt.toLocaleDateString('en-US', {
-          month: '2-digit',
-          day: '2-digit',
-          year: 'numeric',
+        const formattedDate = createdAt.toLocaleDateString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
         });
-        const formattedTime = createdAt.toLocaleTimeString('en-US', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: true,
-        }).toLowerCase().replace(/\s/g, '');
-  
+        const formattedTime = createdAt
+          .toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+          })
+          .toLowerCase()
+          .replace(/\s/g, "");
+
         setFormattedCreatedAt(`${formattedDate} ${formattedTime}`);
-  
+
         console.log(responseData.data);
         window.ingredient_name = responseData.data.attributes.ingredient_name;
         window.commercial_name = responseData.data.attributes.commercial_name;
-        window.international_barcode = responseData.data.attributes.international_barcode;
+        window.international_barcode =
+          responseData.data.attributes.international_barcode;
         window.minor_unit = responseData.data.attributes.minor_unit;
         window.major_unit = responseData.data.attributes.major_unit;
         window.medium_unit = responseData.data.attributes.medium_unit;
         window.price_per_unit = responseData.data.attributes.price_per_unit;
-        window.quantity_in_inventory = responseData.data.attributes.quantity_in_inventory;
-        window.quantity_in_pharmacy = responseData.data.attributes.quantity_in_pharmacy;
+        window.quantity_in_inventory =
+          responseData.data.attributes.quantity_in_inventory;
+        window.quantity_in_pharmacy =
+          responseData.data.attributes.quantity_in_pharmacy;
         window.quantity_sold = responseData.data.attributes.quantity_sold;
-        window.category_name = responseData.data.attributes.category.category_name;
+        window.category_name =
+          responseData.data.attributes.category.category_name;
         window.expire_date = responseData.data.attributes.expire_date;
         window.created_at = responseData.data.attributes.created_at;
         window.created_by = responseData.data.attributes.user.username;
@@ -71,7 +77,7 @@ const MedicineDetails = () => {
       console.error("Error:", error);
     }
   };
-  
+
   return (
     <>
       <Sidebar />
@@ -184,7 +190,6 @@ const MedicineDetails = () => {
               type="text"
               className="form-control"
               id="einput"
-              
               aria-label="First name"
               value={window.international_barcode}
               disabled
@@ -219,7 +224,6 @@ const MedicineDetails = () => {
               type="text"
               className="form-control"
               id="einput"
-              
               aria-label="First name"
               value={window.minor_unit}
               disabled
@@ -259,19 +263,18 @@ const MedicineDetails = () => {
             />
           </div>
           <div className="col">
-  <label className="detlabels md-created-at">
-    <b>Created At</b>
-  </label>
-  <input
-    type="text"
-    className="form-control leftmove"
-    id="einput"
-    aria-label="Last name"
-    value={formattedCreatedAt}
-    disabled
-  />
-</div>
-
+            <label className="detlabels md-created-at">
+              <b>Created At</b>
+            </label>
+            <input
+              type="text"
+              className="form-control leftmove"
+              id="einput"
+              aria-label="Last name"
+              value={formattedCreatedAt}
+              disabled
+            />
+          </div>
         </div>
         <div className="row MunitsInputs">
           <div className="col">

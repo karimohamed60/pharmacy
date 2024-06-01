@@ -26,7 +26,7 @@ const InvoicesList = () => {
     (currentPage - 1) * recordsPerPage,
     currentPage * recordsPerPage
   );
-    const renderInvoices = search.trim() !== "" ? renderedInvoices : invoices;
+  const renderInvoices = search.trim() !== "" ? renderedInvoices : invoices;
 
   useEffect(() => {
     // Remove scroll bar
