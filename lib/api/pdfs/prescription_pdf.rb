@@ -12,7 +12,7 @@ module Api
         font "Helvetica"
 
         # Title
-        text "PRESCRIPTION", align: :center, size: 36, style: :bold, color: "336699"
+        text "PRESCRIPTION", align: :center, size: 36, sztyle: :bold, color: "336699"
         move_down 50
 
         # Prescription details
@@ -20,10 +20,8 @@ module Api
           [{ content: "Prescription ID:", font_style: :bold }, @prescription.first.id],
           [{ content: "Date:", font_style: :bold }, l(@prescription.first.date)],
           [{ content: "Status:", font_style: :bold },
-            if @prescription.first.status == 0
+            if @prescription.first.status == "pending"
                 "Pending"
-            elsif @prescription.first.status == 1
-                "Delivered"
             else
                 "Finished"
             end
@@ -41,7 +39,7 @@ module Api
             prescription_medicine.medicine_name,
             prescription_medicine.dosage,
             prescription_medicine.quantity,
-            prescription_medicine.got_medicine == 1 ? "Yes" : "No"
+            prescription_medicine.got_medicine == "yes" ? "Yes" :(prescription_medicine.got_medicine == "no" ? "No" :  "Partial")
           ]
         end
         table medicines_data, header: true, cell_style: { padding: [5, 10], size: 12 }, width: bounds.width do

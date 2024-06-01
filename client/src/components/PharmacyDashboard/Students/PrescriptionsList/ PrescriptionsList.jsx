@@ -53,7 +53,7 @@ const PrescriptionsList = () => {
           backgroundColor: "rgba(178, 238, 177, 1)",
           textColor: "rgba(64, 146, 14, 1)",
         }; // Green background, Dark Green text
-      case "delivered": // =pending
+      case "pending": // =pending
         return {
           backgroundColor: "rgba(255, 251, 161, 1)",
           textColor: "#A98208",
@@ -221,12 +221,12 @@ const PrescriptionsList = () => {
                 All
               </Dropdown.Item>
               <br></br>
-              <Dropdown.Item eventKey="finished" className="statusfilter">
-                Finished
+              <Dropdown.Item eventKey="pending" className="statusfilter">
+                Pending
               </Dropdown.Item>
               <br></br>
-              <Dropdown.Item eventKey="delivered" className="statusfilter">
-                Delivered
+              <Dropdown.Item eventKey="finished" className="statusfilter">
+                Finished
               </Dropdown.Item>
             </div>
           </Dropdown>

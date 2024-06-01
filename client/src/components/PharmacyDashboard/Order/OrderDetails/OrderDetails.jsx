@@ -15,7 +15,7 @@ const OrderDetails = () => {
   useEffect(() => {
     // Remove scroll bar
     document.body.style.overflow = "hidden";
-    //handleSpecificOrder(id);
+    handleSpecificOrder();
     // Cleanup on component unmount
     return () => {
       document.body.style.overflow = "visible";
@@ -76,7 +76,7 @@ const OrderDetails = () => {
       console.error("Error:", error);
     }
   };
-
+  
   useEffect(() => {
     if (order_id) {
       handleSpecificOrder();
@@ -95,6 +95,7 @@ const OrderDetails = () => {
       });
 
       if (response.ok) {
+        
         const responseData = await response.json();
         setOrders(responseData.data);
         setMedicinesData(responseData.data.attributes.medicines);
@@ -108,7 +109,7 @@ const OrderDetails = () => {
         window.student_name = responseData.data.attributes.student.student_name;
         window.created_by = responseData.data.attributes.user.user_name;
         console.log(responseData);
-        window.order_num = responseData.data.attributes.id;
+        window.order_num = responseData.data.id;
       } else {
         throw new Error("Failed");
       }

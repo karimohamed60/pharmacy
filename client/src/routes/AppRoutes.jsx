@@ -135,7 +135,7 @@ function AppRoutes() {
         />
         <Route path="/pharmacy-dashboard/orderList/" element={<OrderList />} />
         <Route
-          path="/pharmacy-dashboard/orderDetails/:id"
+          path="/pharmacy-dashboard/orderDetails/:order_id"
           element={<OrderDetails />}
         />
         <Route path="/pharmacy-dashboard/addOrder/" element={<AddOrder />} />

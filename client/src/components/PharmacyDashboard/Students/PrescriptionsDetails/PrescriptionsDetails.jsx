@@ -11,7 +11,7 @@ const PrescriptionsDetails = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [invoices, setInvoices] = useState([]);
   const [medicinesData, setMedicinesData] = useState([]);
-  const [selecteStatus, setSelectedStatus] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
   const [currentStatus, setCurrentStatus] = useState(""); // New state to hold the current status
   const { id } = useParams();
   const { studentId, prescription_id } = useParams();
@@ -164,7 +164,7 @@ const PrescriptionsDetails = () => {
           window.PrescriptionDate = date;
           window.PrescriptionID = id;
           window.Prescription_status = status;
-
+          console.log(window.Prescription_status);
           if (medicines) {
             for (const medicine of medicines) {
               medicinesArray.push({
@@ -173,7 +173,7 @@ const PrescriptionsDetails = () => {
                 quantity: medicine.quantity,
                 medicine_id: medicine.id,
 
-                got_medicine: medicine.got_medicine,
+                got_medicine: medicine.got_medicine === "yes" ? 1 : 0, // Convert "yes" to 1 and others to 0
               });
             }
           }
@@ -192,16 +192,9 @@ const PrescriptionsDetails = () => {
   const handleUpdateprescription = async (e) => {
     e.preventDefault();
     const token = getAuthTokenCookie();
-    /* let status;
-      if (status === "finished") {
-        status = 2;
-      } else if (status === "delivered") {
-        status = 1;
-      } else {
-        status = 0;
-      }*/
+
     const postData = {
-      status: parseInt(selecteStatus),
+      status: selectedStatus,
       prescription_medicines: medicinesData.map((medicine) => ({
         id: medicine.medicine_id,
         got_medicine: checkedMedicines[medicine.Pmedicine_name] ? 1 : 0, // Set got_medicine based on checkbox status
@@ -223,7 +216,7 @@ const PrescriptionsDetails = () => {
         );
         if (response.ok) {
           const responseData = await response.json();
-          console.log(response);
+          console.log(responseData);
           setPrescription([...prescription, responseData.data]);
           notify("success", "Prescription updated successfully");
         } else {
@@ -245,6 +238,7 @@ const PrescriptionsDetails = () => {
       [medicineName]: isChecked,
     }));
   };
+
   return (
     <>
       <Sidebar />
@@ -335,16 +329,17 @@ const PrescriptionsDetails = () => {
             <label className="id-status-label">Status</label>
             <select
               className="status-input"
-              value={selecteStatus || currentStatus}
+              value={
+                selectedStatus === "pending"
+                  ? "finished"
+                  : selectedStatus || currentStatus
+              }
               onChange={(e) => setSelectedStatus(e.target.value)}
             >
-              <option style={{ color: "transparent" }}>
-                {window.Prescription_status}{" "}
+              <option className="status-input-option" value="pending">
+                pending
               </option>
-              <option className="status-input-option" value="1">
-                delivered
-              </option>
-              <option className="status-input-option" value="2">
+              <option className="status-input-option" value="finished">
                 finished
               </option>
             </select>

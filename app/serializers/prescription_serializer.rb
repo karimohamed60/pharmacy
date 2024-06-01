@@ -4,10 +4,8 @@ class PrescriptionSerializer
   attributes :id, :student_id, :status, :date
 
   attribute :status do |object|
-    if object.status == 0
+    if object.status == "pending"
       "pending"
-    elsif object.status == 1
-      "delivered"
     else
       "finished"
     end 
