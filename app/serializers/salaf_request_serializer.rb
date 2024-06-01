@@ -1,7 +1,7 @@
 class SalafRequestSerializer
   include JSONAPI::Serializer
 
-  attributes :student_id, :student_national_id, :student_name, :medicine_name,  :status
+  attributes :student_id, :student_national_id, :student_name, :medicine_name,  :status, :created_at, :updated_at
 
   attribute :student_national_id do |object|
     object.student.student_national_id
@@ -21,5 +21,13 @@ class SalafRequestSerializer
     else
       "finished"
     end 
+  end
+
+  attribute :created_at do |object|
+    object.created_at.strftime("%d-%m-%Y")
+  end
+
+  attribute :updated_at do |object|
+    object.updated_at.strftime("%d-%m-%Y")
   end
 end
