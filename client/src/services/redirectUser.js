@@ -6,8 +6,8 @@ const redirectUser = (role, navigate, path = "") => {
     case "pharmacy_agent":
       navigate(`/pharmacy-dashboard${path}`, { state: { role } });
       break;
-    case "salaf_requests_agent":
-      navigate(`/salaf-requests-dashboard${path}`, { state: { role } });
+    case "salaf_agent":
+      navigate(`/salaf-dashboard${path}`, { state: { role } });
       break;
     default:
       break;

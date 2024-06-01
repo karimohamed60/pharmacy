@@ -3,7 +3,6 @@ import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Login from "../auth/Login";
 import InventoryDashboard from "../pages/InventoryDashboard/InventoryDashboard";
 import PharmacyDashboard from "../pages/PharmacyDashboard/PharmacyDashboard";
-import SalafRequestsDashboard from "../pages/SalafRequestsDashboard/SalafRequestsDashboard";
 import NotFound from "../pages/NotFound";
 import PrivateRoutes from "./PrivateRoutes";
 import { getUserRole } from "../services/roleService";
@@ -33,6 +32,7 @@ import SalafRequest from "../components/PharmacyDashboard/Salaf/SalafRequest";
 import StudentsList from "../components/PharmacyDashboard/Students/StudentsList/StudentsList";
 import PrescriptionsList from "../components/PharmacyDashboard/Students/PrescriptionsList/ PrescriptionsList";
 import PrescriptionsDetails from "../components/PharmacyDashboard/Students/PrescriptionsDetails/PrescriptionsDetails";
+import SalafDashboard from "../pages/SalafRequestsDashboard/SalafDashboard";
 
 //const role = 'inventory_agent';
 
@@ -164,10 +164,10 @@ function AppRoutes() {
           element={<PrescriptionsDetails />}
         />
         <Route
-          path="/salaf-requests-dashboard"
+          path="/salaf-dashboard"
           element={
-            role.includes("salaf_requests_agent") ? (
-              <SalafRequestsDashboard />
+            role.includes("salaf_agent") ? (
+              <SalafDashboard/>
             ) : (
               <Navigate to="/" />
             )
