@@ -84,7 +84,7 @@ class Api::V1::TransfersController < ApiControllerBase
 
                 @transfers = Transfer.where(status: filter_query)
 
-                render_success(serialized_transfers(@transfers), :ok)
+                render_success(serialized_transfers(@transfers), :ok, total_transfers: @transfers.count)
             end
         else
             render_error('Parameter "status" is required.', :bad_request)
