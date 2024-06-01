@@ -48,6 +48,7 @@
   top: -83.7rem;
   left: 38rem;
   height: 3rem;
+  background-color: #d5e3f0;
 }
 #back-btn {
   padding: 10px;
@@ -107,25 +108,17 @@ body.no-scroll {
   color: rgba(0, 0, 0, 1);
   font-size: large;
   font-weight: 700;
-  margin-right: 32rem;
+  margin-right: 23rem;
 }
-.id-createdby-label {
-  color: rgba(0, 0, 0, 1);
-  font-size: large;
-  font-weight: 700;
-  margin-right: 33.89rem;
+.odtl {
+  margin-right: 24.7rem;
 }
-.id-date-label {
-  color: rgba(0, 0, 0, 1);
-  font-size: large;
-  font-weight: 700;
-  margin-left: 1rem;
-}
+
 .id-national-label {
   color: rgba(0, 0, 0, 1);
   font-size: large;
   font-weight: 700;
-  margin-left: 1rem;
+  margin-bottom: 1rem;
 }
 
 .order-national-input {

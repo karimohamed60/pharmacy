@@ -5,18 +5,23 @@ import { getAuthTokenCookie } from "../../../../services/authService";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
 import { format } from "date-fns";
 import "./OrderDetails.css";
+
 const OrderDetails = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [medicinesData, setMedicinesData] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [formattedCreatedAt, setFormattedCreatedAt] = useState("");
+  const [orderNum, setOrderNum] = useState("");
+  const [nationalId, setNationalId] = useState("");
+  const [studentName, setStudentName] = useState("");
+  const [createdBy, setCreatedBy] = useState("");
 
   const { id, order_id } = useParams();
 
   useEffect(() => {
-    // Remove scroll bar
     document.body.style.overflow = "hidden";
     handleSpecificOrder();
-    // Cleanup on component unmount
+
     return () => {
       document.body.style.overflow = "visible";
     };
@@ -42,7 +47,6 @@ const OrderDetails = () => {
     return date.toLocaleDateString("en-US", options);
   };
 
-  //print
   const handlePrint = async () => {
     try {
       const token = getAuthTokenCookie();
@@ -58,8 +62,6 @@ const OrderDetails = () => {
       );
 
       if (response.ok) {
-        // Handle the PDF file received from the backend
-        // For example, you can prompt the user to download the file
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -76,13 +78,13 @@ const OrderDetails = () => {
       console.error("Error:", error);
     }
   };
-  
+
   useEffect(() => {
     if (order_id) {
       handleSpecificOrder();
     }
   }, [order_id]);
-  // navigate to a specific order
+
   const handleSpecificOrder = async () => {
     try {
       const token = getAuthTokenCookie();
@@ -95,21 +97,15 @@ const OrderDetails = () => {
       });
 
       if (response.ok) {
-        
         const responseData = await response.json();
         setOrders(responseData.data);
         setMedicinesData(responseData.data.attributes.medicines);
-        window.created_at = responseData.data.attributes.created_at;
-        window.formattedCreatedAt = format(
-          new Date(window.created_at),
-          "yyyy-MM-dd"
-        );
-        window.national_id =
-          responseData.data.attributes.student.student_national_id;
-        window.student_name = responseData.data.attributes.student.student_name;
-        window.created_by = responseData.data.attributes.user.user_name;
-        console.log(responseData);
-        window.order_num = responseData.data.id;
+        const createdAt = responseData.data.attributes.created_at;
+        setFormattedCreatedAt(format(new Date(createdAt), "dd-MM-yyyy"));
+        setOrderNum(responseData.data.id);
+        setNationalId(responseData.data.attributes.student.student_national_id);
+        setStudentName(responseData.data.attributes.student.student_name);
+        setCreatedBy(responseData.data.attributes.user.user_name);
       } else {
         throw new Error("Failed");
       }
@@ -154,7 +150,7 @@ const OrderDetails = () => {
           <b className="ordernum-label">Order</b>
         </label>
         <label>
-          <p className="ordernumcode-label">#{window.order_num}</p>
+          <p className="ordernumcode-label">#{orderNum}</p>
         </label>
       </div>
       <div className="col-12-lg backbtn ">
@@ -178,7 +174,7 @@ const OrderDetails = () => {
         <div className="id-row">
           <div className="id-ordernum-label">
             Order Number:
-            <span>{window.order_num} </span>{" "}
+            <span> {orderNum} </span>{" "}
           </div>
 
           <div>
@@ -200,19 +196,19 @@ const OrderDetails = () => {
           </div>
         </div>
         <div className="id-row">
-          <div className="id-date-label">
-            Date: <span> {window.formattedCreatedAt}</span>
+          <div className="id-national-label">
+            Date: <span> {formattedCreatedAt}</span>
           </div>
-          <div className="id-createdby-label">
-            Created by: <span> {window.created_by}</span>{" "}
+          <div className="id-studentname-label odtl">
+            Created by: <span> {createdBy}</span>{" "}
           </div>
         </div>
         <div className="id-row">
           <div className="id-national-label">
-            National ID: <span>{window.national_id} </span>
+            National ID: <span>{nationalId} </span>
           </div>
           <div className="id-studentname-label">
-            Student Name: <span>{window.student_name}</span>{" "}
+            Student Name: <span>{studentName}</span>{" "}
           </div>
         </div>
 

@@ -122,12 +122,7 @@ body.no-scroll {
   font-size: large;
   font-weight: 700;
 }
-.id-studentname-label {
-  color: rgba(0, 0, 0, 1);
-  font-size: large;
-  font-weight: 700;
-  margin-right: 32rem;
-}
+
 .id-status-label {
   color: rgba(98, 108, 122, 1);
   font-size: large;
