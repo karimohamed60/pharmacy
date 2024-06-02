@@ -164,7 +164,7 @@ const PrescriptionsDetails = () => {
           window.PrescriptionDate = date;
           window.PrescriptionID = id;
           window.Prescription_status = status;
-          console.log(window.Prescription_status);
+ console.log(window.Prescription_status)
           if (medicines) {
             for (const medicine of medicines) {
               medicinesArray.push({
@@ -238,6 +238,9 @@ const PrescriptionsDetails = () => {
       [medicineName]: isChecked,
     }));
   };
+
+ 
+
 
   return (
     <>

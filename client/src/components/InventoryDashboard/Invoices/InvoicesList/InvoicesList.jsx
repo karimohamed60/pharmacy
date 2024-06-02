@@ -9,139 +9,107 @@ import { format } from "date-fns";
 import ReactPaginate from "react-paginate";
 
 const InvoicesList = () => {
+  // State variables
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [invoices, setInvoices] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
-  const [filterButtonClicked, setFilterButtonClicked] = useState(true);
   const [isFilterActive, setIsFilterActive] = useState(false);
   const recordsPerPage = 10;
 
   const [token, setToken] = useState("");
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const renderedInvoices = invoices.slice(
-    (currentPage - 1) * recordsPerPage,
-    currentPage * recordsPerPage
-  );
-  const renderInvoices = search.trim() !== "" ? renderedInvoices : invoices;
-
+  // Fetch and set the token when the component mounts
   useEffect(() => {
-    // Remove scroll bar
-    document.body.style.overflow = "hidden";
+    const authToken = getAuthTokenCookie();
+    if (authToken) {
+      setToken(authToken);
+    } else {
+      console.error("Token not found");
+    }
+  }, []);
 
-    // Cleanup on component unmount
+  // Disable body scroll when the component mounts
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "visible";
     };
   }, []);
+
+  // Function to format the date to the desired format
   const formatDate = (dateString) => {
     const [day, month, year] = dateString.split("-");
     return `${year}-${month}-${day}`;
   };
 
+  // Fetch invoices whenever currentPage, search term, or filter status changes
   useEffect(() => {
-    loadInvoices();
-  }, [currentPage, search, isFilterActive, startDate, endDate]); // Load invoices whenever the currentPage, search term, or filter status changes
+    if (token) {
 
+      loadInvoices();
+    }
+  }, [currentPage, search, isFilterActive, startDate, endDate, token]);
+
+  // Function to load invoices from the API
   const loadInvoices = async () => {
     try {
-      const authToken = getAuthTokenCookie();
-      if (!authToken) {
-        console.error("Token not found");
-        return;
-      }
-
-      setToken(authToken);
-
       let url = `${API_URL}/invoices?per_page=${recordsPerPage}&page=${currentPage}`;
-
+  
       if (search.trim() !== "") {
-        // If search term is present, use search API endpoint
-        url = `${API_URL}/invoices/search?q=${search}&per_page=${recordsPerPage}&page=${currentPage}`;
+        url = `${API_URL}/invoices/search?q=${search}`;
       }
-
+  
       if (isFilterActive && startDate && endDate) {
-        // If filter is active and both startDate and endDate are provided, apply date filtering
         const formattedStartDate = formatDate(startDate);
         const formattedEndDate = formatDate(endDate);
         url = `${API_URL}/invoices/filter?start_date=${formattedStartDate}&end_date=${formattedEndDate}`;
       }
-
+  
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
-
+  
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
-
+  
       const data = await response.json();
-      const totalInvoices = data["total_invoices"];
-
-      // Calculate total pages based on the total number of invoices
-      const calculatedTotalPages = Math.ceil(totalInvoices / recordsPerPage);
-
-      // Set total pages, considering the possibility of fewer recordsPerPage when there is a search term
-      setTotalPages(calculatedTotalPages > 0 ? calculatedTotalPages : 1);
-
+      const totalInvoices = data.total_invoices;
+      console.log("Total invoices: ", totalInvoices);
+      setTotalPages(Math.ceil(totalInvoices / recordsPerPage));
       setInvoices(data.data);
     } catch (error) {
       console.error("Error occurred: ", error.message);
     }
   };
+  
 
-  /*   const fetchInvoices = async (page, token) => {
-    try {
-      const response = await fetch(
-        `${API_URL}/invoices?per_page=${recordsPerPage}&page=${page}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch invoices");
-      }
-
-      const fetchedInvoices = await response.json();
-      return fetchedInvoices.data;
-    } catch (error) {
-      console.error("Error fetching ivoices: ", error.message);
-      return [];
-    }
-  };
- */
+  // Handle page click for pagination
   const handlePageClick = (data) => {
-    setCurrentPage(data.selected + 1); // Update currentPage when pagination is clicked
+    setCurrentPage(data.selected + 1);
   };
 
-  // Api for navigating to a specific invoice by clicking on details icon
-
+  // Handle specific invoice fetching
   const handleSpecificInvoice = async (invoice_id) => {
     try {
-      const authToken = getAuthTokenCookie();
       const response = await fetch(`${API_URL}/invoices/${invoice_id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.ok) {
         const responseData = await response.json();
-        setInvoices(responseData.data);
+        setInvoices([responseData.data]);
       } else {
         throw new Error("Failed to fetch invoice details");
       }
@@ -151,14 +119,23 @@ const InvoicesList = () => {
   };
 
   const handleFilterButtonClick = () => {
-    setIsFilterActive((prevState) => !prevState); // Toggle filter state
+    if (startDate && endDate) {
+      setIsFilterActive(true); // Activate filter
+      setCurrentPage(1); // Reset to first page
+    }
   };
 
   const handleClearButtonClick = () => {
     setStartDate("");
     setEndDate("");
     setIsFilterActive(false); // Reset filter
+    setCurrentPage(1); // Reset to first page
   };
+
+  // Rendered invoices based on search and filter
+  const renderInvoices = search.trim() !== "" || isFilterActive
+  ? invoices.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage)
+  : invoices;
 
   return (
     <>
@@ -248,7 +225,7 @@ const InvoicesList = () => {
           />
           <div className="filter-buttons">
             <button
-              className="filter-button "
+              className="filter-button"
               onClick={handleFilterButtonClick}
             >
               Filter
@@ -301,7 +278,7 @@ const InvoicesList = () => {
           ))}
         </tbody>
       </Table>
-      {totalPages > 0 && (
+      {totalPages > 1 && (
         <ReactPaginate
           previousLabel={"previous"}
           nextLabel={"next"}

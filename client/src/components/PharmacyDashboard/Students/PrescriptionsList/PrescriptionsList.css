@@ -110,7 +110,7 @@
 
 #pl-table {
   position: relative;
-  top: -645px;
+  top: -660px;
   left: 6rem;
   width: 103%;
   overflow-x: scroll;
@@ -166,7 +166,7 @@ body.no-scroll {
 .pfilterdropdwn {
   position: relative;
   left: 36.7rem;
-  top: -46.2rem;
+  top: -46.7rem;
   width: 19rem;
   height: 50px;
   border-radius: 8px;
