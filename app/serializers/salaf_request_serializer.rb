@@ -16,7 +16,7 @@ class SalafRequestSerializer
   end
 
   attribute :status do |object|
-    if object.status == 0
+    if object.status == "pending"
       "pending"
     else
       "finished"

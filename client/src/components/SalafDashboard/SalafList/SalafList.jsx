@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import SalafSidebar from "../SalafSidebar/SalafSidebar";
 
 const SalafList = () => {
-  const recordsPerPage = 1;
+  const recordsPerPage = 10;
 
   const [salaf, setSalaf] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -125,7 +125,7 @@ const SalafList = () => {
           type="search"
           className="form-control rounded "
           id="salaf-search-input"
-          placeholder="Search by Request ID"
+          placeholder="Search by National ID"
           aria-label="Search"
           aria-describedby="search-addon"
         />
@@ -143,8 +143,8 @@ const SalafList = () => {
       <Table hover id="Salaf-table">
         <thead>
           <tr>
-            <th>Student_ID</th>
-            <th>Request_ID</th>
+            <th>Student ID</th>
+            <th>Request ID</th>
             <th>Student name</th>
             <th>Details</th>
             <th>Status</th>

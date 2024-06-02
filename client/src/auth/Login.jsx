@@ -121,6 +121,7 @@ const Login = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         className="form-control lg-form-control"
+                        required
                       />
                     </div>
                   </div>
@@ -154,6 +155,7 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="lg-form-control form-control"
+                        required
                       />
                     </div>
                   </div>
