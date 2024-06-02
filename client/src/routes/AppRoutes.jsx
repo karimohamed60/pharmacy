@@ -32,7 +32,9 @@ import SalafRequest from "../components/PharmacyDashboard/Salaf/SalafRequest";
 import StudentsList from "../components/PharmacyDashboard/Students/StudentsList/StudentsList";
 import PrescriptionsList from "../components/PharmacyDashboard/Students/PrescriptionsList/ PrescriptionsList";
 import PrescriptionsDetails from "../components/PharmacyDashboard/Students/PrescriptionsDetails/PrescriptionsDetails";
-import SalafDashboard from "../pages/SalafRequestsDashboard/SalafDashboard";
+import SalafDashboard from "../pages/SalafDashboard/SalafDashboard";
+import SalafList from "../components/SalafDashboard/SalafList/SalafList";
+import SalafDetails from "../components/SalafDashboard/SalafDetails/SalafDetails";
 
 //const role = 'inventory_agent';
 
@@ -167,11 +169,16 @@ function AppRoutes() {
           path="/salaf-dashboard"
           element={
             role.includes("salaf_agent") ? (
-              <SalafDashboard/>
+              <SalafDashboard />
             ) : (
               <Navigate to="/" />
             )
           }
+        />
+        <Route path="/salaf-dashboard/salafList" element={<SalafList />} />
+        <Route
+          path="/salaf-dashboard/salafDetails/:requestId"
+          element={<SalafDetails />}
         />
       </Route>
 

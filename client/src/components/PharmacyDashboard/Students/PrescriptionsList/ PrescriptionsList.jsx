@@ -12,7 +12,7 @@ import ReactPaginate from "react-paginate";
 const PrescriptionsList = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
-  const recordsPerPage = 6;
+  const recordsPerPage = 7;
   const [statusFilter, setStatusFilter] = useState(null);
   const [prescriptions, setPrescription] = useState([]);
   const { id } = useParams();

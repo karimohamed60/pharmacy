@@ -1,0 +1,59 @@
+.sidebar-item {
+  padding: 0.75rem 1rem;
+  display: block;
+  color: aliceblue;
+  transition: background-color 0.2s;
+}
+
+.sidebar-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.sidebar-title:hover {
+  color: aliceblue;
+}
+
+.sidebar-title span i {
+  display: inline-block;
+  width: 1.5em;
+}
+
+.toggle-btn {
+  margin-right: 2rem;
+}
+
+.sidebar-title .toggle-btn {
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.sidebar-item.open > .sidebar-title .toggle-btn {
+  transform: rotate(180deg);
+}
+
+.sidebar-content {
+  padding-top: 0.25rem;
+  height: 0;
+  overflow: hidden;
+  margin-left: 1.5rem;
+  font-size: 1rem;
+}
+.sidebar-item.open > .sidebar-content {
+  height: auto;
+}
+.sidebar-item.plain {
+  color: aliceblue;
+  text-decoration: none;
+}
+
+.sidebar-item.plain:hover {
+  text-decoration: none;
+}
+
+.sidebar-item.plain i {
+  display: inline-block;
+  width: 1.7em;
+}

@@ -1,0 +1,85 @@
+#Salaf-table {
+  position: relative;
+  top: 55px;
+  left: 0.5rem;
+  height: 50px;
+  position: relative;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  overflow-x: scroll;
+  width: 103.5%;
+  position: relative;
+  margin-left: 5.7rem;
+}
+.spagination {
+  position: relative;
+  top: 45rem;
+}
+
+.pagination {
+  position: relative;
+  margin-top: -40.5rem;
+  margin-left: -40rem;
+}
+
+.pagination button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+#approve-style {
+  background-color: rgba(178, 238, 177, 1);
+  border-radius: 20px;
+  width: 100px;
+}
+.salaf-label {
+  position: relative;
+  left: -30rem;
+  color: #787272;
+  font-size: x-large;
+}
+.req-label {
+  position: relative;
+  left: -15rem;
+  top: -2.2rem;
+  color: #000000;
+  font-size: x-large;
+}
+.salaf-arrow-icon {
+  position: relative;
+  left: -24rem;
+  top: 1.9rem;
+}
+.salaf-search-group {
+  position: relative;
+  left: 0.7rem;
+  border-radius: 2rem;
+  background-color: #fff;
+  width: 37%;
+}
+#salaf-search-input {
+  position: relative;
+  background-color: #d5e3f0;
+  left: 5.5rem;
+  margin-bottom: -50px;
+}
+.salaf-search-icon2 {
+  position: relative;
+  top: 0.6rem;
+  left: 11rem;
+}
+
+.sstatus-item {
+  padding: 3px;
+  border-radius: 20px;
+  width: 50%;
+  display: inline-block;
+  font-weight: bold;
+}
