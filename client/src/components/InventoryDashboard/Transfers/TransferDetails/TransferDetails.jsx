@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./TransferDetails.css";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "reactjs-popup/dist/index.css";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 const TransferDetails = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [transfers, setTransfers] = useState([]);
   const [medicinesData, setMedicinesData] = useState([]);
-  const { id } = useParams();
 
   useEffect(() => {
     // Remove scroll bar

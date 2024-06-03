@@ -46,7 +46,6 @@ const InoviceDetails = () => {
 
       if (response.ok) {
         // Handle the PDF file received from the backend
-        // For example, you can prompt the user to download the file
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");

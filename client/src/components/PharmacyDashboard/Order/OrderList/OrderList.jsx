@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import "./OrderList.css";
 import Table from "react-bootstrap/esm/Table";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
@@ -14,7 +14,7 @@ const OrderList = () => {
   const [orders, setOrders] = useState([]);
   const [token, setToken] = useState("");
   const [totalPages, setTotalPages] = useState(0);
-  const [results, setResults] = useState([]); 
+  const [results, setResults] = useState([]);
   const recordsPerPage = 10;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,17 +48,19 @@ const OrderList = () => {
     }
   }, [search, currentPage]);
 
-  
   const handleSearch = async (value, currentPage) => {
     try {
       const token = getAuthTokenCookie();
-      const response = await fetch(`${API_URL}/orders/search?q=${value}&page=${currentPage}&per_page=${recordsPerPage}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${API_URL}/orders/search?q=${value}&page=${currentPage}&per_page=${recordsPerPage}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to search orders");
 
@@ -71,64 +73,62 @@ const OrderList = () => {
     }
   };
 
-
   useEffect(() => {
     loadOrders();
   }, [currentPage, search]);
 
   const loadOrders = async () => {
     try {
-        const authToken = getAuthTokenCookie();
-        if (!authToken) {
-            console.error("Token not found");
-            return;
-        }
-        setToken(authToken);
-        let url = `${API_URL}/orders?per_page=${recordsPerPage}&page=${currentPage}`;
-        if (search.trim() !== "") {
-            // If search term is present, use search API endpoint
-            url = `${API_URL}/orders/search?q=${search}&per_page=${recordsPerPage}&page=${currentPage}`;
-        }
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${authToken}`,
-            },
-        });
-        if (!response.ok) {
-            throw new Error("Failed to fetch data");
-        }
-        const data = await response.json();
-        const totalOrders = data.total_orders;
-        setTotalPages(Math.ceil(totalOrders / recordsPerPage));
-        setOrders(data.data);
+      const authToken = getAuthTokenCookie();
+      if (!authToken) {
+        console.error("Token not found");
+        return;
+      }
+      setToken(authToken);
+      let url = `${API_URL}/orders?per_page=${recordsPerPage}&page=${currentPage}`;
+      if (search.trim() !== "") {
+        // If search term is present, use search API endpoint
+        url = `${API_URL}/orders/search?q=${search}&per_page=${recordsPerPage}&page=${currentPage}`;
+      }
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await response.json();
+      const totalOrders = data.total_orders;
+      setTotalPages(Math.ceil(totalOrders / recordsPerPage));
+      setOrders(data.data);
     } catch (error) {
-        console.error("Error occurred: ", error.message);
+      console.error("Error occurred: ", error.message);
     }
-};
+  };
 
-const handlePageClick = (data) => {
-  setCurrentPage(data.selected + 1);
-};
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected + 1);
+  };
 
- //navigate to a specific transfer
+  //navigate to a specific transfer
 
   const filteredData = orders.filter((item) => {
     const studentNational_id = item?.attributes?.student_national_id;
     return (
-      search.toLowerCase() !== "" || 
-      (typeof studentNational_id === 'string' && studentNational_id.toLowerCase().includes(search.toLowerCase()))
+      search.toLowerCase() !== "" ||
+      (typeof studentNational_id === "string" &&
+        studentNational_id.toLowerCase().includes(search.toLowerCase()))
     );
   });
-  
-const renderedOrders = filteredData.slice(
+
+  const renderedOrders = filteredData.slice(
     (currentPage - 1) * recordsPerPage,
     currentPage * recordsPerPage
-);
-  const renderOrders =
-    search.trim() !== "" ? renderedOrders : filteredData;
-console.log(renderOrders)
+  );
+  const renderOrders = search.trim() !== "" ? renderedOrders : filteredData;
   // navigate to a specific order
   const handleSpecificOrder = async (order_id) => {
     try {
@@ -143,9 +143,6 @@ console.log(renderOrders)
 
       if (response.ok) {
         const responseData = await response.json();
-
-        console.log(responseData);
-
         setOrders(responseData.data);
       } else {
         throw new Error("Failed to fetch category details");
@@ -186,7 +183,6 @@ console.log(renderOrders)
           placeholder="Search by National ID"
           aria-label="Search"
           aria-describedby="search-addon"
-         
           onChange={(e) => setSearch(e.target.value)}
         />
         <svg
@@ -221,8 +217,8 @@ console.log(renderOrders)
           </tr>
         </thead>
         <tbody className="ordertable-body">
-        {search.trim() === "" ? (
-             orders.map((item, index) => (
+          {search.trim() === ""
+            ? orders.map((item, index) => (
                 <tr key={index} className="medicine-container">
                   <td>{item.id}</td>
                   <td>{item.attributes.student.student_national_id}</td>
@@ -248,8 +244,7 @@ console.log(renderOrders)
                   </td>
                 </tr>
               ))
-        ):(
-          renderedOrders.map((item, index) => (
+            : renderedOrders.map((item, index) => (
                 <tr key={index} className="medicine-container">
                   <td>{item.id}</td>
                   <td>{item.attributes.student.student_national_id}</td>
@@ -274,11 +269,10 @@ console.log(renderOrders)
                     </Link>
                   </td>
                 </tr>
-              ))
-            )}
+              ))}
         </tbody>
       </Table>
-      
+
       <ReactPaginate
         previousLabel={"previous"}
         nextLabel={"next"}

@@ -6,7 +6,7 @@ import Select from "react-select";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 import Cookies from "js-cookie";
-import { ToastContainer, toast , Bounce } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const AddOrder = () => {
   const [createdAt, setCreatedAt] = useState(""); // Set an initial date value

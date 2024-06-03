@@ -15,7 +15,6 @@ const SalafDetails = () => {
   const [request_id, setRequestID] = useState(""); // State to store request ID
   const [created_at, setCreatedAt] = useState(""); // State to store creation date
   const [updated_at, setUpdatedAt] = useState(""); // State to store update date
-
   const { requestId } = useParams();
 
   useEffect(() => {
@@ -57,7 +56,7 @@ const SalafDetails = () => {
       } else {
         throw response;
       }
-    }else {
+    } else {
       setError("An error occured");
     }
   }

@@ -5,7 +5,7 @@ import { API_URL } from "../../../../constants";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import Cookies from "js-cookie";
 import Select from "react-select";
-import { ToastContainer, toast , Bounce } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const AddInvoice = () => {
   const [medicinesData, setMedicines] = useState([
@@ -78,13 +78,6 @@ const AddInvoice = () => {
       ]);
     }
   };
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm)
-  );
 
   const handleRemoveMedicine = (index) => {
     const updatedMedicines = [...medicinesData];

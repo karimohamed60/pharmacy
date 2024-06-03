@@ -4,12 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 import Cookies from "js-cookie";
-import { ToastContainer, toast , Bounce } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const UpdateDetails = () => {
   const [updatedAt, setUpdatedAt] = useState(""); // Set an initial date value
-  const [transferId, setTransferId] = useState("");
   const [transfer, setTransfer] = useState({});
   const [transferIdWarning, setTransferIdWarning] = useState("");
   const [selecteStatus, setSelectedStatus] = useState("");
@@ -17,10 +16,7 @@ const UpdateDetails = () => {
   const { id } = useParams();
   const [transfers, setTransfers] = useState([]);
   const [medicinesData, setMedicinesData] = useState([]);
-  const [medicineInputs, setMedicineInputs] = useState([
-    { id: 1, value: "", warning: "" },
-    { id: 2, value: "", warning: "" },
-  ]);
+
   const notify = (type, message) => {
     if (type === "success") {
       toast.success(message, {

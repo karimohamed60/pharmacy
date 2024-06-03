@@ -6,7 +6,7 @@ import "reactjs-popup/dist/index.css";
 import Table from "react-bootstrap/Table";
 import { API_URL } from "../../../../constants";
 import Cookies from "js-cookie";
-import { ToastContainer, toast , Bounce } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactPaginate from "react-paginate";
 
@@ -213,13 +213,7 @@ const Categorylist = () => {
     }
     loadCategories();
   }, []);
-
-  const handleChange = (e) => {
-    setCategoryName(e.target.value);
-  };
-
   //Api for updating
-
   const handleCategoryValueUpdate = async () => {
     try {
       if (!selectedCategoryValue.trim()) {

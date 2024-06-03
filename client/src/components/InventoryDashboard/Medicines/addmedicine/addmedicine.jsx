@@ -1,6 +1,5 @@
 import "./addmedicine.css";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../../../constants";
 import { getAuthTokenCookie } from "../../../../services/authService";
@@ -63,13 +62,7 @@ const AddMedicine = () => {
   const [categories, setCategories] = useState([]);
   const [created_at, setCreatedAt] = useState("");
   const [updated_at, setUpdatedAt] = useState("");
-  const [, setLoading] = useState(true);
-  const [, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 10;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const handlePriceChange = (e) => {
     const value = e.target.value;
@@ -128,32 +121,37 @@ const AddMedicine = () => {
       user_id,
     };
 
-
     const token = getAuthTokenCookie();
     if (token) {
-      const response = await fetch(`${API_URL}/medicines`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(postData),
-      });
-      if (response.ok) {
-        const responseData = await response.json();
-        setMedicines([...categories, responseData.data]);
-        setIngredientName("");
-        setCommercialName("");
-        setInternationalBarcode("");
-        setExpireDate("");
-        setPrice("");
-        setMediumUnit("");
-        setMajorUnit("");
-        setMinorUnit("");
-        setCategoryID("");
-        notify("success", "Medicine added successfully!");
-      } else {
-        notify("error", "Error adding medicine!");
+      try {
+        const response = await fetch(`${API_URL}/medicines`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(postData),
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          setMedicines([...medicines, responseData.data]); // Change categories to medicines
+          setIngredientName("");
+          setCommercialName("");
+          setInternationalBarcode("");
+          setExpireDate("");
+          setPrice("");
+          setMediumUnit("");
+          setMajorUnit("");
+          setMinorUnit("");
+          setCategoryID("");
+          notify("success", "Medicine added successfully!");
+        } else {
+          const errorData = await response.json();
+          notify("error", `Error adding medicine: ${errorData.message}`);
+        }
+      } catch (error) {
+        notify("error", `Error adding medicine: ${error.message}`);
       }
     } else {
       alert("No token found");

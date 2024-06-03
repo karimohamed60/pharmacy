@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 import { getAuthTokenCookie } from "../../../services/authService";
 import Cookies from "js-cookie";
 import { API_URL } from "../../../constants";
-import { ToastContainer, toast , Bounce } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./suppliers.css";
 import ReactPaginate from "react-paginate";
@@ -89,28 +89,6 @@ const Suppliers = () => {
 
   const handlePageClick = (data) => {
     setCurrentPage(data.selected + 1);
-  };
-
-  const fetchSuppliers = async (url, token) => {
-    try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch suppliers");
-      }
-
-      const fetchedSuppliers = await response.json();
-      return fetchedSuppliers.data;
-    } catch (error) {
-      console.error("Error fetching suppliers: ", error.message);
-      return [];
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -262,10 +240,6 @@ const Suppliers = () => {
 
   const openPopup2 = () => {
     setPopup2Open(true);
-  };
-
-  const closePopup2 = () => {
-    setPopup2Open(false);
   };
 
   const goBack = () => {

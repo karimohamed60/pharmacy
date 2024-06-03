@@ -47,7 +47,6 @@ const MedicineDetails = () => {
           })
           .toLowerCase()
           .replace(/\s/g, "");
-
         setFormattedCreatedAt(`${formattedDate} ${formattedTime}`);
         window.ingredient_name = responseData.data.attributes.ingredient_name;
         window.commercial_name = responseData.data.attributes.commercial_name;

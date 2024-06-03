@@ -7,10 +7,8 @@ import {
 import "./LogoutButton.css";
 const LogoutButton = () => {
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     const authToken = getAuthTokenCookie();
-
     clearAuthTokenCookie();
     clearLocalStorage();
 

@@ -4,7 +4,7 @@ import { API_URL } from "../../../../constants";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
 import "./PrescriptionsDetails.css";
-import { ToastContainer, toast , Bounce } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const PrescriptionsDetails = () => {

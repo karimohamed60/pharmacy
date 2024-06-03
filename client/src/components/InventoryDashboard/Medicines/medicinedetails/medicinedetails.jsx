@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Medicinedetails = () => {
   const [medicine, setMedicine] = useState({});
-  const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedingredient_name, setSelectedingredient_name] = useState("");
   const [selectedcommercial_name, setSelectedCommercial_name] = useState("");
   const [selectedprice_per_unit, setselectedprice_per_unit] = useState("");
@@ -23,10 +22,6 @@ const Medicinedetails = () => {
   const [selectedcategoryID, setselectedcategoryID] = useState("");
   const [user_id, setselecteduser_id] = useState(Cookies.get("user_id"));
   const [categories, setCategories] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 10;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
   const { id } = useParams();
 
   useEffect(() => {
@@ -36,16 +31,6 @@ const Medicinedetails = () => {
       document.body.style.overflow = "visible";
     };
   }, [id]);
-  const openPopup = () => {
-    setPopupOpen(true);
-  };
-
-  const closePopup = () => {
-    setPopupOpen(false);
-  };
-  const goBack = () => {
-    setPopupOpen(false);
-  };
 
   const notify = (type, message) => {
     if (type === "success") {
@@ -192,7 +177,6 @@ const Medicinedetails = () => {
       const requestBody = {
         user_id: user_id,
       };
-
       // Add non-empty fields to the request body
       if (selectedingredient_name !== "")
         requestBody.ingredient_name = selectedingredient_name;
