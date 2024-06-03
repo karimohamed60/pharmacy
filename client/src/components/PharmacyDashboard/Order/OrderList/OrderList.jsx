@@ -18,7 +18,7 @@ const OrderList = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [results, setResults] = useState([]); // Filtered medicines
   const [input, setInput] = useState("");
-  const recordsPerPage = 10;
+  const recordsPerPage = 1;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,10 +52,11 @@ const OrderList = () => {
     }
   }, [search, currentPage]);
 
-  const handleSearch = async (value, page = currentPage) => {
+  
+  const handleSearch = async (value, currentPage) => {
     try {
       const token = getAuthTokenCookie();
-      const response = await fetch(`${API_URL}/orders/search?q=${value}`, {
+      const response = await fetch(`${API_URL}/orders/search?q=${value}&page=${currentPage}&per_page=${recordsPerPage}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -63,16 +64,17 @@ const OrderList = () => {
         },
       });
 
-      if (!response.ok) throw new Error("Failed to search medicines");
+      if (!response.ok) throw new Error("Failed to search orders");
 
       const data = await response.json();
       setResults(data.data);
-      setTotalPages(Math.ceil(data.data.length / recordsPerPage));
-      setCurrentPage(1);
+      setTotalPages(Math.ceil(data.total / recordsPerPage));
+      setCurrentPage(currentPage);
     } catch (error) {
-      console.error("Error searching medicines:", error.message);
+      console.error("Error searching orders:", error.message);
     }
   };
+
 
   useEffect(() => {
     getOrders();
@@ -303,6 +305,7 @@ const OrderList = () => {
               ))}
         </tbody>
       </Table>
+      
       <ReactPaginate
         previousLabel={"previous"}
         nextLabel={"next"}
