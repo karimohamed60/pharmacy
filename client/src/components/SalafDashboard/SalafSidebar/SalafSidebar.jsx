@@ -37,8 +37,7 @@ const SalafSidebar = () => {
             width="40"
             height="40"
             fill="white"
-            class="bi bi-list"
-            className="iside-baricon"
+            className="bi bi-list iside-baricon"
             viewBox="0 0 16 16"
             aria-expanded={isOpen ? "true" : "false"}
             onClick={() => toggleClose(!isOpen)}

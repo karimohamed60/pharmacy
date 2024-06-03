@@ -287,7 +287,7 @@ const StudentsList = () => {
                         width="28"
                         height="28"
                         fill="dark blue"
-                        class="bi bi-clipboard2-pulse"
+                        className="bi bi-clipboard2-pulse"
                         viewBox="0 0 16 16"
                         onClick={() =>
                           handleSpecificPrescription(item.attributes.id)
@@ -314,7 +314,7 @@ const StudentsList = () => {
                         width="28"
                         height="28"
                         fill="#032B55"
-                        class="bi bi-eye"
+                        className="bi bi-eye"
                         viewBox="0 0 16 16"
                         onClick={() =>
                           handleSpecificPrescription(item.attributes.id)

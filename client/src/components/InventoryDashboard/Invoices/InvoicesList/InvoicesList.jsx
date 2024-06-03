@@ -48,7 +48,6 @@ const InvoicesList = () => {
   // Fetch invoices whenever currentPage, search term, or filter status changes
   useEffect(() => {
     if (token) {
-
       loadInvoices();
     }
   }, [currentPage, search, isFilterActive, startDate, endDate, token]);
@@ -57,17 +56,17 @@ const InvoicesList = () => {
   const loadInvoices = async () => {
     try {
       let url = `${API_URL}/invoices?per_page=${recordsPerPage}&page=${currentPage}`;
-  
+
       if (search.trim() !== "") {
         url = `${API_URL}/invoices/search?q=${search}`;
       }
-  
+
       if (isFilterActive && startDate && endDate) {
         const formattedStartDate = formatDate(startDate);
         const formattedEndDate = formatDate(endDate);
         url = `${API_URL}/invoices/filter?start_date=${formattedStartDate}&end_date=${formattedEndDate}`;
       }
-  
+
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -75,11 +74,11 @@ const InvoicesList = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
-  
+
       const data = await response.json();
       const totalInvoices = data.total_invoices;
       console.log("Total invoices: ", totalInvoices);
@@ -89,7 +88,6 @@ const InvoicesList = () => {
       console.error("Error occurred: ", error.message);
     }
   };
-  
 
   // Handle page click for pagination
   const handlePageClick = (data) => {
@@ -133,9 +131,13 @@ const InvoicesList = () => {
   };
 
   // Rendered invoices based on search and filter
-  const renderInvoices = search.trim() !== "" || isFilterActive
-  ? invoices.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage)
-  : invoices;
+  const renderInvoices =
+    search.trim() !== "" || isFilterActive
+      ? invoices.slice(
+          (currentPage - 1) * recordsPerPage,
+          currentPage * recordsPerPage
+        )
+      : invoices;
 
   return (
     <>
@@ -224,10 +226,7 @@ const InvoicesList = () => {
             onChange={(e) => setEndDate(e.target.value)}
           />
           <div className="filter-buttons">
-            <button
-              className="filter-button"
-              onClick={handleFilterButtonClick}
-            >
+            <button className="filter-button" onClick={handleFilterButtonClick}>
               Filter
             </button>
             <button className="clear-button" onClick={handleClearButtonClick}>
@@ -278,7 +277,7 @@ const InvoicesList = () => {
           ))}
         </tbody>
       </Table>
-      {totalPages > 1 && (
+      {totalPages > 0 && (
         <ReactPaginate
           previousLabel={"previous"}
           nextLabel={"next"}

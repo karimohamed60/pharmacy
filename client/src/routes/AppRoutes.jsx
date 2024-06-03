@@ -63,59 +63,20 @@ function AppRoutes() {
             )
           }
         >
-          <Route
-            path="medicines/add"
-            element={<AddMedicine />}
-          />
-          <Route
-            path="medicinelist"
-            element={<Medicinelist />}
-          />
-          <Route
-            path="medicinedetails/:id"
-            element={<Medicinedetails />}
-          />
-          <Route
-            path="categorylist"
-            element={<Categorylist />}
-          />
-          <Route
-            path="suppliers"
-            element={<Suppliers />}
-          />
-          <Route
-            path="transferlist"
-            element={<TransferList />}
-          />
-          <Route
-            path="addTransfer"
-            element={<Addtransfer />}
-          />
-          <Route
-            path="updateDetails/:id"
-            element={<UpdateDetails />}
-          />
-          <Route
-            path="transferDetails"
-            element={<TransferDetails />}
-          />
-          <Route
-            path="invoicesList"
-            element={<InvoicesList />}
-          />
-          <Route
-            path="addInvoice"
-            element={<AddInvoice />}
-          />
-          <Route
-            path="invoiceDetails/:id"
-            element={<InoviceDetails />}
-          />
+          <Route path="medicines/add" element={<AddMedicine />} />
+          <Route path="medicinelist" element={<Medicinelist />} />
+          <Route path="medicinedetails/:id" element={<Medicinedetails />} />
+          <Route path="categorylist" element={<Categorylist />} />
+          <Route path="suppliers" element={<Suppliers />} />
+          <Route path="transferlist" element={<TransferList />} />
+          <Route path="addTransfer" element={<Addtransfer />} />
+          <Route path="updateDetails/:id" element={<UpdateDetails />} />
+          <Route path="transferDetails" element={<TransferDetails />} />
+          <Route path="invoicesList" element={<InvoicesList />} />
+          <Route path="addInvoice" element={<AddInvoice />} />
+          <Route path="invoiceDetails/:id" element={<InoviceDetails />} />
           {/* Redirect from /inventory-dashboard to /inventory-dashboard/medicinelist */}
-          <Route
-            path=""
-            element={<Navigate to="medicinelist" />}
-          />
+          <Route path="" element={<Navigate to="medicinelist" />} />
         </Route>
         <Route
           path="/pharmacy-dashboard"

@@ -273,7 +273,7 @@ const OrderList = () => {
                         width="20"
                         height="20"
                         fill="#032B55"
-                        class="bi bi-eye-fill"
+                        className="bi bi-eye-fill"
                         viewBox="0 0 16 16"
                         onClick={() => handleSpecificOrder(item.id)}
                       >
@@ -299,7 +299,7 @@ const OrderList = () => {
                         width="20"
                         height="20"
                         fill="#032B55"
-                        class="bi bi-eye-fill"
+                        className="bi bi-eye-fill"
                         viewBox="0 0 16 16"
                         onClick={() => handleSpecificOrder(item.id)}
                       >

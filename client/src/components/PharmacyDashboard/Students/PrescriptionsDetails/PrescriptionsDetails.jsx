@@ -164,7 +164,7 @@ const PrescriptionsDetails = () => {
           window.PrescriptionDate = date;
           window.PrescriptionID = id;
           window.Prescription_status = status;
- console.log(window.Prescription_status)
+          console.log(window.Prescription_status);
           if (medicines) {
             for (const medicine of medicines) {
               medicinesArray.push({
@@ -238,9 +238,6 @@ const PrescriptionsDetails = () => {
       [medicineName]: isChecked,
     }));
   };
-
- 
-
 
   return (
     <>
@@ -368,10 +365,7 @@ const PrescriptionsDetails = () => {
                     <td>{item.quantity}</td>
                     <td>
                       {" "}
-                      {/*                       <div class="checkbox-wrapper-36">
-                          <input id="toggle-36" type="checkbox" />
-                        </div> */}
-                      <div class="checkbox-wrapper-31">
+                      <div className="checkbox-wrapper-31">
                         <input
                           type="checkbox"
                           checked={checkedMedicines[item.Pmedicine_name]}
@@ -384,19 +378,19 @@ const PrescriptionsDetails = () => {
                         />
                         <svg viewBox="0 0 35.6 35.6">
                           <circle
-                            class="background"
+                            className="background"
                             cx="17.8"
                             cy="17.8"
                             r="17.8"
                           ></circle>
                           <circle
-                            class="stroke"
+                            className="stroke"
                             cx="17.8"
                             cy="17.8"
                             r="14.37"
                           ></circle>
                           <polyline
-                            class="check"
+                            className="check"
                             points="11.78 18.12 15.55 22.23 25.17 12.87"
                           ></polyline>
                         </svg>

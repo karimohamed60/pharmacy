@@ -115,7 +115,6 @@ const MedicineList = () => {
     }
   };
 
-
   useEffect(() => {
     loadMedicines();
   }, [currentPage, search]);
