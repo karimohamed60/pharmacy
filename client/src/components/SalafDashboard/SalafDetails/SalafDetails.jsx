@@ -53,16 +53,7 @@ const SalafDetails = () => {
       console.log("An error occurred");
     }
   }
-  function parseMedicineName(medicineData) {
-    if (medicineData && medicineData.length > 0) {
-      const nestedJsonString = medicineData[0];
-      const nestedJson = JSON.parse(nestedJsonString.replace(/=>/g, ":")); // Replace `=>` with `:` to make it a valid JSON
-      if (nestedJson && nestedJson.medicine1) {
-        return nestedJson.medicine1;
-      }
-    }
-    return "";
-  }
+
   // Update status
   const handleSalafReqUpdateStatus = async (e) => {
     e.preventDefault();
@@ -72,7 +63,7 @@ const SalafDetails = () => {
         request: {
           medicine_name: [
             {
-              medicine1: parseMedicineName(salaf_medicine_name), // Update with actual medicine names
+              medicine1: salaf_medicine_name, // Update with actual medicine names
             },
           ],
           status: selectedStatus,
