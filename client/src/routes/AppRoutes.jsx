@@ -107,7 +107,7 @@ function AppRoutes() {
           element={<TransfersList />}
         />
         <Route
-          path="/pharmacy-dashboard/transfersDetails/"
+          path="/pharmacy-dashboard/transfersDetails/:transfer_id"
           element={<TransfersDetails />}
         />
         <Route

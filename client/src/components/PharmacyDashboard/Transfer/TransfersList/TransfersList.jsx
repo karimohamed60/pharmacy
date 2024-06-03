@@ -13,27 +13,10 @@ const TransfersList = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [transfers, setTransfers] = useState([]);
-  const [results, setResults] = useState([]); // Filtered medicines
-  const [input, setInput] = useState("");
+  const [totalPages, setTotalPages] = useState(1);
   const recordsPerPage = 10;
   const [statusFilter, setStatusFilter] = useState(null);
   const [token, setToken] = useState("");
-  const [totalPages, setTotalPages] = useState(0);
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  /*const filteredData = transfers.filter(
-    (item) =>
-      (statusFilter
-        ? item.attributes.status.toLowerCase() === statusFilter.toLowerCase()
-        : true) &&
-      (search === "" ||
-        item.id.toString().toLowerCase() === search.toLowerCase())
-  );*/
-  const records = transfers.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(transfers.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
-  const { id } = useParams();
-  const { transfer_id } = useParams();
 
   const getStatusColors = (status) => {
     switch (status.toLowerCase()) {
@@ -57,222 +40,87 @@ const TransfersList = () => {
     }
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Fetch and set the token when the component mounts
+  useEffect(() => {
+    const authToken = getAuthTokenCookie();
+    if (authToken) {
+      setToken(authToken);
+    } else {
+      console.error("Token not found");
+    }
+  }, []);
 
   useEffect(() => {
     // Remove scroll bar
     document.body.style.overflow = "hidden";
-    handleSpecificTrasfer(id);
-    // Cleanup on component unmount
     return () => {
       document.body.style.overflow = "visible";
     };
   }, []);
-  useEffect(() => {
-    if (transfer_id) {
-      handleSpecificTrasfer();
-    }
-  }, [transfer_id]);
 
   useEffect(() => {
-    handleSearch(input);
-  }, [input]);
-  //search
-  const handleSearch = async (value, page = 1) => {
+    // Load transfers whenever currentPage, search, or statusFilter changes
+    if(token){
+    loadTransfers();
+    }
+  }, [currentPage, search, statusFilter , token]);
+
+  // Modify the loadTransfers function to include the status filter in the API request
+  const loadTransfers = async () => {
     try {
-      const token = getAuthTokenCookie();
-      if (!token) {
-        console.error("Token not found");
-        return;
+      let url = `${API_URL}/transfers?per_page=${recordsPerPage}&page=${currentPage}`;
+
+      if (search.trim() !== "") {
+        url = `${API_URL}/transfers/search?q=${search}&per_page=${recordsPerPage}&page=${currentPage}`;
       }
-      const response = await fetch(`${API_URL}/transfers/search?q=${value}`, {
+
+      if (statusFilter) {
+        url = `${API_URL}/transfers/filter?status=${statusFilter}&per_page=${recordsPerPage}&page=${currentPage}`;
+      }
+
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to search medicines");
-      }
-
-      const data = await response.json();
-      console.log("Response Data:", data); // Log the response data
-
-      const results = data.data.filter((transfer) => {
-        return (
-          value &&
-          transfer &&
-          transfer.attributes.transfer_id &&
-          transfer.attributes.transfer_id.includes(value)
-        );
-      });
-      console.log("Filtered Results:", results); // Log the filtered results
-      setResults(data.data);
-      const totalPages = Math.ceil(data.data.length / recordsPerPage);
-      setTotalPages(totalPages); // Update total pages based on filtered results
-      setCurrentPage(1); // Reset current page when performing a new search
-    } catch (error) {
-      console.error("Error searching medicines:", error.message);
-    }
-  };
-  //filtering data
-  const handleFilter = async (value, page = 1) => {
-    if (value === null) {
-      // If "All" is selected, fetch all transfers
-      getTransfers();
-      return;
-    }
-
-    try {
-      const token = getAuthTokenCookie();
-      if (!token) {
-        console.error("Token not found");
-        return;
-      }
-      const response = await fetch(
-        `${API_URL}/transfers/filter?status=${value}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to search medicines");
-      }
-
-      const data = await response.json();
-      console.log("Response Data:", data);
-      const filteredTransfers = data.data.filter(
-        (transfer) =>
-          transfer.attributes.status.toLowerCase() === value.toLowerCase()
-      );
-      setTransfers(filteredTransfers);
-      const totalPages = Math.ceil(data.data.length / recordsPerPage);
-      setTotalPages(totalPages);
-      setCurrentPage(1);
-    } catch (error) {
-      console.error("Error searching medicines:", error.message);
-    }
-  };
-
-  // to fetch students data
-  useEffect(() => {
-    getTransfers();
-  }, [recordsPerPage]);
-
-  const getTransfers = async () => {
-    try {
-      const token = getAuthTokenCookie();
-      if (!token) {
-        console.error("Token not found");
-        return;
-      }
-
-      setToken(token);
-
-      const response = await fetch(
-        ` ${API_URL}/transfers?per_page=${recordsPerPage}&page=1`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
 
       const data = await response.json();
-      const totalTransfers = data.total_transfers || 0; // Assuming total_students is the correct key
-      console.log(data);
+      const totalTransfers = data["total_transfers"];
+      const calculatedTotalPages = Math.ceil(totalTransfers / recordsPerPage);
 
-      setTotalPages(Math.ceil(totalTransfers / recordsPerPage));
+      setTotalPages(calculatedTotalPages);
       setTransfers(data.data);
     } catch (error) {
       console.error("Error occurred: ", error.message);
     }
   };
-  const fetchTransfers = async (page, token) => {
-    try {
-      const response = await fetch(
-        `
-      ${API_URL}/transfers?per_page=${recordsPerPage}&page=${page}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch suppliers");
-      }
-
-      const fetchedTransfers = await response.json();
-      return fetchedTransfers.data;
-    } catch (error) {
-      console.error("Error fetching suppliers: ", error.message);
-      return [];
-    }
+  // Handle page click for pagination
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected + 1);
   };
-  const handlePageClick = async (data) => {
-    try {
-      const token = getAuthTokenCookie();
-      const currentPage = data.selected + 1;
-      setCurrentPage(currentPage);
-      const fetchedTransfers = await fetchTransfers(currentPage, token, search);
-      setTransfers(fetchedTransfers);
-
-      if (fetchedTransfers.length > 10) {
-        setTotalPages(1);
-      }
-    } catch (error) {
-      console.error("Error fetching medicines:", error);
-    }
-  };
-  const handleChange = (value) => {
-    setInput(value);
-    setSearch(value); // Update search state with the new input value
-    setStatusFilter(value);
-    setCurrentPage(1); // Reset current page when performing a new search
-  };
-
-  //navigate to a specific transfer
-  const handleSpecificTrasfer = async () => {
-    try {
-      const token = getAuthTokenCookie();
-      const response = await fetch(`${API_URL}/transfers/${transfer_id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const responseData = await response.json();
-
-        console.log(responseData);
-
-        setTransfers(responseData.data);
-      } else {
-        throw new Error("Failed to fetch category details");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  // Filter transfers based on search and status
+  const filteredTransfers = transfers.filter((item) => {
+    const statusMatches =
+      !statusFilter ||
+      item.attributes.status.toLowerCase() === statusFilter.toLowerCase();
+    const searchMatches =
+      search === "" ||
+      item.id.toString().toLowerCase().includes(search.toLowerCase());
+    return statusMatches && searchMatches;
+  });
+  const renderTransfers =
+    search.trim() !== "" || statusFilter
+      ? filteredTransfers.slice(
+          (currentPage - 1) * recordsPerPage,
+          currentPage * recordsPerPage
+        )
+      : filteredTransfers;
 
   return (
     <>
@@ -305,8 +153,7 @@ const TransfersList = () => {
             placeholder="Search by Transfer ID"
             aria-label="Search"
             aria-describedby="search-addon"
-            value={input}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -345,7 +192,7 @@ const TransfersList = () => {
             />
           </svg>
 
-          <Dropdown onSelect={(selectedStatus) => handleFilter(selectedStatus)}>
+          <Dropdown onSelect={(selectedStatus) => setStatusFilter(selectedStatus)}>
             <div className="tl-dropdown-content filtercontent">
               <Dropdown.Item eventKey={null} className="statusfilter">
                 All
@@ -377,19 +224,17 @@ const TransfersList = () => {
           </tr>
         </thead>
         <tbody className="tl-tbody">
-          {search != ""
-            ? results.map((item, index) => (
+          {renderTransfers.map((item, index) => (
                 <tr key={index}>
                   <td>{item.id}</td>
                   <td>
                     {" "}
                     <div
-                      style={{
-                        backgroundColor: getStatusColors(item.attributes.status)
-                          .backgroundColor,
-                        color: getStatusColors(item.attributes.status)
-                          .textColor,
-                      }}
+                  style={{
+                    backgroundColor: getStatusColors(item.attributes.status)
+                      .backgroundColor,
+                    color: getStatusColors(item.attributes.status).textColor,
+                  }}
                       className="status-item"
                     >
                       {item.attributes.status}
@@ -417,68 +262,32 @@ const TransfersList = () => {
                     </Link>
                   </td>
                 </tr>
-              ))
-            : transfers.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.id}</td>
-                  <td>
-                    {" "}
-                    <div
-                      style={{
-                        backgroundColor: getStatusColors(item.attributes.status)
-                          .backgroundColor,
-                        color: getStatusColors(item.attributes.status)
-                          .textColor,
-                      }}
-                      className="status-item"
-                    >
-                      {item.attributes.status}
-                    </div>
-                  </td>
-                  <td>
-                    {format(new Date(item.attributes.created_at), "yyyy-MM-dd")}
-                  </td>
-                  <td>
-                    <Link
-                      to={`/pharmacy-dashboard/transfersDetails/${item.id}`}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        fill="#032B55"
-                        className="bi bi-eye-fill"
-                        viewBox="0 0 16 16"
-                        onClick={() => handleSpecificTrasfer(item.id)}
-                      >
-                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                      </svg>
-                    </Link>
-                  </td>
-                </tr>
-              ))}
+          ))}
+            
         </tbody>
       </Table>
-      <ReactPaginate
-        previousLabel={"previous"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        pageCount={totalPages}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={3}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination justify-content-center"}
-        pageClassName={"page-item"}
-        pageLinkClassName={"page-link"}
-        previousClassName={"page-item"}
-        previousLinkClassName={"page-link"}
-        nextClassName={"page-item"}
-        nextLinkClassName={"page-link"}
-        breakClassName={"page-item"}
-        breakLinkClassName={"page-link"}
-        activeClassName={"active"}
-      />
+{totalPages > 0 && (
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={totalPages}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+          className=""
+        />
+      )}
     </>
   );
 };
