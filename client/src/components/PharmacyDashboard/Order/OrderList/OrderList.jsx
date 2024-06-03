@@ -19,14 +19,6 @@ const OrderList = () => {
   const [results, setResults] = useState([]); // Filtered medicines
   const [input, setInput] = useState("");
   const recordsPerPage = 1;
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  /*const filteredData = orders.filter(
-      (item) =>
-        search.toLowerCase() === "" ||
-        item.attributes.ingredient_name.toLowerCase().includes(search.toLowerCase())    );*/
-  const npage = Math.ceil(orders.length / recordsPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -113,7 +105,6 @@ const OrderList = () => {
 
       const data = await response.json();
       const totalOrders = data["total_orders"]; // Assuming total_students is the correct key
-      //console.log(data)
       setTotalPages(Math.ceil(totalOrders / recordsPerPage));
       setOrders(data.data);
     } catch (error) {
