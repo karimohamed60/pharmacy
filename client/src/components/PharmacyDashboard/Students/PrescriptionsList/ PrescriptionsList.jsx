@@ -102,13 +102,11 @@ const PrescriptionsList = () => {
       if (response.ok) {
         const responseData = await response.json();
         setPrescription(responseData.data);
-        console.log(responseData);
       } else {
         throw response;
       }
     } else {
       setError("An error occured");
-      console.log("An error", e);
     }
   }
 

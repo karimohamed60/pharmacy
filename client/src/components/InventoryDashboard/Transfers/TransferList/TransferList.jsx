@@ -60,10 +60,10 @@ const TransferList = () => {
 
   useEffect(() => {
     // Load transfers whenever currentPage, search, or statusFilter changes
-    if(token){
-    loadTransfers();
+    if (token) {
+      loadTransfers();
     }
-  }, [currentPage, search, statusFilter , token]);
+  }, [currentPage, search, statusFilter, token]);
 
   // Modify the loadTransfers function to include the status filter in the API request
   const loadTransfers = async () => {

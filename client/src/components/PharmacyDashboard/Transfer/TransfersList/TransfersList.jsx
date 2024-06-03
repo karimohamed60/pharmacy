@@ -60,10 +60,10 @@ const TransfersList = () => {
 
   useEffect(() => {
     // Load transfers whenever currentPage, search, or statusFilter changes
-    if(token){
-    loadTransfers();
+    if (token) {
+      loadTransfers();
     }
-  }, [currentPage, search, statusFilter , token]);
+  }, [currentPage, search, statusFilter, token]);
 
   // Modify the loadTransfers function to include the status filter in the API request
   const loadTransfers = async () => {
@@ -192,7 +192,9 @@ const TransfersList = () => {
             />
           </svg>
 
-          <Dropdown onSelect={(selectedStatus) => setStatusFilter(selectedStatus)}>
+          <Dropdown
+            onSelect={(selectedStatus) => setStatusFilter(selectedStatus)}
+          >
             <div className="tl-dropdown-content filtercontent">
               <Dropdown.Item eventKey={null} className="statusfilter">
                 All
@@ -225,48 +227,45 @@ const TransfersList = () => {
         </thead>
         <tbody className="tl-tbody">
           {renderTransfers.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.id}</td>
-                  <td>
-                    {" "}
-                    <div
+            <tr key={index}>
+              <td>{item.id}</td>
+              <td>
+                {" "}
+                <div
                   style={{
                     backgroundColor: getStatusColors(item.attributes.status)
                       .backgroundColor,
                     color: getStatusColors(item.attributes.status).textColor,
                   }}
-                      className="status-item"
-                    >
-                      {item.attributes.status}
-                    </div>
-                  </td>
-                  <td>
-                    {format(new Date(item.attributes.created_at), "yyyy-MM-dd")}
-                  </td>
-                  <td>
-                    <Link
-                      to={`/pharmacy-dashboard/transfersDetails/${item.id}`}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        fill="#032B55"
-                        className="bi bi-eye-fill"
-                        viewBox="0 0 16 16"
-                        onClick={() => handleSpecificTrasfer(item.id)}
-                      >
-                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                      </svg>
-                    </Link>
-                  </td>
-                </tr>
+                  className="status-item"
+                >
+                  {item.attributes.status}
+                </div>
+              </td>
+              <td>
+                {format(new Date(item.attributes.created_at), "yyyy-MM-dd")}
+              </td>
+              <td>
+                <Link to={`/pharmacy-dashboard/transfersDetails/${item.id}`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="#032B55"
+                    className="bi bi-eye-fill"
+                    viewBox="0 0 16 16"
+                    onClick={() => handleSpecificTrasfer(item.id)}
+                  >
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                  </svg>
+                </Link>
+              </td>
+            </tr>
           ))}
-            
         </tbody>
       </Table>
-{totalPages > 0 && (
+      {totalPages > 0 && (
         <ReactPaginate
           previousLabel={"previous"}
           nextLabel={"next"}

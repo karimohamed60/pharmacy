@@ -8,7 +8,7 @@ import { getAuthTokenCookie } from "../../../../services/authService";
 import { Button, Modal } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
-import { ToastContainer, toast , Bounce } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const MedicineList = () => {
@@ -94,7 +94,6 @@ const MedicineList = () => {
   const handleShowModal = (selectedMedicineId) => {
     setSelectedMedicineId(selectedMedicineId);
     setShowModal(true);
-    console.log(selectedMedicineId);
   };
   const [medicineFields, setMedicineFields] = useState([
     { medicine_id: "", quantity: "1", warning: "" },
@@ -126,8 +125,6 @@ const MedicineList = () => {
         console.error("Token not found");
         return;
       }
-      console.log(authToken);
-
       setToken(authToken);
 
       let url = `${API_URL}/medicines?per_page=${recordsPerPage}&page=${currentPage}`;

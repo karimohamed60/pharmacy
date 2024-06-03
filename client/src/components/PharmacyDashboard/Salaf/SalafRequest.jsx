@@ -6,7 +6,7 @@ import Select from "react-select";
 import { API_URL } from "../../../constants";
 import { getAuthTokenCookie } from "../../../services/authService";
 import Cookies from "js-cookie";
-import { ToastContainer, toast , Bounce } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const SalafRequest = () => {
   const [students, setStudents] = useState([]);
@@ -85,7 +85,6 @@ const SalafRequest = () => {
           }
         } else {
           setError("An error occured");
-          console.log("An error", e);
         }
       }
       getStudents();
@@ -102,8 +101,6 @@ const SalafRequest = () => {
     if (selectedStudent) {
       setStudentName(selectedStudent.attributes.student_name);
       setStudentID(selectedStudent.id);
-
-      console.log(selectedStudent.id);
     } else {
       setStudentName(""); // Clear student name if not found
       setStudentID(""); // Clear student ID if not found
@@ -130,7 +127,6 @@ const SalafRequest = () => {
         student_id: parseInt(student_id), // Update with the selected student ID
       },
     };
-    console.log(postData);
     if (token) {
       try {
         const response = await fetch(`${API_URL}/salaf_requests`, {
@@ -143,11 +139,9 @@ const SalafRequest = () => {
         });
         if (response.ok) {
           const responseData = await response.json();
-          console.log("sdas");
           setSalafRequests([...salaf_requests, responseData.data]);
           notify("success", "Request sent successfully");
         } else {
-          console.log("Error: " + response.statusText);
           notify("error", "An error occured");
         }
       } catch (error) {
