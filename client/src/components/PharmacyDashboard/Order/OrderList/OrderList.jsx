@@ -6,7 +6,6 @@ import Table from "react-bootstrap/esm/Table";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
-import cookies from "js-cookie";
 import { format } from "date-fns";
 
 const OrderList = () => {
@@ -18,7 +17,7 @@ const OrderList = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [results, setResults] = useState([]); // Filtered medicines
   const [input, setInput] = useState("");
-  const recordsPerPage = 1;
+  const recordsPerPage = 10;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -6,7 +6,7 @@ import redirectUser from "../services/redirectUser";
 import { API_URL } from "../constants";
 import logo from "../assets/Images/logo.png";
 import "./Login.css";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast , Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
@@ -179,7 +179,7 @@ const Login = () => {
                       draggable
                       pauseOnHover
                       theme="light"
-                      transition:Bounce
+                      transition={Bounce}
                     />
                   </div>
                 </form>

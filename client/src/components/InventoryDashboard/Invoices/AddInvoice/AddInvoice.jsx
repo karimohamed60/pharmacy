@@ -5,7 +5,7 @@ import { API_URL } from "../../../../constants";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import Cookies from "js-cookie";
 import Select from "react-select";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast , Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const AddInvoice = () => {
   const [medicinesData, setMedicines] = useState([
@@ -446,7 +446,7 @@ const AddInvoice = () => {
                   draggable
                   pauseOnHover
                   theme="light"
-                  transition:Bounce
+                  transition={Bounce}
                 />{" "}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -494,7 +494,7 @@ const AddInvoice = () => {
             draggable
             pauseOnHover
             theme="light"
-            transition:Bounce
+            transition={Bounce}
           />
           <div className="ai-form-group c-group">
             <label htmlFor="comments" className="ai-form-label comments">

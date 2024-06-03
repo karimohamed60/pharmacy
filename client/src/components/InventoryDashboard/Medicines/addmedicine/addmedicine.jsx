@@ -3,12 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../../../constants";
-import {
-  getAuthTokenCookie,
-  setAuthTokenCookie,
-} from "../../../../services/authService";
+import { getAuthTokenCookie } from "../../../../services/authService";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddMedicine = () => {
@@ -421,7 +418,7 @@ const AddMedicine = () => {
               draggable
               pauseOnHover
               theme="light"
-              transition:Bounce
+              transition={Bounce}
             />
           </div>
         </form>

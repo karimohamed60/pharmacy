@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast , Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const TransfersDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -263,7 +263,7 @@ const TransfersDetails = () => {
             draggable
             pauseOnHover
             theme="light"
-            transition:Bounce
+            transition={Bounce}
           />
         </form>
       </div>

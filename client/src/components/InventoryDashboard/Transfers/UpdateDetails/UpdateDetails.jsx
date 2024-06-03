@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast , Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const UpdateDetails = () => {
@@ -286,7 +286,7 @@ const UpdateDetails = () => {
               draggable
               pauseOnHover
               theme="light"
-              transition:Bounce
+              transition={Bounce}
             />
           </div>
         </form>

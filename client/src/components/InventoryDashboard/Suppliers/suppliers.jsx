@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 import { getAuthTokenCookie } from "../../../services/authService";
 import Cookies from "js-cookie";
 import { API_URL } from "../../../constants";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast , Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./suppliers.css";
 import ReactPaginate from "react-paginate";
@@ -427,7 +427,7 @@ const Suppliers = () => {
             draggable
             pauseOnHover
             theme="light"
-            transition:Bounce
+            transition={Bounce}
           />
         </div>
       </Popup>
@@ -590,7 +590,7 @@ const Suppliers = () => {
               draggable
               pauseOnHover
               theme="light"
-              transition="Bounce"
+              transition={Bounce}
             />
           </form>
         </div>

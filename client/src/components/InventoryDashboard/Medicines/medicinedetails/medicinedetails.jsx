@@ -5,7 +5,7 @@ import "reactjs-popup/dist/index.css";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast , Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Medicinedetails = () => {
@@ -508,7 +508,7 @@ const Medicinedetails = () => {
           draggable
           pauseOnHover
           theme="light"
-          transition:Bounce
+          transition={Bounce}
         />
       </form>
     </>

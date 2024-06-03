@@ -6,7 +6,7 @@ import "reactjs-popup/dist/index.css";
 import Table from "react-bootstrap/Table";
 import { API_URL } from "../../../../constants";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast , Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactPaginate from "react-paginate";
 
@@ -448,7 +448,7 @@ const Categorylist = () => {
               draggable
               pauseOnHover
               theme="light"
-              transition="Bounce"
+              transition={Bounce}
             />
           </div>
         </Popup>
@@ -518,7 +518,7 @@ const Categorylist = () => {
               draggable
               pauseOnHover
               theme="light"
-              transition="Bounce"
+              transition={Bounce}
             />
           </form>
         </Popup>

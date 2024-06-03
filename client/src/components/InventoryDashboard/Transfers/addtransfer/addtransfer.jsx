@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 import Select from "react-select";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast , Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Addtransfer = () => {
@@ -323,7 +323,7 @@ const Addtransfer = () => {
             draggable
             pauseOnHover
             theme="light"
-            transition:Bounce
+            transition={Bounce}
           />
         </form>
       </div>
