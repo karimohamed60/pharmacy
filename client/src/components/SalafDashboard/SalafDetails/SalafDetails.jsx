@@ -24,6 +24,11 @@ const SalafDetails = () => {
     }
   }, [requestId]);
 
+  const removeSpecialCharacters = (str) => {
+    if (typeof str !== "string") return str; // Ensure str is a string
+    return str.replace(/[^\w\s=>]/gi, "");
+  };
+
   async function handleSpecificRequest(requestId) {
     const token = getAuthTokenCookie();
     if (token) {
@@ -37,10 +42,16 @@ const SalafDetails = () => {
       if (response.ok) {
         const responseData = await response.json();
         console.log(responseData.data);
+
+        const medicines = responseData.data.attributes.medicine_name;
+        const cleanedMedicines = Array.isArray(medicines)
+          ? medicines.map((medicine) => removeSpecialCharacters(medicine))
+          : [removeSpecialCharacters(medicines)];
+
         setSalaf(responseData.data);
         setStudentID(responseData.data.attributes.student_id);
         setStudentName(responseData.data.attributes.student_name);
-        setSalaf_medicine_name(responseData.data.attributes.medicine_name);
+        setSalaf_medicine_name(cleanedMedicines.join(", ")); // Join cleaned medicines into a single string
         setRequestID(responseData.data.id);
         setCurrentStatus(responseData.data.attributes.status);
         setCreatedAt(responseData.data.attributes.created_at);
@@ -55,19 +66,16 @@ const SalafDetails = () => {
   }
 
   // Update status
+  // Update status
   const handleSalafReqUpdateStatus = async (e) => {
     e.preventDefault();
     try {
       const token = getAuthTokenCookie();
       const postData = {
         request: {
-          medicine_name: [
-            {
-              medicine1: salaf_medicine_name, // Update with actual medicine names
-            },
-          ],
+          medicine_name: salaf_medicine_name, // Directly assign salaf_medicine_name
           status: selectedStatus,
-          student_id: student_id, // Update with the selected student ID
+          student_id: student_id,
         },
       };
 
