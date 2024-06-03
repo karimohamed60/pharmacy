@@ -126,8 +126,6 @@ const Categorylist = () => {
       });
       if (response.ok) {
         const responseData = await response.json();
-        console.log("success");
-        console.log(responseData.data.attributes.category_name);
         window.categoryname = responseData.data.attributes.category_name;
         setCategory(responseData.data);
         setSelectedCategoryValue(responseData.data.value || "");
@@ -145,10 +143,7 @@ const Categorylist = () => {
     const postData = {
       category_name,
     };
-    console.log(postData);
     const token = Cookies.get("token");
-    console.log(token);
-
     if (token) {
       const existingCategory = categories.find(
         (category) =>
@@ -171,13 +166,9 @@ const Categorylist = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData);
         notify("success", "Category added successfully");
-
         setCategories([...categories, responseData.data]);
         setCategoryName("");
-        // loadCategories();
-        console.log("shown");
       } else {
         alert("Error: " + response.statusText);
       }
@@ -205,7 +196,6 @@ const Categorylist = () => {
         });
         if (response.ok) {
           const responseData = await response.json();
-          // console.log(responseData)
           setCategories(responseData.data);
           const dataArray = responseData.data;
           for (let i = 0; i < dataArray.length; i++) {
@@ -219,7 +209,6 @@ const Categorylist = () => {
         }
       } else {
         setError("An error occured");
-        console.log("An error", e);
       }
     }
     loadCategories();
@@ -233,9 +222,6 @@ const Categorylist = () => {
 
   const handleCategoryValueUpdate = async () => {
     try {
-      console.log("Category ID: ", category.id);
-      console.log("Selected category value: ", selectedCategoryValue);
-
       if (!selectedCategoryValue.trim()) {
         console.error("Category value cannot be empty");
         return;

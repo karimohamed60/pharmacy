@@ -110,7 +110,6 @@ const UpdateDetails = () => {
         setTransfers(responseData.data);
         setMedicinesData(responseData.data.attributes.medicines);
         setTransfer(responseData.data.attributes);
-        console.log(responseData);
         setSelectedStatus(responseData.data.attributes.status);
         const selectedMeds = responseData.data.attributes.medicines.map(
           (medicine) => ({
@@ -126,7 +125,6 @@ const UpdateDetails = () => {
         window.created_at = responseData.data.attributes.created_at;
         window.transferstatus = responseData.data.attributes.status;
         window.transferstatus = responseData.data.attributes.status;
-        console.log(window.transferstatus);
       } else {
         throw new Error("Failed to fetch category details");
       }

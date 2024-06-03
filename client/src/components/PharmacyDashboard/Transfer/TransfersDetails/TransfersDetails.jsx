@@ -56,7 +56,6 @@ const TransfersDetails = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        //console.log(responseData)
         setTransfers(responseData.data);
         setMedicinesData(responseData.data.attributes.medicines);
         setCurrentStatus(responseData.data.attributes.status); // Set the current status
@@ -94,8 +93,6 @@ const TransfersDetails = () => {
           quantity: parseInt(medicine.quantity),
         })),
       };
-
-      console.log(transferData);
       const response = await fetch(`${API_URL}/transfers/${transfer_id}`, {
         method: "PUT",
         headers: {
@@ -106,7 +103,6 @@ const TransfersDetails = () => {
       });
       if (response.ok) {
         await handleSpecificTransferbyId(id);
-        console.log("updated successfully");
         notify("success", "Transfer updated successfully!");
       } else {
         throw new Error("Failed to update  values");

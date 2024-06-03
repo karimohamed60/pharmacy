@@ -156,15 +156,12 @@ const PrescriptionsDetails = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData.data);
         const medicinesArray = [];
-
         for (const item of responseData.data) {
           const { date, id, medicines, status } = item.attributes;
           window.PrescriptionDate = date;
           window.PrescriptionID = id;
           window.Prescription_status = status;
-          console.log(window.Prescription_status);
           if (medicines) {
             for (const medicine of medicines) {
               medicinesArray.push({
@@ -200,7 +197,6 @@ const PrescriptionsDetails = () => {
         got_medicine: checkedMedicines[medicine.Pmedicine_name] ? 1 : 0, // Set got_medicine based on checkbox status
       })),
     };
-    console.log(postData);
     if (token) {
       try {
         const response = await fetch(
@@ -216,11 +212,9 @@ const PrescriptionsDetails = () => {
         );
         if (response.ok) {
           const responseData = await response.json();
-          console.log(responseData);
           setPrescription([...prescription, responseData.data]);
           notify("success", "Prescription updated successfully");
         } else {
-          console.log("Error: " + response.statusText);
           notify("error", "Failed to update prescription!");
         }
       } catch (error) {

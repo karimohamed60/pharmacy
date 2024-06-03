@@ -49,8 +49,6 @@ const MedicineDetails = () => {
           .replace(/\s/g, "");
 
         setFormattedCreatedAt(`${formattedDate} ${formattedTime}`);
-
-        console.log(responseData.data);
         window.ingredient_name = responseData.data.attributes.ingredient_name;
         window.commercial_name = responseData.data.attributes.commercial_name;
         window.international_barcode =

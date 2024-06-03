@@ -67,10 +67,7 @@ const StudentsList = () => {
       if (!response.ok) {
         throw new Error("Failed to search medicines");
       }
-
       const data = await response.json();
-      console.log("Response Data:", data); // Log the response data
-
       const results = data.data.filter((student) => {
         return (
           value &&
@@ -79,7 +76,6 @@ const StudentsList = () => {
           student.attributes.student_national_id
         );
       });
-      console.log("Filtered Results:", results); // Log the filtered results
       setResults(data.data);
       const totalPages = Math.ceil(data.data.length / recordsPerPage);
       setTotalPages(totalPages); // Update total pages based on filtered results

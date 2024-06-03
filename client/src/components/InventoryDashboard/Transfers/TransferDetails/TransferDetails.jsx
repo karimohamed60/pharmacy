@@ -32,23 +32,14 @@ const TransferDetails = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData);
-        // console.log("Medicine details showed successfully")
         setTransfers(responseData.data);
         setMedicinesData(responseData.data.attributes.medicines);
-        //setMedicinesData(responseData.data.attributes.medicines);
-        /*const dataArray = responseData.data.attributes.medicines;
-      window.medicineData= dataArray;
-      console.log(dataArray)*/
-
         window.transfer_id = responseData.data.attributes.id;
         window.username = responseData.data.attributes.user.username;
         window.created_at = responseData.data.attributes.created_at;
         window.transferstatus = responseData.data.attributes.status;
         window.medicine_name =
           responseData.data.attributes.medicines.medicine_name;
-        console.log(window.medicine_name);
-        /*window.total_amount = responseData.data.attributes.total_amount;*/
       } else {
         throw new Error("Failed to fetch category details");
       }

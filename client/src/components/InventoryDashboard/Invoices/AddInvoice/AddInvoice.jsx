@@ -207,7 +207,6 @@ const AddInvoice = () => {
           setInvoices([...invoices, responseData.data]);
           notify("success", "Invoice added successfully!");
         } else {
-          console.log("Error: " + response.statusText);
           notify("error", "Failed to add invoice!");
         }
       } catch (error) {

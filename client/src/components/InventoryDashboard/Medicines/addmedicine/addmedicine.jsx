@@ -128,7 +128,6 @@ const AddMedicine = () => {
       user_id,
     };
 
-    console.log(postData);
 
     const token = getAuthTokenCookie();
     if (token) {
@@ -140,11 +139,8 @@ const AddMedicine = () => {
         },
         body: JSON.stringify(postData),
       });
-      console.log("aaa2");
       if (response.ok) {
-        console.log("aaa");
         const responseData = await response.json();
-        console.log(responseData);
         setMedicines([...categories, responseData.data]);
         setIngredientName("");
         setCommercialName("");
@@ -190,7 +186,6 @@ const AddMedicine = () => {
         }
       } else {
         setError("An error occurred");
-        console.log("An error occurred");
       }
     }
     loadCategories();

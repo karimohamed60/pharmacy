@@ -115,7 +115,6 @@ const Addtransfer = () => {
 
       const token = getAuthTokenCookie();
       if (!token) {
-        console.log("Authentication error: No token found.");
         return;
       }
 
@@ -134,7 +133,6 @@ const Addtransfer = () => {
 
         if (!response.ok) {
           const errorData = await response.json();
-          console.log(`An error occurred: ${errorData.message}`);
           return;
         }
 
@@ -146,7 +144,6 @@ const Addtransfer = () => {
         setMedicineOptions(medicineOptions);
       } catch (error) {
         console.error("Failed to load medicines:", error);
-        console.log("An error occurred while loading medicines.");
       }
     };
 

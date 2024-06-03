@@ -41,8 +41,6 @@ const SalafDetails = () => {
       });
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData.data);
-
         const medicines = responseData.data.attributes.medicine_name;
         const cleanedMedicines = Array.isArray(medicines)
           ? medicines.map((medicine) => removeSpecialCharacters(medicine))
@@ -56,16 +54,14 @@ const SalafDetails = () => {
         setCurrentStatus(responseData.data.attributes.status);
         setCreatedAt(responseData.data.attributes.created_at);
         setUpdatedAt(responseData.data.attributes.updated_at);
-        console.log(responseData);
       } else {
         throw response;
       }
-    } else {
-      console.log("An error occurred");
+    }else {
+      setError("An error occured");
     }
   }
 
-  // Update status
   // Update status
   const handleSalafReqUpdateStatus = async (e) => {
     e.preventDefault();
@@ -79,7 +75,6 @@ const SalafDetails = () => {
         },
       };
 
-      console.log(postData);
       const response = await fetch(`${API_URL}/salaf_requests/${requestId}`, {
         method: "PUT",
         headers: {
@@ -90,7 +85,6 @@ const SalafDetails = () => {
       });
       if (response.ok) {
         await handleSpecificRequest(requestId);
-        console.log("Updated successfully");
       } else {
         throw new Error("Failed to update values");
       }

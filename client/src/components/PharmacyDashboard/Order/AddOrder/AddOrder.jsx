@@ -133,7 +133,6 @@ const AddOrder = () => {
           }
         } else {
           setError("An error occured");
-          console.log("An error", e);
         }
       }
       getStudents();
@@ -190,7 +189,6 @@ const AddOrder = () => {
         quantity: parseInt(medicine.quantity),
       })),
     };
-    console.log(postData);
     if (token) {
       try {
         const response = await fetch(`${API_URL}/orders/`, {
@@ -207,7 +205,6 @@ const AddOrder = () => {
           setOrders([...orders, responseData.data]);
           notify("success", "Order added successfully");
         } else {
-          console.log("Error: " + response.statusText);
           notify("error", "Failed to add order!");
         }
       } catch (error) {
@@ -227,8 +224,6 @@ const AddOrder = () => {
     if (selectedStudent) {
       setStudentName(selectedStudent.attributes.student_name);
       setStudentID(selectedStudent.id);
-
-      console.log(selectedStudent.id);
     } else {
       setStudentName(""); // Clear student name if not found
       setStudentID(""); // Clear student ID if not found
