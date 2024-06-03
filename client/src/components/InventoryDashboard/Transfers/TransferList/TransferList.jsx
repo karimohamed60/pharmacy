@@ -60,16 +60,18 @@ const TransferList = () => {
 
   useEffect(() => {
     // Load transfers whenever currentPage, search, or statusFilter changes
+    if(token){
     loadTransfers();
-  }, [currentPage, search, statusFilter]);
+    }
+  }, [currentPage, search, statusFilter , token]);
 
-// Modify the loadTransfers function to include the status filter in the API request
+  // Modify the loadTransfers function to include the status filter in the API request
   const loadTransfers = async () => {
     try {
       let url = `${API_URL}/transfers?per_page=${recordsPerPage}&page=${currentPage}`;
 
       if (search.trim() !== "") {
-        url = `${API_URL}/transfers?q=${search}`;
+        url = `${API_URL}/transfers/search?q=${search}&per_page=${recordsPerPage}&page=${currentPage}`;
       }
 
       if (statusFilter) {
@@ -98,49 +100,10 @@ const TransferList = () => {
       console.error("Error occurred: ", error.message);
     }
   };
-// Handle page click for pagination
-const handlePageClick = (data) => {
-  setCurrentPage(data.selected + 1);
-};
-/* const handleSearch = async (value, page =currentPage) => {
-    try {
-      const token = getAuthTokenCookie();
-      if (!token) {
-        console.error("Token not found");
-        return;
-      }
-      const response = await fetch(`${API_URL}/transfers/search?q=${value}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to search medicines");
-      }
-
-      const data = await response.json();
-      console.log("Response Data:", data); // Log the response data
-
-      const results = data.data.filter((transfer) => {
-        return (
-          value &&
-          transfer &&
-          transfer.attributes.transfer_id &&
-          transfer.attributes.transfer_id.includes(value)
-        );
-      });
-      console.log("Filtered Results:", results); // Log the filtered results
-      setTransfers(data.data);
-      const totalPages = Math.ceil(data.data.length / recordsPerPage);
-      setTotalPages(totalPages); // Update total pages based on filtered results
-      setCurrentPage(currentPage); // Reset current page when performing a new search
-    } catch (error) {
-      console.error("Error searching transfers:", error.message);
-    }
-  }; */
+  // Handle page click for pagination
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected + 1);
+  };
   // Filter transfers based on search and status
   const filteredTransfers = transfers.filter((item) => {
     const statusMatches =
@@ -152,13 +115,12 @@ const handlePageClick = (data) => {
     return statusMatches && searchMatches;
   });
   const renderTransfers =
-  search.trim() !== "" || statusFilter
-    ? filteredTransfers.slice(
-        (currentPage - 1) * recordsPerPage,
-        currentPage * recordsPerPage
-      )
-    : filteredTransfers;
-
+    search.trim() !== "" || statusFilter
+      ? filteredTransfers.slice(
+          (currentPage - 1) * recordsPerPage,
+          currentPage * recordsPerPage
+        )
+      : filteredTransfers;
 
   return (
     <>
