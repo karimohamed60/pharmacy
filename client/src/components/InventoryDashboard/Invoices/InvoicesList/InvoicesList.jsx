@@ -236,7 +236,7 @@ const InvoicesList = () => {
         </div>
       </div>
 
-      <Table triped hover id="il-table">
+      <Table striped="true" hover id="il-table">
         <thead>
           <tr>
             <th>Invoice ID</th>

@@ -308,7 +308,7 @@ const Categorylist = () => {
       </div>
 
       <div>
-        <Table triped hover id="cd-table" className="">
+        <Table striped="true" hover id="cd-table" className="">
           <thead>
             <tr>
               <th>Category Name</th>
