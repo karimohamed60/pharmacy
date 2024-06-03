@@ -81,7 +81,6 @@ const InvoicesList = () => {
 
       const data = await response.json();
       const totalInvoices = data.total_invoices;
-      console.log("Total invoices: ", totalInvoices);
       setTotalPages(Math.ceil(totalInvoices / recordsPerPage));
       setInvoices(data.data);
     } catch (error) {
@@ -277,6 +276,7 @@ const InvoicesList = () => {
           ))}
         </tbody>
       </Table>
+
       {totalPages > 0 && (
         <ReactPaginate
           previousLabel={"previous"}

@@ -18,7 +18,7 @@ const OrderList = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [results, setResults] = useState([]); // Filtered medicines
   const [input, setInput] = useState("");
-  const recordsPerPage = 10;
+  const recordsPerPage = 1;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   /*const filteredData = orders.filter(
@@ -60,7 +60,7 @@ const OrderList = () => {
     }
   }, [search, currentPage]);
 
-  const handleSearch = async (value, page = 1) => {
+  const handleSearch = async (value, page = currentPage) => {
     try {
       const token = getAuthTokenCookie();
       const response = await fetch(`${API_URL}/orders/search?q=${value}`, {
@@ -97,7 +97,7 @@ const OrderList = () => {
       setToken(token);
 
       const response = await fetch(
-        ` ${API_URL}/orders?per_page=${recordsPerPage}&page=1`,
+        ` ${API_URL}/orders?per_page=${recordsPerPage}&page=${currentPage}`,
         {
           method: "GET",
           headers: {
