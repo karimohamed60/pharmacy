@@ -99,12 +99,11 @@ const StudentsList = () => {
         studentNational_id.toLowerCase().includes(search.toLowerCase()))
     );
   });
-  const renderedTransfers = filteredData.slice(
+  const renderedStudents = filteredData.slice(
     (currentPage - 1) * recordsPerPage,
     currentPage * recordsPerPage
   );
-  const renderTransfers =
-    search.trim() !== "" ? renderedTransfers : filteredData;
+  const renderStudents = search.trim() !== "" ? renderedStudents : filteredData;
   const handleSpecificPrescription = async (studentId) => {
     try {
       const token = getAuthTokenCookie();
@@ -217,7 +216,7 @@ const StudentsList = () => {
                   </td>
                 </tr>
               ))
-            : renderedTransfers.map((item, index) => (
+            : renderedStudents.map((item, index) => (
                 <tr key={index} className="medicine-container">
                   <td>{item.attributes.student_name}</td>
                   <td>{item.attributes.student_national_id}</td>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { Link, useParams } from "react-router-dom"; // Import useParams
+import { Link } from "react-router-dom"; 
 import "./OrderList.css";
 import Table from "react-bootstrap/esm/Table";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
@@ -11,14 +11,11 @@ import { format } from "date-fns";
 const OrderList = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const { id } = useParams();
   const [orders, setOrders] = useState([]);
   const [token, setToken] = useState("");
   const [totalPages, setTotalPages] = useState(0);
-  const [results, setResults] = useState([]); // Filtered medicines
-  const [input, setInput] = useState("");
+  const [results, setResults] = useState([]); 
   const recordsPerPage = 10;
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -47,7 +44,7 @@ const OrderList = () => {
     if (search !== "") {
       handleSearch(search, currentPage);
     } else {
-      getOrders(currentPage, token);
+      loadOrders(currentPage, token);
     }
   }, [search, currentPage]);
 
@@ -76,87 +73,62 @@ const OrderList = () => {
 
 
   useEffect(() => {
-    getOrders();
-  }, [recordsPerPage]);
+    loadOrders();
+  }, [currentPage, search]);
 
-  const getOrders = async () => {
+  const loadOrders = async () => {
     try {
-      const token = getAuthTokenCookie();
-      if (!token) {
-        console.error("Token not found");
-        return;
-      }
-
-      setToken(token);
-
-      const response = await fetch(
-        ` ${API_URL}/orders?per_page=${recordsPerPage}&page=${currentPage}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+        const authToken = getAuthTokenCookie();
+        if (!authToken) {
+            console.error("Token not found");
+            return;
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const data = await response.json();
-      const totalOrders = data["total_orders"]; // Assuming total_students is the correct key
-      setTotalPages(Math.ceil(totalOrders / recordsPerPage));
-      setOrders(data.data);
-    } catch (error) {
-      console.error("Error occurred: ", error.message);
-    }
-  };
-  const fetchOrders = async (page, token) => {
-    try {
-      const response = await fetch(
-        `
-        ${API_URL}/orders?per_page=${recordsPerPage}&page=${page}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+        setToken(authToken);
+        let url = `${API_URL}/orders?per_page=${recordsPerPage}&page=${currentPage}`;
+        if (search.trim() !== "") {
+            // If search term is present, use search API endpoint
+            url = `${API_URL}/orders/search?q=${search}&per_page=${recordsPerPage}&page=${currentPage}`;
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch suppliers");
-      }
-
-      const fetchedOrders = await response.json();
-      return fetchedOrders.data;
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${authToken}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        const totalOrders = data.total_orders;
+        setTotalPages(Math.ceil(totalOrders / recordsPerPage));
+        setOrders(data.data);
     } catch (error) {
-      console.error("Error fetching suppliers: ", error.message);
-      return [];
+        console.error("Error occurred: ", error.message);
     }
-  };
-  const handlePageClick = async (data) => {
-    try {
-      const token = getAuthTokenCookie();
-      const currentPage = data.selected + 1;
-      setCurrentPage(currentPage);
-      const fetchedOrders = await fetchOrders(currentPage, token, search);
-      setOrders(fetchedOrders);
+};
 
-      if (fetchedOrders.length > 10) {
-        setTotalPages(1);
-      }
-    } catch (error) {
-      console.error("Error fetching medicines:", error);
-    }
-  };
-  const handleChange = (value) => {
-    setInput(value);
-    setSearch(value); // Update search state with the new input value
-    setCurrentPage(1); // Reset current page when performing a new search
-  };
+const handlePageClick = (data) => {
+  setCurrentPage(data.selected + 1);
+};
+
+ //navigate to a specific transfer
+
+  const filteredData = orders.filter((item) => {
+    const studentNational_id = item?.attributes?.student_national_id;
+    return (
+      search.toLowerCase() !== "" || 
+      (typeof studentNational_id === 'string' && studentNational_id.toLowerCase().includes(search.toLowerCase()))
+    );
+  });
+  
+const renderedOrders = filteredData.slice(
+    (currentPage - 1) * recordsPerPage,
+    currentPage * recordsPerPage
+);
+  const renderOrders =
+    search.trim() !== "" ? renderedOrders : filteredData;
+console.log(renderOrders)
   // navigate to a specific order
   const handleSpecificOrder = async (order_id) => {
     try {
@@ -214,8 +186,8 @@ const OrderList = () => {
           placeholder="Search by National ID"
           aria-label="Search"
           aria-describedby="search-addon"
-          value={input}
-          onChange={(e) => handleChange(e.target.value)}
+         
+          onChange={(e) => setSearch(e.target.value)}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -249,8 +221,8 @@ const OrderList = () => {
           </tr>
         </thead>
         <tbody className="ordertable-body">
-          {search !== ""
-            ? results.map((item, index) => (
+        {search.trim() === "" ? (
+             orders.map((item, index) => (
                 <tr key={index} className="medicine-container">
                   <td>{item.id}</td>
                   <td>{item.attributes.student.student_national_id}</td>
@@ -276,7 +248,8 @@ const OrderList = () => {
                   </td>
                 </tr>
               ))
-            : orders.map((item, index) => (
+        ):(
+          renderedOrders.map((item, index) => (
                 <tr key={index} className="medicine-container">
                   <td>{item.id}</td>
                   <td>{item.attributes.student.student_national_id}</td>
@@ -301,7 +274,8 @@ const OrderList = () => {
                     </Link>
                   </td>
                 </tr>
-              ))}
+              ))
+            )}
         </tbody>
       </Table>
       
