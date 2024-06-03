@@ -3,7 +3,6 @@ import "./MedicineList.css";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
-import Cookies from "js-cookie";
 import { API_URL } from "../../../../constants";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { Button, Modal } from "react-bootstrap";

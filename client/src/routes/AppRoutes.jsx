@@ -36,9 +36,6 @@ import SalafDashboard from "../pages/SalafDashboard/SalafDashboard";
 import SalafList from "../components/SalafDashboard/SalafList/SalafList";
 import SalafDetails from "../components/SalafDashboard/SalafDetails/SalafDetails";
 
-//const role = 'inventory_agent';
-
-//console.log(getUserRole());
 function AppRoutes() {
   const role = getUserRole() || "default";
   const navigate = useNavigate();
@@ -48,7 +45,7 @@ function AppRoutes() {
       navigate("/");
     }
 
-    if (isAuthenticated() && window.location.pathname == "/") {
+    if (isAuthenticated() && window.location.pathname === "/") {
       redirectUser(role, navigate);
     }
   }, [role, navigate]);
@@ -57,64 +54,67 @@ function AppRoutes() {
     <Routes>
       <Route element={<PrivateRoutes />}>
         <Route
-          path="/inventory-dashboard/"
+          path="/inventory-dashboard"
           element={
             role.includes("inventory_agent") ? (
               <InventoryDashboard />
             ) : (
-              <Navigate to="/inventory-dashboard/medicinelist" />
+              <Navigate to="/inventory-dashboard/medicines/add" />
             )
           }
         >
           <Route
-            path="/inventory-dashboard/medicines/add"
+            path="medicines/add"
             element={<AddMedicine />}
           />
           <Route
-            path="/inventory-dashboard/medicinelist"
+            path="medicinelist"
             element={<Medicinelist />}
           />
           <Route
-            path="/inventory-dashboard/medicinedetails/:id"
+            path="medicinedetails/:id"
             element={<Medicinedetails />}
           />
           <Route
-            path="/inventory-dashboard/categorylist"
+            path="categorylist"
             element={<Categorylist />}
           />
           <Route
-            path="/inventory-dashboard/suppliers"
+            path="suppliers"
             element={<Suppliers />}
           />
-
           <Route
-            path="/inventory-dashboard/transferlist"
+            path="transferlist"
             element={<TransferList />}
           />
           <Route
-            path="/inventory-dashboard/addTransfer"
+            path="addTransfer"
             element={<Addtransfer />}
           />
-
           <Route
-            path="/inventory-dashboard/updateDetails/:id"
+            path="updateDetails/:id"
             element={<UpdateDetails />}
           />
           <Route
-            path="/inventory-dashboard/transferDetails"
+            path="transferDetails"
             element={<TransferDetails />}
           />
           <Route
-            path="/inventory-dashboard/invoicesList"
+            path="invoicesList"
             element={<InvoicesList />}
           />
           <Route
-            path="/inventory-dashboard/addInvoice"
+            path="addInvoice"
             element={<AddInvoice />}
           />
           <Route
-            path="/inventory-dashboard/invoiceDetails/:id"
+            path="invoiceDetails/:id"
             element={<InoviceDetails />}
+          />
+          {/* Redirect from /inventory-dashboard to /inventory-dashboard/medicinelist */}
+          <Route
+            path=""
+            element={<Navigate to="medicinelist" />}
           />
         </Route>
         <Route
@@ -181,7 +181,6 @@ function AppRoutes() {
           element={<SalafDetails />}
         />
       </Route>
-
       <Route path="/" element={!isAuthenticated() ? <Login /> : null} />
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<LogoutButton />} />

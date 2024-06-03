@@ -16,7 +16,7 @@ const PharmacyDashboard = () => {
   return (
     <>
       <Outlet />
-      {/* Sidebar */}
+
       <MedicineList />
     </>
   );

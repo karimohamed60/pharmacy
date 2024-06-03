@@ -1,16 +1,26 @@
 import { Outlet } from "react-router-dom";
 import "./InventoryDashboard.css";
-import React, { useState, useEffect } from "react";
-import { API_URL } from "../../constants";
-import { getAuthTokenCookie } from "../../services/authService";
+import React, { useEffect } from "react";
+
 import Isidebar from "../../components/InventoryDashboard/Isidebar/Isidebar";
+import Medicinelist from "../../components/InventoryDashboard/Medicines/medicinelist/medicinelist";
 
 const InventoryDashboard = () => {
+  useEffect(() => {
+    // Remove scroll bar
+    document.body.style.overflow = "hidden";
 
+    // Cleanup on component unmount
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
   return (
     <>
-      <Isidebar />
+
       <Outlet />
+
+      <Isidebar />
     </>
   );
 };
