@@ -18,7 +18,7 @@ const OrderList = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [results, setResults] = useState([]); // Filtered medicines
   const [input, setInput] = useState("");
-  const recordsPerPage = 1;
+  const recordsPerPage = 10;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
