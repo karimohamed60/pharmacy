@@ -33,18 +33,7 @@ const TransfersDetails = () => {
       handleSpecificTransferbyId();
     }
   }, [transfer_id]);
-  /*
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
-  }, [isModalOpen]);
-*/
+
   useEffect(() => {
     // Remove scroll bar
     document.body.style.overflow = "hidden";
@@ -205,7 +194,7 @@ const TransfersDetails = () => {
                   </option>
                   <option value="0">pending</option>
                   <option value="1">accepted</option>
-                  <option value="3">rejected</option>
+                  <option value="2">rejected</option>
                 </select>
               </div>
               <div className="td-form-group">
