@@ -24,9 +24,9 @@ const SalafSidebar = () => {
 
   return (
     <div
-      className="isidenav"
+      className="salafsidenav"
       style={{
-        marginLeft: isOpen ? "0" : "-272px",
+        marginLeft: isOpen ? "0" : "-17rem",
         backgroundColor: "#032B55",
       }}
     >
@@ -37,7 +37,7 @@ const SalafSidebar = () => {
             width="40"
             height="40"
             fill="white"
-            className="bi bi-list iside-baricon"
+            className="bi bi-list salafside-baricon"
             viewBox="0 0 16 16"
             aria-expanded={isOpen ? "true" : "false"}
             onClick={() => toggleClose(!isOpen)}
@@ -48,8 +48,8 @@ const SalafSidebar = () => {
             />
           </svg>
 
-          <img id="inventoryImage" src={logo} />
-          <label id="inventorydashboardlabel">
+          <img id="salafImage" src={logo} />
+          <label id="salafdashboardlabel">
             <b>Salaf</b>
           </label>
 

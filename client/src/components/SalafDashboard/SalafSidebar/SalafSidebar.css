@@ -1,4 +1,4 @@
-.isidenav {
+.salafsidenav {
   height: 100%;
   width: 200px;
   position: fixed;
@@ -11,7 +11,7 @@
   background-color: #032b55;
   width: 20rem;
 }
-.isidenav a {
+.salafsidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 1rem;
@@ -25,16 +25,16 @@
   outline: none;
 }
 
-.isidenav a:hover {
+.salafsidenav a:hover {
   color: #032b55;
 }
 
-.iside-baricon {
+.salafside-baricon {
   position: relative;
-  left: 230px;
+  left: 207px;
   top: -80px;
 }
-#inventoryImage {
+#salafImage {
   height: 100px;
   width: 110px;
   margin-left: -40px;
@@ -42,7 +42,7 @@
   border-radius: 10%;
   margin-bottom: 80px;
 }
-#inventorydashboardlabel {
+#salafdashboardlabel {
   color: #f1f1f1;
   padding-left: 15px;
   margin-top: 20%;
