@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 import { getAuthTokenCookie } from "../../../services/authService";
 import Cookies from "js-cookie";
 import { API_URL } from "../../../constants";
-import { ToastContainer, toast, Bounce } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./suppliers.css";
 import ReactPaginate from "react-paginate";
@@ -91,6 +91,28 @@ const Suppliers = () => {
     setCurrentPage(data.selected + 1);
   };
 
+  const fetchSuppliers = async (url, token) => {
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch suppliers");
+      }
+
+      const fetchedSuppliers = await response.json();
+      return fetchedSuppliers.data;
+    } catch (error) {
+      console.error("Error fetching suppliers: ", error.message);
+      return [];
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -174,56 +196,72 @@ const Suppliers = () => {
   const handleSupplierValueUpdate = async () => {
     try {
       const token = getAuthTokenCookie();
-      if (
-        typeof selectedSupplierValue !== "string" ||
-        !selectedSupplierValue.trim() ||
-        typeof selectedSupplierDescriptionValue !== "string" ||
-        !selectedSupplierDescriptionValue.trim()
-      ) {
-        console.error("Supplier name or description cannot be empty");
+      const supplierId = supplier.id;
+
+      if (!token) {
+        console.error("Authentication token is missing");
         notify("error", "Error Updating Supplier");
         return;
       }
-      const supplierId = supplier.id;
-      if (token) {
-        const response = await fetch(`${API_URL}/suppliers/${supplierId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            supplier_name: selectedSupplierValue,
-            description: selectedSupplierDescriptionValue,
-          }),
-        });
-        if (response.ok) {
-          notify("success", "Supplier updated successfully");
-          const updatedSupplierResponse = await fetch(
-            `${API_URL}/suppliers/${supplierId}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          if (updatedSupplierResponse.ok) {
-            const updatedSupplierData = await updatedSupplierResponse.json();
-            setSuppliers(
-              suppliers.map((s) =>
-                s.id === supplierId ? updatedSupplierData.data : s
-              )
-            );
-            setSupplier(updatedSupplierData.data);
-          } else {
-            throw new Error("Failed to fetch updated supplier data");
+
+      const updateData = {};
+
+      if (
+        typeof selectedSupplierValue === "string" &&
+        selectedSupplierValue.trim()
+      ) {
+        updateData.supplier_name = selectedSupplierValue.trim();
+      }
+
+      if (
+        typeof selectedSupplierDescriptionValue === "string" &&
+        selectedSupplierDescriptionValue.trim()
+      ) {
+        updateData.description = selectedSupplierDescriptionValue.trim();
+      }
+
+      if (Object.keys(updateData).length === 0) {
+        console.error("Supplier name or description must be provided");
+        notify("error", "Supplier name or description cannot be empty");
+        return;
+      }
+
+      const response = await fetch(`${API_URL}/suppliers/${supplierId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updateData),
+      });
+
+      if (response.ok) {
+        notify("success", "Supplier updated successfully");
+        const updatedSupplierResponse = await fetch(
+          `${API_URL}/suppliers/${supplierId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
+        );
+
+        if (updatedSupplierResponse.ok) {
+          const updatedSupplierData = await updatedSupplierResponse.json();
+          setSuppliers(
+            suppliers.map((s) =>
+              s.id === supplierId ? updatedSupplierData.data : s
+            )
+          );
+          setSupplier(updatedSupplierData.data);
         } else {
-          notify("error", "Error Updating Supplier");
-          throw new Error("Failed to update supplier value");
+          throw new Error("Failed to fetch updated supplier data");
         }
+      } else {
+        notify("error", "Error Updating Supplier");
+        throw new Error("Failed to update supplier value");
       }
     } catch (error) {
       console.error("Error: ", error.message);
@@ -240,6 +278,10 @@ const Suppliers = () => {
 
   const openPopup2 = () => {
     setPopup2Open(true);
+  };
+
+  const closePopup2 = () => {
+    setPopup2Open(false);
   };
 
   const goBack = () => {
@@ -401,7 +443,7 @@ const Suppliers = () => {
             draggable
             pauseOnHover
             theme="light"
-            transition={Bounce}
+            transition:Bounce
           />
         </div>
       </Popup>
@@ -564,7 +606,7 @@ const Suppliers = () => {
               draggable
               pauseOnHover
               theme="light"
-              transition={Bounce}
+              transition="Bounce"
             />
           </form>
         </div>
