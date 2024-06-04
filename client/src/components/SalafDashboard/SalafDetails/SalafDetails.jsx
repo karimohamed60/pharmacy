@@ -1,8 +1,10 @@
+import React, { useEffect, useState } from "react";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../SalafDetails/SalafDetails.css";
 import { Link, useParams } from "react-router-dom";
 import { API_URL } from "../../../constants";
 import { getAuthTokenCookie } from "../../../services/authService";
-import { useState, useEffect } from "react";
 import Sidebar from "../SalafSidebar/SalafSidebar";
 
 const SalafDetails = () => {
@@ -57,13 +59,30 @@ const SalafDetails = () => {
         throw response;
       }
     } else {
-      setError("An error occured");
+      setError("An error occurred");
     }
   }
+
+  // Notification function
+  const notify = (type, message) => {
+    if (type === "success") {
+      toast.success(message, {
+        position: "top-center",
+      });
+    } else if (type === "error") {
+      toast.error(message, {
+        position: "top-center",
+      });
+    }
+  };
 
   // Update status
   const handleSalafReqUpdateStatus = async (e) => {
     e.preventDefault();
+    if (currentStatus === "finished") {
+      notify("error", "Cannot save. The status is already finished.");
+      return;
+    }
     try {
       const token = getAuthTokenCookie();
       const postData = {
@@ -84,11 +103,13 @@ const SalafDetails = () => {
       });
       if (response.ok) {
         await handleSpecificRequest(requestId);
+        notify("success", "Request is Finished successfully!");
       } else {
         throw new Error("Failed to update values");
       }
     } catch (error) {
       console.error("Error: ", error.message);
+      notify("error", "Request is not saved");
     }
   };
 
@@ -220,6 +241,7 @@ const SalafDetails = () => {
               className="sa-status-form-control"
               value={selectedStatus || currentStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
+              disabled={currentStatus === "finished"} // Disable dropdown if status is "finished"
             >
               <option value="pending">pending</option>
               <option value="finished">finished</option>
@@ -231,6 +253,19 @@ const SalafDetails = () => {
           Save
         </button>
       </form>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </>
   );
 };

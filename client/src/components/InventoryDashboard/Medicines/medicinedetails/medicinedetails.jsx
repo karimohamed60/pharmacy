@@ -5,7 +5,7 @@ import "reactjs-popup/dist/index.css";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import { API_URL } from "../../../../constants";
 import Cookies from "js-cookie";
-import { ToastContainer, toast , Bounce } from "react-toastify";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Medicinedetails = () => {
@@ -20,6 +20,7 @@ const Medicinedetails = () => {
   const [selectedinternational_barcode, setselectedinternational_barcode] =
     useState("");
   const [selectedcategoryID, setselectedcategoryID] = useState("");
+  const [currentCategoryID, setCurrentCategoryID] = useState("");
   const [user_id, setselecteduser_id] = useState(Cookies.get("user_id"));
   const [categories, setCategories] = useState([]);
   const { id } = useParams();
@@ -194,8 +195,11 @@ const Medicinedetails = () => {
         requestBody.expire_date = selectedexpire_date;
       if (selectedinternational_barcode !== "")
         requestBody.international_barcode = selectedinternational_barcode;
+
+      // Use selectedcategoryID or currentCategoryID
       if (selectedcategoryID !== "")
         requestBody.category_id = selectedcategoryID;
+      else requestBody.category_id = currentCategoryID;
 
       const response = await fetch(`${API_URL}/medicines/${id}`, {
         method: "PUT",
@@ -207,12 +211,10 @@ const Medicinedetails = () => {
       });
 
       if (response.ok) {
-        notify("success", "Medicine Updated sucessfully");
-        const responseData = await response.json();
+        notify("success", "Medicine Updated successfully");
         await handleSpecificMedicinebyId(id);
       } else {
         notify("error", "Error Updating Medicine");
-
         throw new Error("Failed to update medicine value");
       }
     } catch (error) {
@@ -321,6 +323,7 @@ const Medicinedetails = () => {
               onChange={(e) => setselectedexpire_date(e.target.value)}
               aria-label="Last name"
               placeholder={window.expire_date}
+              disabled
             />
           </div>
         </div>
@@ -360,10 +363,14 @@ const Medicinedetails = () => {
               <select
                 name="categoryMenu"
                 className="form-select"
-                value={selectedcategoryID || ""}
+                value={selectedcategoryID || currentCategoryID}
                 onChange={(e) => setselectedcategoryID(e.target.value)}
                 id="category_id"
               >
+                <option style={{ color: "transparent" }}>
+                  {" "}
+                  {window.category_name}{" "}
+                </option>
                 {categories.map((item, index) => (
                   <option
                     key={index}
