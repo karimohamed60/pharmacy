@@ -4,18 +4,16 @@ import { API_URL } from "../../../../constants";
 import { getAuthTokenCookie } from "../../../../services/authService";
 import Sidebar from "../../../PharmacyDashboard/Sidebar/Sidebar";
 import "./PrescriptionsDetails.css";
-import { ToastContainer, toast, Bounce } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const PrescriptionsDetails = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [invoices, setInvoices] = useState([]);
   const [medicinesData, setMedicinesData] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState("");
-  const [currentStatus, setCurrentStatus] = useState(""); // New state to hold the current status
+  const [selectedStatus, setSelectedStatus] = useState(""); // Default empty
+  const [currentStatus, setCurrentStatus] = useState(""); // To hold the current status
   const { id } = useParams();
   const { studentId, prescription_id } = useParams();
-  const [Prescription_status, setPrescription_status] = useState();
   const [prescription, setPrescription] = useState([]);
   const [checkedMedicines, setCheckedMedicines] = useState({});
 
@@ -63,48 +61,6 @@ const PrescriptionsDetails = () => {
 
     return () => clearInterval(intervalId);
   }, []);
-  const formatDate = (date) => {
-    const options = {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    };
-    return date.toLocaleDateString("en-US", options);
-  };
-  /*
-    const handlePrint = async () => {
-      try {
-        const token = getAuthTokenCookie();
-        const response = await fetch(`${API_URL}/students/${studentId}/PrescriptionsDetails/${prescription_id}/generate_pdf`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          }
-        });
-
-        if (response.ok) {
-          // Handle the PDF file received from the backend
-          // For example, you can prompt the user to download the file
-          const blob = await response.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'prescription_details.pdf';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        } else {
-          throw new Error('Failed to generate PDF');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };*/
 
   const handlePrint = async () => {
     try {
@@ -122,7 +78,6 @@ const PrescriptionsDetails = () => {
 
       if (response.ok) {
         // Handle the PDF file received from the backend
-        // For example, you can prompt the user to download the file
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -157,11 +112,14 @@ const PrescriptionsDetails = () => {
       if (response.ok) {
         const responseData = await response.json();
         const medicinesArray = [];
+
         for (const item of responseData.data) {
           const { date, id, medicines, status } = item.attributes;
           window.PrescriptionDate = date;
           window.PrescriptionID = id;
           window.Prescription_status = status;
+          setCurrentStatus(status); // Set the initial status
+          setSelectedStatus(status);
           if (medicines) {
             for (const medicine of medicines) {
               medicinesArray.push({
@@ -191,7 +149,7 @@ const PrescriptionsDetails = () => {
     const token = getAuthTokenCookie();
 
     const postData = {
-      status: selectedStatus,
+      status: selectedStatus || currentStatus,
       prescription_medicines: medicinesData.map((medicine) => ({
         id: medicine.medicine_id,
         got_medicine: checkedMedicines[medicine.Pmedicine_name] ? 1 : 0, // Set got_medicine based on checkbox status
@@ -323,11 +281,7 @@ const PrescriptionsDetails = () => {
             <label className="id-status-label">Status</label>
             <select
               className="status-input"
-              value={
-                selectedStatus === "pending"
-                  ? "finished"
-                  : selectedStatus || currentStatus
-              }
+              value={selectedStatus || currentStatus} // Default to currentStatus
               onChange={(e) => setSelectedStatus(e.target.value)}
             >
               <option className="status-input-option" value="pending">
@@ -407,7 +361,7 @@ const PrescriptionsDetails = () => {
                 draggable
                 pauseOnHover
                 theme="light"
-                transition={Bounce}
+                transition:Bounce
               />
             </form>
           </div>

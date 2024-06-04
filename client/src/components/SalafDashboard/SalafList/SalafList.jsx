@@ -53,9 +53,7 @@ const SalafList = () => {
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
-
       const data = await response.json();
-      console.log("Fetched data:", data); // Add logging here
       const totalSalaf = data.total_requests;
       setTotalPages(Math.ceil(totalSalaf / recordsPerPage));
       setSalafs(data.data);
@@ -69,7 +67,6 @@ const SalafList = () => {
   };
 
   const filteredData = salafs.filter((item) => {
-    console.log("Filtering item:", item); // Add logging here
     const studentNational_id = item?.attributes?.student_national_id;
     return (
       search.toLowerCase() !== "" ||
@@ -83,7 +80,6 @@ const SalafList = () => {
     currentPage * recordsPerPage
   );
   const renderSalafs = search.trim() !== "" ? renderedSalafs : filteredData;
-  console.log("Rendered Salafs:", renderSalafs); // Add logging here
   const getStatusColors = (status) => {
     switch (status.toLowerCase()) {
       case "finished": // = accepted
