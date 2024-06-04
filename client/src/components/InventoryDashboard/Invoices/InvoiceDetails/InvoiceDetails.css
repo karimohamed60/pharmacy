@@ -1,3 +1,11 @@
+.invoicedetails-label {
+  position: relative;
+  top: -655px;
+  left: -220px;
+  font-size: x-large;
+  color: #032b55;
+}
+
 .invnum-label {
   position: relative;
   top: -620px;

@@ -134,7 +134,7 @@ const InoviceDetails = () => {
         </label>
       </div>
       <label>
-        <b className="addinvoice-label">Invoices Details</b>
+        <b className="invoicedetails-label">Invoices Details</b>
       </label>
       <div className="col-12-lg backbtn ">
         <Link to={"/inventory-dashboard/invoicesList"}>

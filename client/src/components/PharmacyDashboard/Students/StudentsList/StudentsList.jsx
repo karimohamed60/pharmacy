@@ -53,10 +53,6 @@ const StudentsList = () => {
     }
   }, [currentPage, search, token]);
 
-  useEffect(() => {
-    loadStudents();
-  }, [currentPage, search]);
-
   const loadStudents = async () => {
     try {
       const authToken = getAuthTokenCookie();

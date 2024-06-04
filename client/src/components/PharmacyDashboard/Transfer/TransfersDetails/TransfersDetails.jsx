@@ -135,7 +135,7 @@ const TransfersDetails = () => {
         <b>Transfer Details</b>
       </label>
       <div className="col-12-lg backbtn ">
-        <Link to={"/pharmacy-dashboard/transferList//"}>
+        <Link to={"/pharmacy-dashboard/transferList/"}>
           <button className=" backButton">
             <svg
               xmlns="http://www.w3.org/2000/svg"

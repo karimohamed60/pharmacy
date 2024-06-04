@@ -6,51 +6,84 @@ import { API_URL } from "../../../constants";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import SalafSidebar from "../SalafSidebar/SalafSidebar";
-
+import "./SalafList.css";
 const SalafList = () => {
   const recordsPerPage = 10;
-
-  const [salaf, setSalaf] = useState([]);
+  const [search, setSearch] = useState("");
+  const [salafs, setSalafs] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [token, setToken] = useState("");
+  const [selectedRequest, setSelectedRequest] = useState(null);
 
   useEffect(() => {
-    loadSalaf(currentPage);
-  }, [currentPage]);
+    const authToken = getAuthTokenCookie();
+    if (authToken) {
+      setToken(authToken);
+    } else {
+      console.error("Token not found");
+    }
+  }, []);
 
-  const loadSalaf = async (page) => {
+  useEffect(() => {
+    if (token) {
+      loadSalaf();
+    }
+  }, [currentPage, search, token]);
+
+  const loadSalaf = async () => {
     try {
-      const token = getAuthTokenCookie();
-      if (!token) {
+      const authToken = getAuthTokenCookie();
+      if (!authToken) {
         console.error("Token not found");
         return;
       }
-
-      const response = await fetch(
-        `${API_URL}/salaf_requests?per_page=${recordsPerPage}&page=${page + 1}`, // API pages start from 1
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      let url = `${API_URL}/salaf_requests?per_page=${recordsPerPage}&page=${currentPage}`;
+      if (search.trim() !== "") {
+        url = `${API_URL}/salaf_requests/search?q=${search}&per_page=${recordsPerPage}&page=${currentPage}`;
+      }
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
 
       const data = await response.json();
-      const totalSalaf = data.total_requests || 0; // Assuming total_requests is the correct key
-
+      console.log("Fetched data:", data); // Add logging here
+      const totalSalaf = data.total_requests;
       setTotalPages(Math.ceil(totalSalaf / recordsPerPage));
-      setSalaf(data.data);
+      setSalafs(data.data);
     } catch (error) {
-      console.error("Error occurred: ", error.message);
+      console.error("Error occurred:", error.message);
     }
   };
 
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected + 1);
+  };
+
+  const filteredData = salafs.filter((item) => {
+    console.log("Filtering item:", item); // Add logging here
+    const studentNational_id = item?.attributes?.student_national_id;
+    return (
+      search.toLowerCase() !== "" ||
+      (typeof studentNational_id === "string" &&
+        studentNational_id.toLowerCase().includes(search.toLowerCase()))
+    );
+  });
+
+  const renderedSalafs = filteredData.slice(
+    (currentPage - 1) * recordsPerPage,
+    currentPage * recordsPerPage
+  );
+  const renderSalafs = search.trim() !== "" ? renderedSalafs : filteredData;
+  console.log("Rendered Salafs:", renderSalafs); // Add logging here
   const getStatusColors = (status) => {
     switch (status.toLowerCase()) {
       case "finished": // = accepted
@@ -68,14 +101,9 @@ const SalafList = () => {
     }
   };
 
-  const handlePageClick = async (data) => {
-    const newPage = data.selected;
-    setCurrentPage(newPage);
-  };
-
-  async function handleSpecificRequest(requestId) {
-    const token = getAuthTokenCookie();
-    if (token) {
+  const handleSpecificRequest = async (requestId) => {
+    try {
+      const token = getAuthTokenCookie();
       const response = await fetch(`${API_URL}/salaf_requests/${requestId}`, {
         method: "GET",
         headers: {
@@ -83,17 +111,18 @@ const SalafList = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
       if (response.ok) {
         const responseData = await response.json();
-        setSalaf([responseData.data]);
-        console.log(responseData);
+        setSalafs(responseData.data);
+        setSelectedRequest(requestId);
       } else {
-        console.error("Failed to fetch specific request");
+        throw new Error("Failed to fetch specific request");
       }
-    } else {
-      console.error("Token not found");
+    } catch (error) {
+      console.error("Error:", error);
     }
-  }
+  }; // Add this closing curly brace
 
   return (
     <>
@@ -128,6 +157,8 @@ const SalafList = () => {
           placeholder="Search by National ID"
           aria-label="Search"
           aria-describedby="search-addon"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -150,49 +181,89 @@ const SalafList = () => {
             <th>Status</th>
           </tr>
         </thead>
-        <tbody className="il-tbody">
-          {salaf.map((item, index) => {
-            const { backgroundColor, textColor } = getStatusColors(
-              item.attributes.status
-            );
-            return (
-              <tr key={index}>
-                <td>{item.attributes.student_id}</td>
-                <td>{item.id}</td>
-                <td>{item.attributes.student_name}</td>
-                <td>
-                  <Link to={`/salaf-dashboard/salafDetails/${item.id}`}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      fill="#032B55"
-                      className="bi bi-eye-fill"
-                      viewBox="0 0 16 16"
-                      onClick={() => handleSpecificRequest(item.id)}
-                    >
-                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                    </svg>
-                  </Link>
-                </td>
-                <td>
+        <tbody class="il-tbody">
+          {search.trim() === ""
+            ? salafs.map((item, index) => {
+                const { backgroundColor, textColor } = getStatusColors(
+                  item.attributes.status
+                );
+                return (
+                  <tr key={index}>
+                    <td>{item.attributes.student_id}</td>
+                    <td>{item.id}</td>
+                    <td>{item.attributes.student_name}</td>
+                    <td>
+                      <Link to={`/salaf-dashboard/salafDetails/${item.id}`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="#032B55"
+                          className="bi bi-eye-fill"
+                          viewBox="0 0 16 16"
+                          onClick={() => handleSpecificRequest(item.id)}
+                        >
+                          <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                          <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                        </svg>
+                      </Link>
+                    </td>
+                    <td>
+                      <div
+                        style={{
+                          backgroundColor: backgroundColor,
+                          color: textColor,
+                        }}
+                        className="sstatus-item"
+                      >
+                        {item.attributes.status}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            : renderedSalafs.map((item, index) => {
+              const { backgroundColor, textColor } = getStatusColors(
+                item.attributes.status
+              );
+              return (
+                <tr key={index}>
+                  <td>{item.attributes.student_id}</td>
+                  <td>{item.id}</td>
+                  <td>{item.attributes.student_name}</td>
+                  <td>
+                    <Link to={`/salaf-dashboard/salafDetails/${item.id}`}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="#032B55"
+                        className="bi bi-eye-fill"
+                        viewBox="0 0 16 16"
+                        onClick={() => handleSpecificRequest(item.id)}
+                      >
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                      </svg>
+                    </Link>
+                  </td>
+                  <td>
                   <div
-                    style={{
-                      backgroundColor: getStatusColors(item.attributes.status)
-                        .backgroundColor,
-                      color: getStatusColors(item.attributes.status).textColor,
-                    }}
-                    className="sstatus-item"
-                  >
-                    {item.attributes.status}
-                  </div>{" "}
-                </td>
-              </tr>
-            );
-          })}
+                        style={{
+                          backgroundColor: backgroundColor,
+                          color: textColor,
+                        }}
+                        className="sstatus-item"
+                      >
+                        {item.attributes.status}
+                      </div>
+                      </td>
+                </tr>
+              )
+})}
         </tbody>
       </Table>
+
       <div className="spagination">
         <ReactPaginate
           previousLabel={"previous"}

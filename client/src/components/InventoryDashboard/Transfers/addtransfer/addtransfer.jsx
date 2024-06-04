@@ -41,7 +41,7 @@ const Addtransfer = () => {
   }, []);
 
   const handleAddMedicine = () => {
-    if (medicines.length < 4) {
+    if (medicines.length < 3) {
       setMedicines([...medicines, { medicine_id: "", quantity: "" }]);
     }
   };

@@ -71,7 +71,7 @@ const AddInvoice = () => {
   );
 
   const handleAddMedicine = () => {
-    if (medicinesData.length < 4) {
+    if (medicinesData.length < 3) {
       setMedicines([
         ...medicinesData,
         { medicine_id: "", quantity: "", discount: "", price: "", amount: "" },
