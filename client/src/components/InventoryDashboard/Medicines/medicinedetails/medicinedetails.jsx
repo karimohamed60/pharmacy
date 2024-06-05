@@ -197,10 +197,11 @@ const Medicinedetails = () => {
         requestBody.international_barcode = selectedinternational_barcode;
 
       // Use selectedcategoryID or currentCategoryID
-      if (selectedcategoryID !== "")
+      if (selectedcategoryID) {
         requestBody.category_id = selectedcategoryID;
-      else requestBody.category_id = currentCategoryID;
-
+      } else if (currentCategoryID) {
+        requestBody.category_id = currentCategoryID;
+      }
       const response = await fetch(`${API_URL}/medicines/${id}`, {
         method: "PUT",
         headers: {

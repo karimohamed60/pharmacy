@@ -424,9 +424,7 @@ const MedicineList = () => {
           ))}
         </tbody>
       </Table>
-      <Link to={`/pharmacy-dashboard/addOrder/`}>
-        <button className="p-orderMEdicine">Place Order</button>
-      </Link>
+
       <ReactPaginate
         previousLabel={"previous"}
         nextLabel={"next"}

@@ -82,7 +82,7 @@ const PrescriptionsDetails = () => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "p_details.pdf";
+        a.download = "Prescription details.pdf";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -146,6 +146,7 @@ const PrescriptionsDetails = () => {
   //update a prescription
   const handleUpdateprescription = async (e) => {
     e.preventDefault();
+    
     const token = getAuthTokenCookie();
 
     const postData = {
@@ -283,6 +284,7 @@ const PrescriptionsDetails = () => {
               className="status-input"
               value={selectedStatus || currentStatus} // Default to currentStatus
               onChange={(e) => setSelectedStatus(e.target.value)}
+              disabled={currentStatus === "finished"} // Disable dropdown if status is "finished"
             >
               <option className="status-input-option" value="pending">
                 pending
