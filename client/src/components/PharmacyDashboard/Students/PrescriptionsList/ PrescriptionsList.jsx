@@ -275,7 +275,7 @@ const PrescriptionsList = () => {
                     {item.attributes.status}
                   </div>
                 </td>
-                <td>{format(new Date(item.attributes.date), "yyyy-MM-dd")}</td>
+                <td>{format(new Date(item.attributes.date), "dd-MM-yyyy")}</td>
                 <td>
                   <Link
                     to={`/pharmacy-dashboard/students/${item.attributes.student_id}/PrescriptionsDetails/${item.attributes.id}`}

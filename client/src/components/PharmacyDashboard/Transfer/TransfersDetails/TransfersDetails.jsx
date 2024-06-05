@@ -69,7 +69,7 @@ const TransfersDetails = () => {
         /*window.total_amount = responseData.data.attributes.total_amount;*/
         window.formattedCreatedAt = format(
           new Date(window.created_at),
-          "yyyy-MM-dd"
+          "dd-MM-yyyy"
         );
       } else {
         throw new Error("Failed to fetch category details");

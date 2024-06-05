@@ -8,12 +8,7 @@
   {
     "title": "Students",
     "icon": "bi-people-fill",
-    "childrens": [
-      {
-        "title": "Students List",
-        "path": "/pharmacy-dashboard/StudentsList/"
-      }
-    ]
+    "path": "/pharmacy-dashboard/StudentsList/"
   },
   {
     "title": " Orders",

@@ -224,7 +224,7 @@ const OrderList = () => {
                   <td>{item.attributes.student.student_national_id}</td>
                   <td>{item.attributes.student.student_name}</td>
                   <td>
-                    {format(new Date(item.attributes.created_at), "yyyy-MM-dd")}
+                    {format(new Date(item.attributes.created_at), "dd-MM-yyyy")}
                   </td>
                   <td>
                     <Link to={`/pharmacy-dashboard/orderDetails/${item.id}`}>
@@ -250,7 +250,7 @@ const OrderList = () => {
                   <td>{item.attributes.student.student_national_id}</td>
                   <td>{item.attributes.student.student_name}</td>
                   <td>
-                    {format(new Date(item.attributes.created_at), "yyyy-MM-dd")}
+                    {format(new Date(item.attributes.created_at), "dd-MM-yyyy")}
                   </td>
                   <td>
                     <Link to={`/pharmacy-dashboard/orderDetails/${item.id}`}>

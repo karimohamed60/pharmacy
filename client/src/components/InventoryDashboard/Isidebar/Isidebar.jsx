@@ -4,7 +4,6 @@ import "./Isidebar.css";
 import IsidebarItem from "./IsidebarItem";
 import items from "../../../data/Isidebar.json";
 import LogoutButton from "../../../auth/LogoutButton";
-import { Link } from "react-router-dom";
 
 const Isidebar = () => {
   const [isOpen, setIsOpen] = useState(true);

@@ -254,7 +254,7 @@ const InvoicesList = () => {
               <td>{item.attributes.total_amount}</td>
               <td>{item.attributes.supplier.supplier_name}</td>
               <td>
-                {format(new Date(item.attributes.created_at), "yyyy-MM-dd")}
+                {format(new Date(item.attributes.created_at), "dd-MM-yyyy")}
               </td>
               <td>
                 <Link to={`/inventory-dashboard/invoiceDetails/${item.id}`}>

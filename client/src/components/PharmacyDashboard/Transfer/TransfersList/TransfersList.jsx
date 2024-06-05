@@ -243,7 +243,7 @@ const TransfersList = () => {
                 </div>
               </td>
               <td>
-                {format(new Date(item.attributes.created_at), "yyyy-MM-dd")}
+                {format(new Date(item.attributes.created_at), "dd-MM-yyyy")}
               </td>
               <td>
                 <Link to={`/pharmacy-dashboard/transfersDetails/${item.id}`}>

@@ -146,7 +146,7 @@ const PrescriptionsDetails = () => {
   //update a prescription
   const handleUpdateprescription = async (e) => {
     e.preventDefault();
-    
+
     const token = getAuthTokenCookie();
 
     const postData = {

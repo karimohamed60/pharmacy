@@ -82,8 +82,6 @@ const UpdateDetails = () => {
         })),
       };
 
-      //  console.log(medicine_id)
-
       const response = await fetch(`${API_URL}/transfers/${id}`, {
         method: "PUT",
         headers: {
@@ -140,7 +138,6 @@ const UpdateDetails = () => {
         window.created_at = responseData.data.attributes.created_at;
         window.transferstatus = responseData.data.attributes.status;
         window.transferstatus = responseData.data.attributes.status;
-      
       } else {
         throw new Error("Failed to fetch category details");
       }
