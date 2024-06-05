@@ -14,7 +14,6 @@ import Medicinedetails from "../components/InventoryDashboard/Medicines/medicine
 import LogoutButton from "../auth/LogoutButton";
 import Categorylist from "../components/InventoryDashboard/Categories/categoryList/categorylist";
 import Suppliers from "../components/InventoryDashboard/Suppliers/suppliers";
-import TransferDetails from "../components/InventoryDashboard/Transfers/TransferDetails/TransferDetails";
 import TransferList from "../components/InventoryDashboard/Transfers/TransferList/TransferList";
 import UpdateDetails from "../components/InventoryDashboard/Transfers/UpdateDetails/UpdateDetails";
 import InvoicesList from "../components/InventoryDashboard/Invoices/InvoicesList/InvoicesList";
@@ -71,7 +70,6 @@ function AppRoutes() {
           <Route path="transferlist" element={<TransferList />} />
           <Route path="addTransfer" element={<Addtransfer />} />
           <Route path="updateDetails/:id" element={<UpdateDetails />} />
-          <Route path="transferDetails" element={<TransferDetails />} />
           <Route path="invoicesList" element={<InvoicesList />} />
           <Route path="addInvoice" element={<AddInvoice />} />
           <Route path="invoiceDetails/:id" element={<InoviceDetails />} />
