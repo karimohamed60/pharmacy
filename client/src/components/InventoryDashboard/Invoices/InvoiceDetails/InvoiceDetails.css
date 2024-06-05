@@ -71,12 +71,14 @@ body.no-scroll {
 }
 
 .id-comments-label {
-  overflow-y: auto;
+  position: fixed;
   width: 50%;
   color: rgba(98, 108, 122, 1);
   font-size: large;
   font-weight: 780;
-  margin-left: -12rem;
+  margin-left: -1rem;
+  margin-top: 1rem;
+  min-width: 50rem;
 }
 
 .id-comment {
@@ -139,4 +141,7 @@ body.no-scroll {
 
 .sleft {
   margin-left: 0.6rem;
+}
+.ictoleft {
+  margin-left: 1rem;
 }

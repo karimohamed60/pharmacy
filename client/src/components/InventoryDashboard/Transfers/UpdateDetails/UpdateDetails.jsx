@@ -6,7 +6,7 @@ import { API_URL } from "../../../../constants";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Select from "react-select";
 const UpdateDetails = () => {
   const [updatedAt, setUpdatedAt] = useState(""); // Set an initial date value
   const [transferId, setTransferId] = useState("");
@@ -14,6 +14,9 @@ const UpdateDetails = () => {
   const [transferIdWarning, setTransferIdWarning] = useState("");
   const [selecteStatus, setSelectedStatus] = useState("");
   const [selectedMedicines, setSelectedMedicines] = useState([]);
+  const [medicineOptions, setMedicineOptions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const { id } = useParams();
   const [transfers, setTransfers] = useState([]);
   const [medicinesData, setMedicinesData] = useState([]);
@@ -32,6 +35,7 @@ const UpdateDetails = () => {
       });
     }
   };
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     handleSpecificTransferbyId(id);
@@ -55,11 +59,11 @@ const UpdateDetails = () => {
 
   const handleMedicineChange = (index, key, value) => {
     const updatedMedicines = [...selectedMedicines];
-    // Update the value of the specified key for the medicine at the given index
     updatedMedicines[index][key] =
       key === "medicine_id" ? parseInt(value) : value;
     setSelectedMedicines(updatedMedicines);
   };
+
   //for updating transfer data
   const handleTransferUpdateValue = async (e) => {
     e.preventDefault();
@@ -68,12 +72,18 @@ const UpdateDetails = () => {
       const user_id = Cookies.get("user_id");
       const transferData = {
         user_id: parseInt(user_id),
-        status: selecteStatus, // Make sure selecteStatus is the correct status string
-        transfer_medicines: selectedMedicines.map((medicine) => ({
-          medicine_id: parseInt(medicine.medicine_id),
+        status: selecteStatus,
+        transfer_medicines: selectedMedicines.map((medicine, index) => ({
+          medicine_id: medicine.medicine_id, // Use the updated medicine_id value
           quantity: parseInt(medicine.quantity),
+          destroy: medicine.destroy ? 1 : 0,
+          // Update the medicine_id value here
+          //  medicine_id: selectedMedicines[index].medicine_id,
         })),
       };
+
+      //  console.log(medicine_id)
+
       const response = await fetch(`${API_URL}/transfers/${id}`, {
         method: "PUT",
         headers: {
@@ -111,20 +121,26 @@ const UpdateDetails = () => {
         setMedicinesData(responseData.data.attributes.medicines);
         setTransfer(responseData.data.attributes);
         setSelectedStatus(responseData.data.attributes.status);
-        const selectedMeds = responseData.data.attributes.medicines.map(
-          (medicine) => ({
-            medicine_id: parseInt(medicine.medicine_id),
-            quantity: parseInt(medicine.quantity),
-            medicine_name: medicine.medicine_name,
-          })
-        );
 
+        // Check if there is an update in selectedMedicines
+
+        const selectedMeds = responseData.data.attributes.medicines.map(
+          (medicine) => {
+            return {
+              medicine_id: parseInt(medicine.medicine_id),
+              quantity: parseInt(medicine.quantity),
+              medicine_name: medicine.medicine_name,
+              destroy: 0,
+            };
+          }
+        );
         setSelectedMedicines(selectedMeds);
         window.transfer_id = responseData.data.attributes.id;
         window.username = responseData.data.attributes.user.username;
         window.created_at = responseData.data.attributes.created_at;
         window.transferstatus = responseData.data.attributes.status;
         window.transferstatus = responseData.data.attributes.status;
+      
       } else {
         throw new Error("Failed to fetch category details");
       }
@@ -132,6 +148,41 @@ const UpdateDetails = () => {
       console.error("Error:", error);
     }
   };
+  //load all medicines
+  useEffect(() => {
+    if (searchTerm.trim() !== "") {
+      async function loadMedicines() {
+        const token = getAuthTokenCookie();
+        if (token) {
+          const response = await fetch(
+            `${API_URL}/medicines/search?q=${searchTerm}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (response.ok) {
+            const responseData = await response.json();
+            const medicineOptions = responseData.data.map((medicine) => ({
+              value: medicine.attributes.id,
+              label: medicine.attributes.commercial_name,
+            }));
+            setMedicineOptions(medicineOptions);
+          } else {
+            throw response;
+          }
+        } else {
+          setError("An error occurred");
+        }
+      }
+      loadMedicines();
+    } else {
+      setMedicineOptions([]);
+    }
+  }, [searchTerm]);
 
   return (
     <>
@@ -238,19 +289,17 @@ const UpdateDetails = () => {
                   <label htmlFor="medicine_id" className="ud-form-label">
                     Medicine Name
                   </label>
+
                   <input
                     className="ud-input"
                     type="text"
-                    id={`medicine_name_${index}`}
-                    placeholder="Medicine Name"
-                    value={item.medicine_name || ""}
+                    id="medicine_name"
+                    placeholder={item.medicine_id}
+                    value={selectedMedicines[index]?.medicine_name || ""} // Update the value prop
                     onChange={(e) =>
-                      handleMedicineChange(
-                        index,
-                        "medicine_name",
-                        e.target.value
-                      )
+                      handleMedicineChange(index, "medicine_id", e.target.value)
                     }
+                    disabled
                   />
                 </div>
                 <div className="ud-form-group">

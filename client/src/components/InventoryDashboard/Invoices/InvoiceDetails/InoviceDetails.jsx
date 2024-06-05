@@ -244,7 +244,7 @@ const InoviceDetails = () => {
         <div className="id-row">
           <div className="id-comments-label">
             Comments:{" "}
-            <span className="id-comment sleft">{window.comments}</span>
+            <span className="id-comment ictoleft">{window.comments}</span>
           </div>
         </div>
       </div>
